@@ -1,3 +1,9 @@
+export interface Download {
+  platform: string
+  filename: string
+  url: string
+}
+
 export interface Project {
   id: string
   name: string
@@ -12,9 +18,11 @@ export interface Project {
   whereWeAre: string
   whereWeAreGoing: string
   images: string[]
+  technologies?: string[]
   websiteUrl?: string
   appUrl?: string
   githubUrl?: string
+  downloads?: Download[]
 }
 
 export const projects: Project[] = [
@@ -25,12 +33,17 @@ export const projects: Project[] = [
     thumbnail: '/project_logos/AEA_Logo1.png', // tight crop — swap with logo below to try the splash screen
     logo: '/project_logos/AEA_Logo2.png',
     status: 'in-progress',
-    tags: ["Full Stack", "UI Design", "AI Integration", "App Dev"],
-    description: 'The Automated Executive Assistant (AEA) is an intelligent productivity assistant. It integrates AI technologies to monitor and analyze user behavior during goal-oriented tasks such as studying, coding, and writing. By observing user emotions and screen activity, AEA provides valuable feedback and scheduling suggestions to optimize work efficiency and focus.',
+    tags: ["Full Stack", "AI/ML","DevOps"],
+    description: 'AI Accountable Executive Assistant (AEA) is a local PC session monitoring and accountability platform. It tracks your active applications, browser domains, and facial expressions in real time during focus sessions, enforces configurable policies, and gives you AI-powered insights into your productivity habits.',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: 'We have reached the MVP1 phase of the project have covered the full structure',
-    whereWeAreGoing: 'MVP 2: Stricter Configuration Enforcements (Blocking), More UI features, AI Enhancement',
+    whereWeAre: '',
+    whereWeAreGoing: 'Stricter enforcement, smarter automation, and a richer UI experience.',
+    technologies: ['Electron', 'React', 'TypeScript', 'Node.js', 'Python', 'MongoDB'],
+    downloads: [
+      { platform: 'Windows', filename: 'AEA-Setup-1.0.0.exe', url: 'https://aea-downloads.pages.dev/#windows' },
+      { platform: 'Linux',   filename: 'AEA-1.0.0.AppImage',  url: 'https://aea-downloads.pages.dev/#linux' },
+    ],
     images: [
       '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
       '/project_snaps/AEA/Screenshot 2026-03-11 230014.png',

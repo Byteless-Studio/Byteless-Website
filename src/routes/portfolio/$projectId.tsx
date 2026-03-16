@@ -204,11 +204,59 @@ function ProjectDetailPage() {
 
       {/* Content sections */}
       <section className="pb-24 container-custom">
-        <div className="max-w-3xl space-y-16">
+        <div className="flex flex-col md:flex-row gap-10 lg:gap-16 items-start">
+
+          {/* Download sidebar — top on mobile, right on desktop */}
+          {project.downloads && project.downloads.length > 0 && (
+            <aside className="w-full md:w-64 flex-shrink-0 order-first md:order-last md:sticky md:top-24">
+              <div className="bg-cream rounded-xl p-5">
+                <h3 className="font-playfair text-lg font-bold text-navy">Download</h3>
+                <p className="text-xs text-navy/50 mt-1 mb-5">
+                  Click below to download the full executables.
+                </p>
+                <div className="space-y-3">
+                  {project.downloads.map((dl) => (
+                    <a
+                      key={dl.platform}
+                      href={dl.url}
+                      download
+                      className="flex items-center justify-between p-3 rounded-lg border border-navy/10 hover:border-navy/30 hover:bg-navy/5 transition-all duration-200 group"
+                    >
+                      <div>
+                        <p className="text-sm font-medium text-navy">{dl.platform}</p>
+                        <p className="text-xs text-navy/50 mt-0.5 font-mono">{dl.filename}</p>
+                      </div>
+                      <span className="text-navy/30 group-hover:text-navy group-hover:translate-y-0.5 transition-all duration-200 text-lg">
+                        ↓
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </aside>
+          )}
+
+          <div className="flex-1 max-w-3xl space-y-16">
           {project.description && (
             <div>
               <h2 className="text-2xl font-playfair font-bold text-cream mb-4">Overview</h2>
               <p className="text-cream/60 leading-relaxed">{project.description}</p>
+            </div>
+          )}
+
+          {project.technologies && project.technologies.length > 0 && (
+            <div>
+              <h2 className="text-2xl font-playfair font-bold text-cream mb-4">Technologies Used</h2>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-sm px-3 py-1.5 rounded-lg bg-cream/5 text-cream/70 border border-cream/15 hover:border-cream/40 hover:text-cream transition-colors duration-200"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 
@@ -243,7 +291,7 @@ function ProjectDetailPage() {
           {project.whereWeAreGoing && (
             <div>
               <h2 className="text-2xl font-playfair font-bold text-cream mb-4">
-                Where We're Going
+                Future Goals
               </h2>
               <p className="text-cream/60 leading-relaxed">{project.whereWeAreGoing}</p>
             </div>
@@ -270,6 +318,8 @@ function ProjectDetailPage() {
               </div>
             </div>
           )}
+          </div>
+
         </div>
       </section>
     </main>
