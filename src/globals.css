@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------
+   Base Styles
+------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: #f0ebe2;
+    background-color: #080f1e;
+    background-image:
+      /* Top-center electric blue glow */
+      radial-gradient(ellipse 85% 50% at 50% -5%, rgba(22, 75, 170, 0.45) 0%, transparent 65%),
+      /* Bottom-right deep accent */
+      radial-gradient(ellipse 55% 35% at 90% 105%, rgba(12, 35, 90, 0.5) 0%, transparent 60%),
+      /* Dot grid */
+      radial-gradient(circle at 1px 1px, rgba(240, 235, 226, 0.045) 1px, transparent 0);
+    background-size: 100% 100%, 100% 100%, 28px 28px;
+    background-repeat: no-repeat, no-repeat, repeat;
+    background-attachment: fixed, fixed, scroll;
+  }
+
+}
+
+/* ------------------------
+   Component Utilities
+------------------------ */
+@layer components {
+  /* Layout */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-cream hover:bg-cream/80 text-navy px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-cream text-cream hover:bg-cream hover:text-navy px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply border-2 border-cream/40 text-cream/80 hover:border-cream hover:text-cream px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden;
+  }
+
+  .card-hover {
+    @apply transform hover:-translate-y-2;
+  }
+
+  /* Form Fields */
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300;
+  }
+
+  .textarea-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none;
+  }
+
+  /* Text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent;
+  }
+}
