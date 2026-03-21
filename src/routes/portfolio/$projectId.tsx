@@ -98,17 +98,22 @@ function ProjectDetailPage() {
 
   if (!project) return null
 
+  const lightboxImages = project.features?.some((f) => f.images?.length)
+    ? project.features.flatMap((f) => f.images ?? [])
+    : project.gallery
+      ? project.gallery.map((g) => g.src)
+      : project.images
   const openLightbox = (i: number) => setLightboxIndex(i)
   const closeLightbox = () => setLightboxIndex(null)
-  const prevImage = () => setLightboxIndex((i) => (i !== null ? (i - 1 + project.images.length) % project.images.length : 0))
-  const nextImage = () => setLightboxIndex((i) => (i !== null ? (i + 1) % project.images.length : 0))
+  const prevImage = () => setLightboxIndex((i) => (i !== null ? (i - 1 + lightboxImages.length) % lightboxImages.length : 0))
+  const nextImage = () => setLightboxIndex((i) => (i !== null ? (i + 1) % lightboxImages.length : 0))
 
   return (
     <main className="min-h-screen">
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <Lightbox
-          images={project.images}
+          images={lightboxImages}
           index={lightboxIndex}
           onClose={closeLightbox}
           onPrev={prevImage}
@@ -207,31 +212,21 @@ function ProjectDetailPage() {
         <div className="flex flex-col md:flex-row gap-10 lg:gap-16 items-start">
 
           {/* Download sidebar — top on mobile, right on desktop */}
-          {project.downloads && project.downloads.length > 0 && (
+          {project.downloadUrl && (
             <aside className="w-full md:w-64 flex-shrink-0 order-first md:order-last md:sticky md:top-24">
               <div className="bg-cream rounded-xl p-5">
                 <h3 className="font-playfair text-lg font-bold text-navy">Download</h3>
                 <p className="text-xs text-navy/50 mt-1 mb-5">
-                  Click below to download the full executables.
+                  Click below to download the full executables for your system.
                 </p>
-                <div className="space-y-3">
-                  {project.downloads.map((dl) => (
-                    <a
-                      key={dl.platform}
-                      href={dl.url}
-                      download
-                      className="flex items-center justify-between p-3 rounded-lg border border-navy/10 hover:border-navy/30 hover:bg-navy/5 transition-all duration-200 group"
-                    >
-                      <div>
-                        <p className="text-sm font-medium text-navy">{dl.platform}</p>
-                        <p className="text-xs text-navy/50 mt-0.5 font-mono">{dl.filename}</p>
-                      </div>
-                      <span className="text-navy/30 group-hover:text-navy group-hover:translate-y-0.5 transition-all duration-200 text-lg">
-                        ↓
-                      </span>
-                    </a>
-                  ))}
-                </div>
+                <a
+                  href={project.downloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg bg-navy text-cream font-medium text-sm hover:bg-navy/80 transition-all duration-200"
+                >
+                  <span>↓</span> Download for your system
+                </a>
               </div>
             </aside>
           )}
@@ -246,15 +241,16 @@ function ProjectDetailPage() {
 
           {project.technologies && project.technologies.length > 0 && (
             <div>
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-4">Technologies Used</h2>
-              <div className="flex flex-wrap gap-2">
+              <h2 className="text-2xl font-playfair font-bold text-cream mb-5">Technologies Used</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {project.technologies.map((tech) => (
-                  <span
+                  <div
                     key={tech}
-                    className="text-sm px-3 py-1.5 rounded-lg bg-cream/5 text-cream/70 border border-cream/15 hover:border-cream/40 hover:text-cream transition-colors duration-200"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl bg-cream/5 border border-cream/10 hover:border-cream/30 hover:bg-cream/8 transition-all duration-200 group"
                   >
-                    {tech}
-                  </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-cream/30 group-hover:bg-cream/70 transition-colors duration-200 flex-shrink-0" />
+                    <span className="text-sm font-medium text-cream/70 group-hover:text-cream transition-colors duration-200">{tech}</span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -297,26 +293,126 @@ function ProjectDetailPage() {
             </div>
           )}
 
-          {/* Gallery */}
-          {project.images.length > 0 && (
+          {/* Features — with screenshot when available, plain cards otherwise */}
+          {project.features && project.features.length > 0 && (
             <div>
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-6">Gallery</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {project.images.map((src, i) => (
-                  <button
-                    key={i}
-                    onClick={() => openLightbox(i)}
-                    className="rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200 cursor-zoom-in group"
-                  >
-                    <img
-                      src={src}
-                      alt={`${project.name} screenshot ${i + 1}`}
-                      className="w-full group-hover:scale-[1.02] transition-transform duration-300"
-                    />
-                  </button>
-                ))}
-              </div>
+              <h2 className="text-2xl font-playfair font-bold text-cream mb-10">Features</h2>
+              {project.features.some((f) => f.images?.length) ? (
+                <div className="space-y-20">
+                  {(() => {
+                    let flatIndex = 0
+                    return project.features!.map((feature, i) => {
+                      const isEven = i % 2 === 0
+                      const startIndex = flatIndex
+                      flatIndex += feature.images?.length ?? 0
+                      return (
+                        <div
+                          key={i}
+                          className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-14 items-center`}
+                        >
+                          {/* Screenshot(s) */}
+                          {feature.images && feature.images.length > 0 && (
+                            <div className="w-full md:w-1/2 flex-shrink-0 flex flex-col gap-2">
+                              {feature.images.map((src, j) => (
+                                <button
+                                  key={j}
+                                  onClick={() => openLightbox(startIndex + j)}
+                                  className="rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200 cursor-zoom-in group"
+                                >
+                                  <img
+                                    src={src}
+                                    alt={`${feature.title} ${j + 1}`}
+                                    className="w-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                                  />
+                                </button>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Feature text */}
+                          <div className="w-full md:w-1/2">
+                            <span className="text-xs font-mono text-cream/25 tracking-widest uppercase">
+                              {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <h3 className="text-2xl font-playfair font-bold text-cream mt-2 mb-3">
+                              {feature.title}
+                            </h3>
+                            <p className="text-cream/55 leading-relaxed text-sm">{feature.description}</p>
+                          </div>
+                        </div>
+                      )
+                    })
+                  })()}
+                </div>
+              ) : (
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {project.features.map((feature, i) => (
+                    <div
+                      key={i}
+                      className="p-5 rounded-xl border border-cream/10 hover:border-cream/25 transition-all duration-200"
+                    >
+                      <h3 className="text-sm font-semibold text-cream mb-2">{feature.title}</h3>
+                      <p className="text-sm text-cream/50 leading-relaxed">{feature.description}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+          )}
+
+          {/* Gallery — only shown when features don't already carry screenshots */}
+          {!(project.features?.some((f) => f.images?.length)) && (
+            project.gallery && project.gallery.length > 0 ? (
+              <div>
+                <h2 className="text-2xl font-playfair font-bold text-cream mb-10">Screenshots</h2>
+                <div className="space-y-14">
+                  {project.gallery.map((item, i) => (
+                    <div key={i}>
+                      <button
+                        onClick={() => openLightbox(i)}
+                        className="w-full rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200 cursor-zoom-in group block"
+                      >
+                        <img
+                          src={item.src}
+                          alt={item.label}
+                          className="w-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
+                        />
+                      </button>
+                      <div className="mt-5 flex gap-5 items-start">
+                        <span className="text-xs font-mono text-cream/25 tracking-widest mt-1 flex-shrink-0">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <div>
+                          <h3 className="text-lg font-playfair font-bold text-cream mb-1">{item.label}</h3>
+                          {item.description && (
+                            <p className="text-sm text-cream/50 leading-relaxed">{item.description}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : project.images.length > 0 ? (
+              <div>
+                <h2 className="text-2xl font-playfair font-bold text-cream mb-6">Gallery</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {project.images.map((src, i) => (
+                    <button
+                      key={i}
+                      onClick={() => openLightbox(i)}
+                      className="rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200 cursor-zoom-in group"
+                    >
+                      <img
+                        src={src}
+                        alt={`${project.name} screenshot ${i + 1}`}
+                        className="w-full group-hover:scale-[1.02] transition-transform duration-300"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null
           )}
           </div>
 
