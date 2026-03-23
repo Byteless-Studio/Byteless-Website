@@ -142,11 +142,13 @@ function ProjectDetailPage() {
               <h1 className="text-4xl md:text-5xl font-playfair font-bold text-cream">
                 {project.name}
               </h1>
-              <span
-                className={`text-xs font-medium px-2.5 py-1 rounded-full border ${statusColor[project.status]}`}
-              >
-                {statusLabel[project.status]}
-              </span>
+              {project.status && (
+                <span
+                  className={`text-xs font-medium px-2.5 py-1 rounded-full border ${statusColor[project.status]}`}
+                >
+                  {statusLabel[project.status]}
+                </span>
+              )}
             </div>
 
             <p className="text-lg text-cream/60 mb-4">{project.tagline}</p>

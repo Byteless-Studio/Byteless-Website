@@ -1,3 +1,5 @@
+// This file defines the structure of our project data and exports an array of projects to be displayed on the website.
+// It is a config file, not a component, so it should not contain any React code or imports from React.
 export interface Download {
   platform: string
   filename: string
@@ -10,19 +12,17 @@ export interface Project {
   tagline: string
   logo?: string
   thumbnail?: string
-  status: 'completed' | 'in-progress' | 'planned'
+  status?: 'completed' | 'in-progress' | 'planned'
   tags: string[]
   description: string
   whatWeLearned: string[]
   howWeBuiltIt: string
-  whereWeAre: string
-  whereWeAreGoing: string
+  features: string[]
   images: string[]
   technologies?: string[]
   websiteUrl?: string
   appUrl?: string
   githubUrl?: string
-  downloads?: Download[]
 }
 
 export const projects: Project[] = [
@@ -30,20 +30,16 @@ export const projects: Project[] = [
     id: 'aea',
     name: 'AEA',
     tagline: 'Automated Executive Assistant',
-    thumbnail: '/project_logos/AEA_Logo1.png', // tight crop — swap with logo below to try the splash screen
-    logo: '/project_logos/AEA_Logo2.png',
-    status: 'in-progress',
+    thumbnail: '/project_logos/aea/AEA_Logo1.png', // tight crop — swap with logo below to try the splash screen
+    logo: '/project_logos/aea/AEA_Logo2.png',
+    //status: 'in-progress',
     tags: ["Full Stack", "AI/ML","DevOps"],
     description: 'AI Accountable Executive Assistant (AEA) is a local PC session monitoring and accountability platform. It tracks your active applications, browser domains, and facial expressions in real time during focus sessions, enforces configurable policies, and gives you AI-powered insights into your productivity habits.',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: 'Stricter enforcement, smarter automation, and a richer UI experience.',
-    technologies: ['Electron', 'React', 'TypeScript', 'Node.js', 'Python', 'MongoDB'],
-    downloads: [
-      { platform: 'Windows', filename: 'AEA-Setup-1.0.0.exe', url: 'https://aea-downloads.pages.dev/#windows' },
-      { platform: 'Linux',   filename: 'AEA-1.0.0.AppImage',  url: 'https://aea-downloads.pages.dev/#linux' },
-    ],
+    features: [],
+    // technologies: ['Electron', 'React', 'TypeScript', 'Node.js', 'Python', 'MongoDB'], // I don't think we should keep this, our target audience is non technical and doesnt care IMO
+    websiteUrl: 'https://aea-downloads.pages.dev/',
     images: [
       '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
       '/project_snaps/AEA/Screenshot 2026-03-11 230014.png',
@@ -57,52 +53,66 @@ export const projects: Project[] = [
     id: 'iams',
     name: 'IAMS',
     tagline: 'Coming soon.',
-    status: 'in-progress',
+    //status: 'in-progress',
     tags: [],
     description: '',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: '',
+    features: [],
     images: [],
   },
   {
     id: 'deeds',
     name: 'Deeds',
-    tagline: 'Coming soon.',
-    status: 'in-progress',
-    tags: [],
-    description: '',
+    tagline: 'The app that helps you get what you need done, with the help of what you\'ve always had.',
+    //status: 'completed',
+    logo: '/project_logos/deeds/deeds-logo-with-text and ball.png',
+    tags: ['Productivity', 'Accountability', 'Social', 'Mobile'],
+    description: 'Deeds keeps you accountable by making your friends verify a deed—a task that you\'ve wanted to do—and by setting deadlines on what you want to accomplish. Compete with your friends on who can complete the most deeds between you, and DON\'T MISS A DEED, OTHERWISE YOU\'LL LOSE POINTS!!! The methodology of Deeds: You create a deed (in single mode or dual mode; in single mode, only you send a deed and the friend has no corresponding deed). In single mode, you add what you want to complete and send your deed to a friend who acts as a verifier. The friend can choose to approve your deed based on their own factors. Once a friend approves, YOUR DEED IS ACTIVE!!!! It\'s up to you to complete it now. Reminder: A DEED CAN NOT BE CANCELED—you either fail or complete. Send the deed to your friend, who can choose to approve your deed\'s completion, in which case you get the points you assigned to your deed!!!! This also works for you, where friends can send deeds to you to verify.',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: '',
-    images: [],
+    features: [],
+    images: [
+      '/project_snaps/deeds/deeds-splashscreen.png',
+      '/project_snaps/deeds/deeds-login-page.png',
+      '/project_snaps/deeds/deeds-login-with-google.png',
+      '/project_snaps/deeds/deeds-activate-screen.jpeg',
+      '/project_snaps/deeds/deeds-create-deed-form.png',
+      '/project_snaps/deeds/deeds-friend-search.png',
+      '/project_snaps/deeds/deeds-get-friends.png',
+      '/project_snaps/deeds/deeds-notification-example.png',
+      '/project_snaps/deeds/deeds-pwa-being-added.png',
+      '/project_snaps/deeds/deeds-pwa-on-iphone-home-screen.png',
+      '/project_snaps/deeds/deeds-pwa-screen.png',
+      '/project_snaps/deeds/deeds-send-notifications.png',
+    ],
+    //technologies: ['Angular', 'Django', 'MongoDB'],  // I don't think we should keep this, our target audience is non technical and doesnt care IMO
+    websiteUrl: 'https://deeds.you',
+
   },
   {
     id: 'alamra',
     name: 'Alamra Website',
     tagline: 'Coming soon.',
-    status: 'in-progress',
+    //status: 'in-progress',
     tags: [],
     description: '',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: '',
+    features: [],
     images: [],
   },
-  {
-    id: 'kord',
-    name: 'Kord Keyboard',
-    tagline: 'Coming soon.',
-    status: 'in-progress',
-    tags: [],
-    description: '',
-    whatWeLearned: [],
-    howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: '',
-    images: [],
-  },
+  // not deploying this project
+  // {
+  //   id: 'kord',
+  //   name: 'Kord Keyboard',
+  //   tagline: 'Coming soon.',
+  //   //status: 'in-progress',
+  //   tags: [],
+  //   description: '',
+  //   whatWeLearned: [],
+  //   howWeBuiltIt: '',
+  //   features: [],
+  //   images: [],
+  // },
 ]
