@@ -216,9 +216,24 @@ function ProjectDetailPage() {
             <aside className="w-full md:w-64 flex-shrink-0 order-first md:order-last md:sticky md:top-24">
               <div className="bg-cream rounded-xl p-5">
                 <h3 className="font-playfair text-lg font-bold text-navy">Download</h3>
-                <p className="text-xs text-navy/50 mt-1 mb-5">
-                  Click below to download the full executables for your system.
+                <p className="text-xs text-navy/50 mt-1 mb-4">
+                  Available for all major platforms.
                 </p>
+
+                {/* Platform badges */}
+                <div className="flex flex-col gap-2 mb-5">
+                  {[
+                    { label: 'Windows', sub: '.exe installer' },
+                    { label: 'macOS',   sub: '.dmg package' },
+                    { label: 'Linux',   sub: '.AppImage' },
+                  ].map(({ label, sub }) => (
+                    <div key={label} className="flex items-center justify-between px-3 py-2 rounded-lg border border-navy/10 bg-navy/4">
+                      <span className="text-sm font-medium text-navy">{label}</span>
+                      <span className="text-xs text-navy/40 font-mono">{sub}</span>
+                    </div>
+                  ))}
+                </div>
+
                 <a
                   href={project.downloadUrl}
                   target="_blank"
@@ -233,14 +248,14 @@ function ProjectDetailPage() {
 
           <div className="flex-1 max-w-3xl space-y-16">
           {project.description && (
-            <div>
+            <div id="overview">
               <h2 className="text-2xl font-playfair font-bold text-cream mb-4">Overview</h2>
               <p className="text-cream/60 leading-relaxed">{project.description}</p>
             </div>
           )}
 
           {project.technologies && project.technologies.length > 0 && (
-            <div>
+            <div id="technologies">
               <h2 className="text-2xl font-playfair font-bold text-cream mb-5">Technologies Used</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {project.technologies.map((tech) => (
@@ -308,6 +323,7 @@ function ProjectDetailPage() {
                       return (
                         <div
                           key={i}
+                          id={`feature-${feature.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
                           className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-14 items-center`}
                         >
                           {/* Screenshot(s) */}
@@ -395,18 +411,18 @@ function ProjectDetailPage() {
               </div>
             ) : project.images.length > 0 ? (
               <div>
-                <h2 className="text-2xl font-playfair font-bold text-cream mb-6">Gallery</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <h2 className="text-2xl font-playfair font-bold text-cream mb-12">Gallery</h2>
+                <div className="space-y-16">
                   {project.images.map((src, i) => (
                     <button
                       key={i}
                       onClick={() => openLightbox(i)}
-                      className="rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200 cursor-zoom-in group"
+                      className="w-full cursor-zoom-in group block rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200"
                     >
                       <img
                         src={src}
                         alt={`${project.name} screenshot ${i + 1}`}
-                        className="w-full group-hover:scale-[1.02] transition-transform duration-300"
+                        className="w-full group-hover:scale-[1.01] transition-transform duration-500"
                       />
                     </button>
                   ))}

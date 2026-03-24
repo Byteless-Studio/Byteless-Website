@@ -38,13 +38,13 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             <img
               src={project.thumbnail}
               alt={project.name}
-              className="w-full h-full object-cover scale-110 group-hover:scale-115 transition-transform duration-500"
+              className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
             />
           ) : project.logo ? (
             <img
               src={project.logo}
               alt={project.name}
-              className="w-full h-full object-cover scale-110 group-hover:scale-115 transition-transform duration-500"
+              className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
             <span className="font-playfair text-4xl font-bold text-cream/20 select-none group-hover:text-cream/30 transition-colors duration-300">
