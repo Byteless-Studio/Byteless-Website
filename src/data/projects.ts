@@ -21,7 +21,6 @@ export interface Project {
   description: string
   whatWeLearned: string[]
   howWeBuiltIt: string
-  features: string[]
   images: string[]
   gallery?: GalleryItem[]
   features?: Feature[]
@@ -44,45 +43,9 @@ export const projects: Project[] = [
       'AEA is a desktop application that lets you configure and run structured focus sessions, then monitors your PC activity across apps, browsers, and visual presence throughout. It tracks your habits across different phases of work over time — building a picture of how you actually spend your attention. At the end of each session, AEA analyses your behaviour and delivers AI-powered insights and actionable suggestions to help you sharpen your focus and get more from every working hour.',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: '',
     technologies: ['Python', 'Node.js', 'React', 'TypeScript','MongoDB','Electron'],
     features: [
-      {
-        title: 'Onboarding and Setup',
-        description:
-          'Get started with a clean onboarding flow, then let AEA do the heavy lifting — end-of-session reports surface patterns, highlight deep-work streaks, and flag chronic distractions.',
-        images: [
-          '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
-          '/project_snaps/AEA/Screenshot 2026-03-11 230014.png',
-        ],
-      },
-      {
-        title: 'Session Configuration & Policies',
-        description:
-          'Define your focus rules for specific purpose based sessions — set allowed apps, blocked sites, time limits, and enforcement behaviour. Full control over how strict or flexible your session runs.',
-        images: [
-          '/project_snaps/AEA/Screenshot 2026-03-11 230059.png',
-          '/project_snaps/AEA/Screenshot 2026-03-11 230028.png',
-        ],
-      },
-      {
-        title: 'App & Web Blocking',
-        description:
-          'On a lenient policy, AEA notifies you the moment a blacklisted app or site is detected — a nudge to stay on track. Switch to strict mode and access is blocked outright, keeping distractions out for the duration of your session.',
-        images: ['/project_snaps/AEA/Screenshot 2026-03-19 231337.png'],
-      },
-      {
-        title: 'AI Analytics & Insights',
-        description:
-          'Review your full session history at a glance — past and recent sessions broken down by focus time, app usage, distraction events, and productivity trends. Dig deeper with a RAG-powered AI engine that knows your data: ask why your focus dropped, what your strongest sessions had in common, or what to do differently — and get answers grounded in your own history, not generic advice.',
-        images: [
-          '/project_snaps/AEA/Screenshot 2026-03-11 231055.png',
-          '/project_snaps/AEA/Screenshot 2026-03-11 231107.png',
-          '/project_snaps/AEA/Screenshot 2026-03-19 170722.png',
-          
-        ],
-      },
+     
     ],
     downloadUrl: 'https://aea-downloads.pages.dev/',
     images: [
@@ -178,13 +141,15 @@ export const projects: Project[] = [
     id: 'alamra',
     name: 'Alamra Website',
     tagline: 'Coming soon.',
-    //status: 'in-progress',
-    tags: [],
-    description: '',
+   thumbnail: '/project_logos/alamra_project_logos/logo-gold-512.webp',
+    status: 'completed',
+    tags: ['UI/UX design', 'Web Dev'],
+    description: 'The official website for Alamra Importers, a leading provider of premium ceremonial insignia, bullion crests, badges, and traditional military craftsmanship. Built with modern web technologies for a professional and elegant showcase of our products.',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    features: [],
-    images: [],
+    technologies: ['React', 'TypeScript', 'TanStack Router', 'Cloudflare Pages'],
+    websiteUrl: 'https://alamraimporters.com/',
+    images: ['/project_snaps/Alamra/Screenshot 2026-03-21 152905.png'],
   },
   // not deploying this project
   // {
