@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { CalButton } from '@/components/ui/CalButton'
 
 export function HeroSection() {
   return (
@@ -47,9 +48,9 @@ export function HeroSection() {
           We design and build fast, modern digital experiences —
           from MVPs to full product systems.
         </p>
-        <a href="#contact" className="btn-primary text-sm inline-block">
+        <CalButton className="btn-primary text-sm inline-block">
           Book a Call
-        </a>
+        </CalButton>
       </div>
 
     </section>
