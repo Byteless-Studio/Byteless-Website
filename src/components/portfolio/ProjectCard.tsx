@@ -2,13 +2,15 @@ import { Link } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import type { Project } from '@/data/projects'
 
-const statusLabel: Record<Project['status'], string> = {
+type ProjectStatus = NonNullable<Project['status']>
+
+const statusLabel: Record<ProjectStatus, string> = {
   completed: 'Completed',
   'in-progress': 'In Progress',
   planned: 'Planned',
 }
 
-const statusColor: Record<Project['status'], string> = {
+const statusColor: Record<ProjectStatus, string> = {
   completed: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
   'in-progress': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
   planned: 'bg-cream/10 text-cream/50 border-cream/20',
@@ -53,11 +55,13 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           )}
 
           {/* Status badge */}
-          <span
-            className={`absolute top-3 right-3 text-xs font-medium px-2.5 py-1 rounded-full border ${statusColor[project.status]}`}
-          >
-            {statusLabel[project.status]}
-          </span>
+          {project.status && (
+            <span
+              className={`absolute top-3 right-3 text-xs font-medium px-2.5 py-1 rounded-full border ${statusColor[project.status]}`}
+            >
+              {statusLabel[project.status]}
+            </span>
+          )}
         </div>
 
         {/* Body */}

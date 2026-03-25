@@ -16,13 +16,12 @@ export interface Project {
   tagline: string
   logo?: string
   thumbnail?: string
-  status: 'completed' | 'in-progress' | 'planned'
+  status?: 'completed' | 'in-progress' | 'planned'
   tags: string[]
   description: string
   whatWeLearned: string[]
   howWeBuiltIt: string
-  whereWeAre: string
-  whereWeAreGoing: string
+  features: string[]
   images: string[]
   gallery?: GalleryItem[]
   features?: Feature[]
@@ -137,13 +136,12 @@ export const projects: Project[] = [
     id: 'iams',
     name: 'IAMS',
     tagline: 'Coming soon.',
-    status: 'in-progress',
+    //status: 'in-progress',
     tags: [],
     description: '',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: '',
+    features: [],
     images: [],
   },
   {
@@ -180,16 +178,25 @@ export const projects: Project[] = [
     id: 'alamra',
     name: 'Alamra Website',
     tagline: 'Coming soon.',
-    thumbnail: '/project_logos/alamra_project_logos/logo-gold-512.webp',
-    status: 'completed',
-    tags: ['UI/UX design', 'Web Dev'],
-    description: 'The official website for Alamra Importers, a leading provider of premium ceremonial insignia, bullion crests, badges, and traditional military craftsmanship. Built with modern web technologies for a professional and elegant showcase of our products.',
+    //status: 'in-progress',
+    tags: [],
+    description: '',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    whereWeAre: '',
-    whereWeAreGoing: '',
-    technologies: ['React', 'TypeScript', 'TanStack Router', 'Cloudflare Pages'],
-    websiteUrl: 'https://alamraimporters.com/',
-    images: ['/project_snaps/Alamra/Screenshot 2026-03-21 152905.png'],
+    features: [],
+    images: [],
   },
+  // not deploying this project
+  // {
+  //   id: 'kord',
+  //   name: 'Kord Keyboard',
+  //   tagline: 'Coming soon.',
+  //   //status: 'in-progress',
+  //   tags: [],
+  //   description: '',
+  //   whatWeLearned: [],
+  //   howWeBuiltIt: '',
+  //   features: [],
+  //   images: [],
+  // },
 ]

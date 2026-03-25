@@ -253,7 +253,7 @@ export function AboutSection() {
         <div className="flex flex-col sm:flex-row justify-center gap-16">
           {[
             {
-              img: '/team/you.jpg',
+              img: '/team/raheem.jpg',
               name: 'Raheem Ahmed',
               title: 'Co-Founder & CTO',
               focus: 'Product Strategy, Client Relations',
