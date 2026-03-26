@@ -89,7 +89,7 @@ const processSteps = [
 
 export function AboutSection() {
   return (
-    <section className="py-24">
+    <section id="about" className="py-24">
       <div className="container-custom">
 
         {/* ── Section label ── */}
@@ -255,7 +255,7 @@ export function AboutSection() {
             {
               img: '/team/raheem.jpg',
               name: 'Raheem Ahmed',
-              title: 'Co-Founder & CTO',
+              title: 'Co-Founder',
               focus: 'Product Strategy, Client Relations',
               position: 'object-top',
               linkedin: 'https://www.linkedin.com/in/raheemwarriach/',
@@ -263,7 +263,7 @@ export function AboutSection() {
             {
               img: '/team/usaid.jpg',
               name: 'Usaid Malik',
-              title: 'Co-Founder & CEO',
+              title: 'Co-Founder',
               focus: 'Engineering, AI Leadership',
               position: 'object-[50%_40%]',
               linkedin: 'https://www.linkedin.com/in/usaidhmalik/',

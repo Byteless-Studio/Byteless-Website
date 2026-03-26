@@ -25,9 +25,9 @@ export function Header() {
   }, [])
 
   const navItems = [
-    { name: 'About',     href: '/about' },
+    { name: 'About',     href: '/#about',     anchor: true },
     { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Services',  href: '/services' },
+    { name: 'Services',  href: '/#services',  anchor: true },
     { name: 'Blog',      href: '/blog' },
   ]
 
@@ -48,16 +48,29 @@ export function Header() {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="text-cream font-medium text-sm tracking-wide hover:opacity-60 transition-opacity duration-200"
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <CalButton className="bg-cream text-navy px-6 py-2 rounded-lg font-medium text-sm hover:bg-cream/80 transition-colors duration-200">
+              {navItems.map((item) =>
+                item.anchor ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-cream font-medium text-sm tracking-wide hover:opacity-60 transition-opacity duration-200"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-cream font-medium text-sm tracking-wide hover:opacity-60 transition-opacity duration-200"
+                  >
+                    {item.name}
+                  </Link>
+                )
+              )}
+              <Link
+                to={contactLink}
+                className="bg-cream text-navy px-6 py-2 rounded-lg font-medium text-sm hover:bg-cream/80 transition-colors duration-200"
+              >
                 Book a Call
               </CalButton>
             </div>

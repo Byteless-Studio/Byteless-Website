@@ -7,7 +7,7 @@ import { CalButton } from '@/components/ui/CalButton'
 interface MobileDrawerProps {
   isOpen: boolean
   onClose: () => void
-  navItems: Array<{ name: string; href: string }>
+  navItems: Array<{ name: string; href: string; anchor?: boolean }>
   contactLink: string
 }
 
@@ -50,16 +50,27 @@ export function MobileDrawer({ isOpen, onClose, navItems, contactLink }: MobileD
               {/* Nav Items */}
               <nav className="flex-1 p-6">
                 <div className="space-y-6">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      onClick={onClose}
-                      className="block text-cream font-medium text-lg hover:opacity-60 transition-opacity"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                  {navItems.map((item) =>
+                    item.anchor ? (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        onClick={onClose}
+                        className="block text-cream font-medium text-lg hover:opacity-60 transition-opacity"
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        onClick={onClose}
+                        className="block text-cream font-medium text-lg hover:opacity-60 transition-opacity"
+                      >
+                        {item.name}
+                      </Link>
+                    )
+                  )}
 
                   <CalButton
                     className="block w-full bg-cream text-navy px-6 py-3 rounded-lg font-medium text-center hover:bg-cream/80 transition-colors mt-8"

@@ -1,5 +1,5 @@
 {
-  "name": "alamra-website-mailer",
+  "name": "byteless-website-mailer",
   "main": "worker.js",
   "compatibility_date": "2026-01-12",
   "assets": {
