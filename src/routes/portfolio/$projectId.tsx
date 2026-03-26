@@ -133,7 +133,7 @@ function ProjectDetailPage() {
         <div className="flex flex-col md:flex-row md:items-start gap-8">
           {/* Logo */}
           {(project.logo || project.thumbnail) && (
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-navy/60 border border-cream/10 flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div className="w-32 h-32 md:w-44 md:h-44 rounded-2xl bg-navy/60 border border-cream/10 flex items-center justify-center overflow-hidden flex-shrink-0">
               <img
                 src={project.logo || project.thumbnail}
                 alt={project.name}
@@ -413,18 +413,18 @@ function ProjectDetailPage() {
               </div>
             ) : project.images.length > 0 ? (
               <div>
-                <h2 className="text-2xl font-playfair font-bold text-cream mb-12">Gallery</h2>
-                <div className="space-y-16">
+                <h2 className="text-2xl font-playfair font-bold text-cream mb-8">Gallery</h2>
+                <div className="grid grid-cols-2 gap-3">
                   {project.images.map((src, i) => (
                     <button
                       key={i}
                       onClick={() => openLightbox(i)}
-                      className="w-full cursor-zoom-in group block rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200"
+                      className="cursor-zoom-in group block rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200"
                     >
                       <img
                         src={src}
                         alt={`${project.name} screenshot ${i + 1}`}
-                        className="w-full group-hover:scale-[1.01] transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
                       />
                     </button>
                   ))}
