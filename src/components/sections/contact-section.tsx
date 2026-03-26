@@ -43,7 +43,7 @@ export function ContactSection() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Alamra-Secret': import.meta.env.VITE_MAIL_SECRET
+          'X-Byteless-Secret': import.meta.env.VITE_MAIL_SECRET
         },
         body: JSON.stringify(formState)
       })
@@ -65,14 +65,14 @@ export function ContactSection() {
         setStatus({
           submitted: false,
           submitting: false,
-          info: { error: true, msg: 'Something went wrong. Please try again or email us directly at info@alamraimporters.com' }
+          info: { error: true, msg: 'Something went wrong. Please try again or email us directly at info@byteless.io' }
         })
       }
     } catch (error) {
       setStatus({
         submitted: false,
         submitting: false,
-        info: { error: true, msg: 'Something went wrong. Please try again or email us directly at info@alamraimporters.com'  }
+        info: { error: true, msg: 'Something went wrong. Please try again or email us directly at info@byteless.io'  }
       })
     }
   }

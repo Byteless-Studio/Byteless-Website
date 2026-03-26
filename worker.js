@@ -2,9 +2,9 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin");
-    const isProduction = (origin === "https://alamraimporters.com") || 
-      (origin === "https://www.alamraimporters.com") || 
-      (origin === "https://alamra-website-mailer.alamraimporters.workers.dev/");    
+    const isProduction = (origin === "https://byteless.io") ||
+      (origin === "https://www.byteless.io") ||
+      (origin === "https://byteless-website-mailer.byteless.workers.dev/");
     // 1. ROUTING: If not the API path, just show the website
     if (url.pathname !== "/api/send-email") {
       return env.ASSETS.fetch(request);
@@ -14,14 +14,14 @@ export default {
     const corsHeaders = {
       "Access-Control-Allow-Origin": origin || "*",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, X-Alamra-Secret",
+      "Access-Control-Allow-Headers": "Content-Type, X-Byteless-Secret",
     };
 
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }
 
-    const clientSecret = request.headers.get("X-Alamra-Secret");
+    const clientSecret = request.headers.get("X-Byteless-Secret");
     if (clientSecret !== env.CLIENT_GATEWAY_SECRET && !isProduction) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: corsHeaders });
     }
@@ -37,7 +37,7 @@ export default {
         },
         body: JSON.stringify({
           from: "onboarding@resend.dev",
-          to: "alamraimporters@gmail.com",
+          to: "info@byteless.io",
           reply_to: email,
           subject: `New Contact Form Submission from ${name}`,
           html: `
@@ -54,7 +54,7 @@ export default {
             </div>
           </div>
           <p style="color: #6b7280; font-size: 14px;">
-            This message was sent from the Alamra Embroidery contact form.
+            This message was sent from the Byteless contact form.
           </p>
         </div>`,
           
