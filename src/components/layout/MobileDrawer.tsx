@@ -6,7 +6,7 @@ import { Logo } from './Logo'
 interface MobileDrawerProps {
   isOpen: boolean
   onClose: () => void
-  navItems: Array<{ name: string; href: string }>
+  navItems: Array<{ name: string; href: string; anchor?: boolean }>
   contactLink: string
 }
 
@@ -49,16 +49,27 @@ export function MobileDrawer({ isOpen, onClose, navItems, contactLink }: MobileD
               {/* Nav Items */}
               <nav className="flex-1 p-6">
                 <div className="space-y-6">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      onClick={onClose}
-                      className="block text-cream font-medium text-lg hover:opacity-60 transition-opacity"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                  {navItems.map((item) =>
+                    item.anchor ? (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        onClick={onClose}
+                        className="block text-cream font-medium text-lg hover:opacity-60 transition-opacity"
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        onClick={onClose}
+                        className="block text-cream font-medium text-lg hover:opacity-60 transition-opacity"
+                      >
+                        {item.name}
+                      </Link>
+                    )
+                  )}
 
                   <Link
                     to={contactLink}

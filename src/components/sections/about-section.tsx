@@ -89,7 +89,7 @@ const processSteps = [
 
 export function AboutSection() {
   return (
-    <section className="py-24">
+    <section id="about" className="py-24">
       <div className="container-custom">
 
         {/* ── Section label ── */}

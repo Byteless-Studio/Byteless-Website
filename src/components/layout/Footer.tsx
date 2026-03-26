@@ -7,15 +7,15 @@ export const Footer = () => {
 
   const footerLinks = {
     navigate: [
-      { name: 'About', href: '/about' },
+      { name: 'About', href: '/#about', anchor: true },
       { name: 'Portfolio', href: '/portfolio' },
-      { name: 'Services', href: '/services' },
+      { name: 'Services', href: '/#services', anchor: true },
       { name: 'Blog', href: '/blog' },
     ],
     services: [
-      { name: 'Web Development', href: '/services' },
-      { name: 'UI / UX Design', href: '/services' },
-      { name: 'Consulting', href: '/services' },
+      { name: 'Web Development', href: '/#services', anchor: true },
+      { name: 'UI / UX Design', href: '/#services', anchor: true },
+      { name: 'Consulting', href: '/#services', anchor: true },
     ],
   }
 
@@ -49,12 +49,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.navigate.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-cream/60 hover:text-cream transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.anchor ? (
+                    <a
+                      href={link.href}
+                      className="text-cream/60 hover:text-cream transition-colors duration-200 text-sm"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-cream/60 hover:text-cream transition-colors duration-200 text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -68,12 +77,12 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
+                  <a
+                    href={link.href}
                     className="text-cream/60 hover:text-cream transition-colors duration-200 text-sm"
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

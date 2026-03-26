@@ -1,6 +1,6 @@
 export function ServicesSection() {
   return (
-    <section className="py-20">
+    <section id="services" className="py-20">
       <div className="container-custom">
         <h2 className="text-3xl font-playfair font-bold mb-6 text-cream">Our Services</h2>
         <div className="grid gap-8 md:grid-cols-3">
