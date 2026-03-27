@@ -71,11 +71,7 @@ export interface FileRouteTypes {
     | '/portfolio/$projectId'
     | '/portfolio/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/blog'
-    | '/portfolio/$projectId'
-    | '/portfolio'
+  to: '/' | '/blog' | '/portfolio/$projectId' | '/portfolio'
   id:
     | '__root__'
     | '/'
