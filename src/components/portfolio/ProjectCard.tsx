@@ -40,7 +40,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             <img
               src={project.thumbnail}
               alt={project.name}
-              className="w-full h-full object-cover scale-110 group-hover:scale-115 transition-transform duration-500"
+              className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
             />
           ) : project.logo ? (
             <img

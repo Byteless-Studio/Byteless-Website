@@ -3,6 +3,7 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Link, useLocation } from '@tanstack/react-router'
 import { MobileDrawer } from './MobileDrawer'
 import { Logo } from './Logo'
+import { CalButton } from '@/components/ui/CalButton'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -71,7 +72,7 @@ export function Header() {
                 className="bg-cream text-navy px-6 py-2 rounded-lg font-medium text-sm hover:bg-cream/80 transition-colors duration-200"
               >
                 Book a Call
-              </Link>
+              </CalButton>
             </div>
 
             {/* Mobile Menu Button */}

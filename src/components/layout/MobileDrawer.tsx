@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from '@tanstack/react-router'
 import { Logo } from './Logo'
+import { CalButton } from '@/components/ui/CalButton'
 
 interface MobileDrawerProps {
   isOpen: boolean
@@ -71,13 +72,12 @@ export function MobileDrawer({ isOpen, onClose, navItems, contactLink }: MobileD
                     )
                   )}
 
-                  <Link
-                    to={contactLink}
+                  <CalButton
+                    className="block w-full bg-cream text-navy px-6 py-3 rounded-lg font-medium text-center hover:bg-cream/80 transition-colors mt-8"
                     onClick={onClose}
-                    className="block bg-cream text-navy px-6 py-3 rounded-lg font-medium text-center hover:bg-cream/80 transition-colors mt-8"
                   >
                     Book a Call
-                  </Link>
+                  </CalButton>
                 </div>
               </nav>
             </div>
