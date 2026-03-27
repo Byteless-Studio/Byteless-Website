@@ -67,8 +67,7 @@ export function Header() {
                   </Link>
                 )
               )}
-              <Link
-                to={contactLink}
+              <CalButton
                 className="bg-cream text-navy px-6 py-2 rounded-lg font-medium text-sm hover:bg-cream/80 transition-colors duration-200"
               >
                 Book a Call
