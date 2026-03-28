@@ -1,22 +1,52 @@
+const services = [
+  {
+    title: 'Agentic AI & Machine Learning',
+    description: 'Intelligent systems that act, decide, and learn — from custom AI agents to end-to-end ML pipelines built for real-world use.',
+  },
+  {
+    title: 'Automations',
+    description: 'Eliminate repetitive work. We build workflows and integrations that connect your tools and run your processes hands-free.',
+  },
+  {
+    title: 'Web Development',
+    description: 'Fast, modern, and scalable web experiences — from marketing sites to complex data-driven applications.',
+  },
+  {
+    title: 'Mobile App',
+    description: 'Native and cross-platform mobile apps designed for performance, usability, and a polished feel on any device.',
+  },
+  {
+    title: 'Full Stack Engineering',
+    description: 'End-to-end product engineering across frontend, backend, APIs, databases, and infrastructure — all under one roof.',
+  },
+  {
+    title: 'Consulting',
+    description: 'Strategic guidance on product direction, architecture decisions, and technology choices — so you build the right thing, right.',
+  },
+]
+
 export function ServicesSection() {
   return (
-    <section className="py-20">
+    <section id="services" className="py-24">
       <div className="container-custom">
-        <h2 className="text-3xl font-playfair font-bold mb-6 text-cream">Our Services</h2>
-        <div className="grid gap-8 md:grid-cols-3">
-          <div className="border border-cream/10 rounded-xl p-6 hover:border-cream/30 transition-colors duration-300">
-            <h3 className="text-xl font-semibold mb-2 text-cream">Web Development</h3>
-            <p className="text-cream/60">Full-stack applications, SPAs, APIs.</p>
-          </div>
-          <div className="border border-cream/10 rounded-xl p-6 hover:border-cream/30 transition-colors duration-300">
-            <h3 className="text-xl font-semibold mb-2 text-cream">Design</h3>
-            <p className="text-cream/60">Branding, UI/UX, and visual systems.</p>
-          </div>
-          <div className="border border-cream/10 rounded-xl p-6 hover:border-cream/30 transition-colors duration-300">
-            <h3 className="text-xl font-semibold mb-2 text-cream">Consulting</h3>
-            <p className="text-cream/60">Product strategy & technical architecture.</p>
-          </div>
+
+        <h2 className="text-3xl font-playfair font-bold mb-12 text-cream">Our Services</h2>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {services.map((service, i) => (
+            <div
+              key={service.title}
+              className="flex flex-col gap-4 p-6 rounded-xl border border-cream/10 hover:border-cream/25 hover:bg-cream/3 transition-all duration-200"
+            >
+              <span className="font-mono text-xs text-cream/25 tracking-widest">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="font-playfair font-bold text-cream text-xl">{service.title}</h3>
+              <p className="text-cream/45 text-sm leading-relaxed mt-auto">{service.description}</p>
+            </div>
+          ))}
         </div>
+
       </div>
     </section>
   )

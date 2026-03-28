@@ -36,7 +36,7 @@ export const projects: Project[] = [
     id: 'aea',
     name: 'AEA',
     tagline: 'Automated Executive Assistant',
-    logo: '/project_logos/aea/AEA_Logo2.png',
+    thumbnail: '/project_logos/aea/AEA_logo.png',
     //status: 'completed',
     tags: ['Full Stack', 'App Dev', 'AI/ML', 'DevOps'],
     description:
@@ -185,17 +185,29 @@ export const projects: Project[] = [
     websiteUrl: 'https://alamraimporters.com/',
     images: ['/project_snaps/Alamra/Screenshot 2026-03-21 152905.png'],
   },
-  // not deploying this project
-  // {
-  //   id: 'kord',
-  //   name: 'Kord Keyboard',
-  //   tagline: 'Coming soon.',
-  //   //status: 'in-progress',
-  //   tags: [],
-  //   description: '',
-  //   whatWeLearned: [],
-  //   howWeBuiltIt: '',
-  //   features: [],
-  //   images: [],
-  // },
+
+  {
+    id: 'n8n',
+    name: 'n8n Projects',
+    tagline: 'Automated Workflows',
+    logo: '/project_logos/n8n/n8n-color-white.png',
+    tags: ['Automations', 'AI/ML'],
+    description: '',
+    whatWeLearned: [],
+    howWeBuiltIt: '',
+    features: [],
+    gallery: [
+      {
+        src: '/project_snaps/n8n/Screenshot 2025-12-29 145223.png',
+        label: 'Cal.com Booking to Airtable & Deck',
+        description: 'Triggered by a Cal.com booking, this workflow automatically creates an Airtable client record, provisions a Google Drive folder, and produces a personalised presentation by copying a master deck and injecting the booking details directly into the slides — zero manual work.',
+      },
+      {
+        src: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
+        label: 'Fathom Transcript to Email Draft',
+        description: 'Receives a Fathom meeting transcript via webhook, uses AI to validate whether it qualifies as a sales meeting, and automatically generates a polished follow-up email draft — ready to review and send.',
+      },
+    ],
+    images: [],
+  },
 ]

@@ -4,7 +4,24 @@ const tags = [
   'Security', 'API Design',
 ]
 
-const values = ['Honesty', 'Compassion', 'Professionalism', 'Innovation']
+const values = [
+  {
+    title: 'Simplicity',
+    description: 'We use whatever works best for you — the right tool for the right job, not the trendiest one.',
+  },
+  {
+    title: 'Honesty',
+    description: 'We say what we mean. Straight feedback, realistic timelines, and full transparency — always.',
+  },
+  {
+    title: 'Professionalism',
+    description: 'Every project gets our full attention. We show up prepared, communicate clearly, and deliver on what we promise.',
+  },
+  {
+    title: 'Commitment',
+    description: "We treat your vision as our own. We don't stop until the work is done right.",
+  },
+]
 
 const processSteps = [
   {
@@ -89,7 +106,7 @@ const processSteps = [
 
 export function AboutSection() {
   return (
-    <section className="py-24">
+    <section id="about" className="py-24">
       <div className="container-custom">
 
         {/* ── Section label ── */}
@@ -162,13 +179,17 @@ export function AboutSection() {
         {/* ── Values ── */}
         <div className="mt-16 pt-16 border-t border-cream/10">
           <p className="text-cream/25 text-xs tracking-[0.3em] uppercase mb-8">Our Values</p>
-          <div className="flex flex-wrap gap-4">
-            {values.map((v) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {values.map((v, i) => (
               <div
-                key={v}
-                className="px-6 py-3 border border-cream/15 rounded-lg text-cream/70 text-sm font-medium tracking-wide hover:border-cream/40 hover:text-cream transition-colors duration-200"
+                key={v.title}
+                className="flex flex-col gap-3 p-5 rounded-xl bg-cream hover:bg-cream/90 transition-all duration-200"
               >
-                {v}
+                <span className="font-mono text-xs text-navy/30 tracking-widest">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h4 className="font-playfair font-bold text-navy text-lg">{v.title}</h4>
+                <p className="text-navy/55 text-xs leading-relaxed">{v.description}</p>
               </div>
             ))}
           </div>
@@ -189,10 +210,11 @@ export function AboutSection() {
             className="font-playfair font-bold text-cream leading-tight"
             style={{ fontSize: 'clamp(2rem, 4vw, 4rem)' }}
           >
-            How we bring your{' '}
+            Journey from{' '}
             <span style={{ WebkitTextStroke: '1.5px #f0ebe2', color: 'transparent', fontStyle: 'italic' }}>
-              idea to life.
+              concept to{' '}
             </span>
+            creation.
           </h2>
         </div>
 
@@ -227,10 +249,16 @@ export function AboutSection() {
           ))}
         </div>
 
-        {/* ── Divider ── */}
-        <div className="h-px w-full bg-cream/10 my-24" />
+      </div>
+    </section>
+  )
+}
 
-        {/* ── Team ── */}
+export function TeamSection() {
+  return (
+    <section className="py-24">
+      <div className="container-custom">
+
         <div className="flex items-center gap-4 mb-16">
           <span className="text-cream/25 text-xs tracking-[0.3em] uppercase font-mono">03</span>
           <div className="h-px w-10 bg-cream/20" />
@@ -278,7 +306,6 @@ export function AboutSection() {
                     className={`w-full h-full object-cover ${person.position}`}
                   />
                 </div>
-                {/* LinkedIn badge */}
                 <span className="absolute bottom-1 right-1 w-7 h-7 rounded-full bg-[#0A66C2] flex items-center justify-center ring-2 ring-navy shadow-md">
                   <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>

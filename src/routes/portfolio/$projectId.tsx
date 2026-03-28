@@ -382,7 +382,7 @@ function ProjectDetailPage() {
           {!(project.features?.some((f) => f.images?.length)) && (
             project.gallery && project.gallery.length > 0 ? (
               <div>
-                <h2 className="text-2xl font-playfair font-bold text-cream mb-10">Screenshots</h2>
+                <h2 className="text-2xl font-playfair font-bold text-cream mb-10">Workflows</h2>
                 <div className="space-y-14">
                   {project.gallery.map((item, i) => (
                     <div key={i}>
