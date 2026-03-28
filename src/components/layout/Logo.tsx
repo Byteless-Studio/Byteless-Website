@@ -11,18 +11,12 @@ const sizeMap = {
 }
 
 export function Logo({ size = 'md', variant = 'dark' }: LogoProps) {
-  const fillColor   = variant === 'dark' ? '#14213d' : '#f0ebe2'
-  const strokeColor = variant === 'dark' ? '#14213d' : '#f0ebe2'
+  const fillColor = variant === 'dark' ? '#14213d' : '#f0ebe2'
 
   return (
-    <span className={`flex items-baseline select-none font-playfair tracking-tight ${sizeMap[size]}`}>
-      <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 900, color: fillColor, WebkitTextStroke: `2px ${fillColor}`, letterSpacing: '0.05em' }}>
+    <span className={`flex items-center select-none ${sizeMap[size]}`}>
+      <span style={{ fontFamily: '"JetBrains Mono", monospace', fontWeight: 800, color: fillColor, WebkitTextStroke: `2px ${fillColor}`, letterSpacing: '-0.05em' }}>
         [&thinsp;]
-      </span>
-      <span
-        style={{ fontWeight: 700, WebkitTextStroke: `1.5px ${strokeColor}`, color: 'transparent' }}
-      >
-
       </span>
     </span>
   )
