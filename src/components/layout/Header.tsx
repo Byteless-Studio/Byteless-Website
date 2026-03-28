@@ -25,9 +25,9 @@ export function Header() {
   }, [])
 
   const navItems = [
-    { name: 'About',     href: '/#about' },
+    { name: 'About',     href: '/#about',    anchor: true },
     { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Services',  href: '/#services' },
+    { name: 'Services',  href: '/#services', anchor: true },
     { name: 'Blog',      href: '/blog' },
   ]
 
@@ -49,7 +49,7 @@ export function Header() {
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) =>
-                item.href.startsWith('/#') ? (
+                item.anchor ? (
                   <a
                     key={item.name}
                     href={item.href}

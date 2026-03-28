@@ -7,7 +7,7 @@ import { CalButton } from '@/components/ui/CalButton'
 interface MobileDrawerProps {
   isOpen: boolean
   onClose: () => void
-  navItems: Array<{ name: string; href: string }>
+  navItems: Array<{ name: string; href: string; anchor?: boolean }>
   contactLink: string
 }
 
@@ -51,7 +51,7 @@ export function MobileDrawer({ isOpen, onClose, navItems, contactLink }: MobileD
               <nav className="flex-1 p-6">
                 <div className="space-y-6">
                   {navItems.map((item) =>
-                    item.href.startsWith('/#') ? (
+                    item.anchor ? (
                       <a
                         key={item.name}
                         href={item.href}

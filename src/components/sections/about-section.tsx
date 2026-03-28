@@ -283,7 +283,7 @@ export function TeamSection() {
             {
               img: '/team/raheem.jpg',
               name: 'Raheem Ahmed',
-              title: 'Co-Founder & CTO',
+              title: 'Co-Founder',
               focus: 'Product Strategy, Client Relations',
               position: 'object-top',
               linkedin: 'https://www.linkedin.com/in/raheemwarriach/',
@@ -291,7 +291,7 @@ export function TeamSection() {
             {
               img: '/team/usaid.jpg',
               name: 'Usaid Malik',
-              title: 'Co-Founder & CEO',
+              title: 'Co-Founder',
               focus: 'Engineering, AI Leadership',
               position: 'object-[50%_40%]',
               linkedin: 'https://www.linkedin.com/in/usaidhmalik/',
