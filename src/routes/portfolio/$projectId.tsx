@@ -414,17 +414,17 @@ function ProjectDetailPage() {
             ) : project.images.length > 0 ? (
               <div>
                 <h2 className="text-2xl font-playfair font-bold text-cream mb-8">Gallery</h2>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {project.images.map((src, i) => (
                     <button
                       key={i}
                       onClick={() => openLightbox(i)}
-                      className="cursor-zoom-in group block rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200"
+                      className="cursor-zoom-in block"
                     >
                       <img
                         src={src}
                         alt={`${project.name} screenshot ${i + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                        className="w-full h-full object-contain"
                       />
                     </button>
                   ))}
