@@ -15,7 +15,7 @@ export function HeroSection() {
       {/* ── Giant brand name + services ── */}
       <div className="relative px-4 sm:px-6 lg:px-8">
         {/* Services list — right side, top-aligned with brand name */}
-        <ul className="absolute right-4 sm:right-6 lg:right-8 top-0 text-cream/60 text-sm space-y-1 text-right">
+        <ul className="hidden sm:block absolute right-4 sm:right-6 lg:right-8 top-0 text-cream/60 text-sm space-y-1 text-right">
           <li className="text-cream/90 font-medium">Agentic AI & Machine Learning</li>
           <li>Automations</li>
           <li>Web Development</li>
@@ -26,14 +26,14 @@ export function HeroSection() {
 
         <p
           className="font-playfair leading-none text-cream whitespace-nowrap"
-          style={{ fontSize: 'clamp(1.5rem, 8vw, 19rem)', fontWeight: 900 }}
+          style={{ fontSize: 'clamp(2rem, 8vw, 19rem)', fontWeight: 900 }}
         >
           BYTELESS
         </p>
         <p
           className="font-playfair leading-none whitespace-nowrap text-cream"
           style={{
-            fontSize: 'clamp(1.5rem, 8vw, 19rem)',
+            fontSize: 'clamp(2rem, 8vw, 19rem)',
             fontWeight: 600,
           }}
         >

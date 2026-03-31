@@ -120,7 +120,7 @@ export function AboutSection() {
         <div className="flex flex-col md:flex-row md:items-end gap-10 mb-20">
           <h2
             className="font-playfair font-bold text-cream leading-[0.92] flex-1"
-            style={{ fontSize: 'clamp(2.8rem, 5.5vw, 7rem)' }}
+            style={{ fontSize: 'clamp(2rem, 5.5vw, 7rem)' }}
           >
             Built to bridge{' '}
             <span className="text-cream">creators</span>
@@ -179,7 +179,7 @@ export function AboutSection() {
         {/* ── Values ── */}
         <div className="mt-16 pt-16 border-t border-cream/10">
           <p className="text-cream/25 text-xs tracking-[0.3em] uppercase mb-8">Our Values</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {values.map((v, i) => (
               <div
                 key={v.title}
