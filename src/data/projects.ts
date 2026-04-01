@@ -151,20 +151,73 @@ export const projects: Project[] = [
     description: 'Deeds keeps you accountable by making your friends verify a deed—a task that you\'ve wanted to do—and by setting deadlines on what you want to accomplish. Compete with your friends on who can complete the most deeds between you, and DON\'T MISS A DEED, OTHERWISE YOU\'LL LOSE POINTS!!! The methodology of Deeds: You create a deed (in single mode or dual mode; in single mode, only you send a deed and the friend has no corresponding deed). In single mode, you add what you want to complete and send your deed to a friend who acts as a verifier. The friend can choose to approve your deed based on their own factors. Once a friend approves, YOUR DEED IS ACTIVE!!!! It\'s up to you to complete it now. Reminder: A DEED CAN NOT BE CANCELED—you either fail or complete. Send the deed to your friend, who can choose to approve your deed\'s completion, in which case you get the points you assigned to your deed!!!! This also works for you, where friends can send deeds to you to verify.',
     whatWeLearned: [],
     howWeBuiltIt: '',
-    features: [],
+    features: [
+      {
+        title: 'Install',
+        description:
+          'Deeds is a Progressive Web App — add it to your home screen on any device for a native app feel, without the App Store. Fast, installable, and always up to date.',
+        images: [
+          '/project_snaps/deeds/install-deeds-snap-1.png',
+          '/project_snaps/deeds/install-deeds-snap-2.png',
+          '/project_snaps/deeds/install-deeds-snap-3.png',
+        ],
+      },
+      {
+        title: 'Main Page',
+        description:
+          'Track everything in one place — active deeds, pending verifications, completed wins, and failed attempts. Your accountability dashboard at a glance.',
+        images: [
+          '/project_snaps/deeds/main-page-deeds-snap.png',
+        ],
+      },
+      {
+        title: 'Social Auth',
+        description:
+          'Jump in quickly with Google sign-in. A clean authentication flow gets you set up in seconds — no friction, no fuss.',
+        images: [
+          '/project_snaps/deeds/deeds-snap-7-social-auth.png',
+        ],
+      },
+      {
+        title: 'Deed Flow',
+        description:
+          'Set your task, assign a deadline, pick a point value, and send it off to a friend as your verifier. Once they approve — your deed is live and on the clock. You either complete it or fail it, no canceling.',
+        images: [
+          '/project_snaps/deeds/deeds-snap-1-deed-flow.png',
+          '/project_snaps/deeds/deeds-snap-2-deed-flow.png',
+          '/project_snaps/deeds/deeds-snap-3-deed-flow.png',
+        ],
+      },
+      {
+        title: 'Social',
+        description:
+          'Search for friends, build your circle, and compete on who can complete the most deeds. The more friends you have, the more accountability — and competition — you get.',
+        images: [
+          '/project_snaps/deeds/social-deeds-snap-9.png',
+        ],
+      },
+      {
+        title: 'Notifications',
+        description:
+          'Get notified the moment a friend sends you a deed to verify, approves yours, or when a deadline is closing in. Stay in the loop without having to check constantly.',
+        images: [
+          '/project_snaps/deeds/notification-deeds-snap-1.png',
+          '/project_snaps/deeds/notification-deeds-snap-2.png',
+        ],
+      },
+    ],
     images: [
-    "/project_snaps/deeds/deeds-snap-1-deed-flow.png",
-    "/project_snaps/deeds/deeds-snap-2-deed-flow.png",
-    "/project_snaps/deeds/deeds-snap-7-social-auth.png",
-    "/project_snaps/deeds/install-deeds-snap-2.png",
-    "/project_snaps/deeds/main-page-deeds-snap.png",
-    "/project_snaps/deeds/notification-deeds-snap-2.png",
-    "/project_snaps/deeds/deeds-snap-1-deed-flow.png",
-    "/project_snaps/deeds/deeds-snap-3-deed-flow.png",
-    "/project_snaps/deeds/install-deeds-snap-1.png",
-    "/project_snaps/deeds/install-deeds-snap-3.png",
-    "/project_snaps/deeds/notification-deeds-snap-1.png",
-    "/project_snaps/deeds/social-deeds-snap-9.png"
+      '/project_snaps/deeds/deeds-snap-1-deed-flow.png',
+      '/project_snaps/deeds/deeds-snap-2-deed-flow.png',
+      '/project_snaps/deeds/deeds-snap-7-social-auth.png',
+      '/project_snaps/deeds/install-deeds-snap-2.png',
+      '/project_snaps/deeds/main-page-deeds-snap.png',
+      '/project_snaps/deeds/notification-deeds-snap-2.png',
+      '/project_snaps/deeds/deeds-snap-3-deed-flow.png',
+      '/project_snaps/deeds/install-deeds-snap-1.png',
+      '/project_snaps/deeds/install-deeds-snap-3.png',
+      '/project_snaps/deeds/notification-deeds-snap-1.png',
+      '/project_snaps/deeds/social-deeds-snap-9.png',
     ],
     technologies: ['AWS', 'Python', 'Angular', 'TypeScript', 'MongoDB', 'Docker'],
     websiteUrl: 'https://deeds.you',
@@ -187,8 +240,8 @@ export const projects: Project[] = [
   },
 
   {
-    id: 'n8n',
-    name: 'n8n Projects',
+    id: 'N8N Workflows',
+    name: 'N8N Workflows',
     tagline: 'Automated Workflows',
     logo: '/project_logos/n8n/n8n-color-white.png',
     tags: ['Automations', 'AI/ML'],

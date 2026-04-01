@@ -330,17 +330,18 @@ function ProjectDetailPage() {
                         >
                           {/* Screenshot(s) */}
                           {feature.images && feature.images.length > 0 && (
-                            <div className="w-full md:w-1/2 flex-shrink-0 flex flex-col gap-2">
+                            <div className="w-full md:w-1/2 flex-shrink-0 flex gap-2">
                               {feature.images.map((src, j) => (
                                 <button
                                   key={j}
                                   onClick={() => openLightbox(startIndex + j)}
-                                  className="rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200 cursor-zoom-in group"
+                                  className="cursor-zoom-in group flex-1 overflow-hidden"
+                                  style={{ maxWidth: '160px' }}
                                 >
                                   <img
                                     src={src}
                                     alt={`${feature.title} ${j + 1}`}
-                                    className="w-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                                    className="w-full h-72 object-contain group-hover:scale-[1.02] transition-transform duration-300"
                                   />
                                 </button>
                               ))}
