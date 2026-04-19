@@ -42,6 +42,8 @@
         p(cal, ar);
       };
     })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "let-s-talk", { origin: "https://cal.com" });
+    Cal.ns["let-s-talk"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
   </script>
 </body>
 </html>

@@ -35,7 +35,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         className="group flex flex-col h-full border border-cream/10 rounded-xl overflow-hidden hover:border-cream/30 transition-all duration-300 hover:-translate-y-1"
       >
         {/* Image / Logo area */}
-        <div className="relative aspect-video bg-navy/60 flex items-center justify-center overflow-hidden">
+        <div className={`relative aspect-video ${project.logoBg ?? 'bg-navy/60'} flex items-center justify-center overflow-hidden`}>
           {project.thumbnail ? (
             <img
               src={project.thumbnail}

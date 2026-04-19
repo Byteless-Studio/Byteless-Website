@@ -14,7 +14,7 @@ export function HeroSection() {
         <h2 className="font-playfair font-bold text-cream leading-tight text-2xl sm:text-3xl md:text-4xl max-w-2xl">
           Your go‑to partner for turning{' '}
           {animatedParts.map((word, i) => {
-            const fillLevels = [0, 0.25, 0.5, 0.5, 1]
+            const fillLevels = [0, 0, 0, 0, 1]
             const fill = fillLevels[i]
             const isHollow = fill === 0
             return (
@@ -24,7 +24,7 @@ export function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 + i * 0.5, duration: 1.2, ease: 'easeOut' }}
                 style={{
-                  fontStyle: i === 0 ? 'italic' : 'normal',
+                  fontStyle: i < 4 ? 'italic' : 'normal',
                   color: isHollow ? 'transparent' : `rgba(240,235,226,${fill})`,
                   WebkitTextStroke: isHollow ? '1.5px #f0ebe2' : fill < 1 ? `1px rgba(240,235,226,${0.4})` : 'none',
                 }}
@@ -40,12 +40,24 @@ export function HeroSection() {
       <div className="relative px-4 sm:px-6 lg:px-8">
         {/* Services list — right side, top-aligned with brand name */}
         <ul className="hidden sm:block absolute right-4 sm:right-6 lg:right-8 top-0 text-cream/60 text-sm space-y-1 text-right">
-          <li className="text-cream/90 font-medium">Agentic AI & Machine Learning</li>
-          <li>Automations</li>
-          <li>Web Development</li>
-          <li>Mobile App</li>
-          <li>Full Stack Engineering</li>
-          <li>Consulting</li>
+          {[
+            { label: 'Agentic AI & Machine Learning', id: 'ai-ml', primary: true },
+            { label: 'Automations', id: 'automations' },
+            { label: 'Web Development', id: 'web-dev' },
+            { label: 'Mobile App', id: 'mobile' },
+            { label: 'Full Stack Engineering', id: 'full-stack' },
+            { label: 'Consulting', id: 'consulting' },
+          ].map(({ label, id, primary }) => (
+            <li key={id}>
+              <Link
+                to="/portfolio"
+                search={{ service: id }}
+                className={`hover:text-cream transition-colors duration-200 ${primary ? 'text-cream/90 font-medium' : ''}`}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
 
         <p

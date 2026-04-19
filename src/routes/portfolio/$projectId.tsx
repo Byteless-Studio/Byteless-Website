@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { projects } from '@/data/projects'
 
 export const Route = createFileRoute('/portfolio/$projectId')({
@@ -84,6 +84,113 @@ function Lightbox({ images, index, onClose, onPrev, onNext }: {
   )
 }
 
+function FeatureCarousel({ images, startIndex, onLightbox }: {
+  images: string[]
+  startIndex: number
+  onLightbox: (i: number) => void
+}) {
+  const [current, setCurrent] = useState(0)
+  const touchStartX = useRef<number | null>(null)
+
+  const prev = () => setCurrent(c => (c - 1 + images.length) % images.length)
+  const next = () => setCurrent(c => (c + 1) % images.length)
+
+  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX }
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const diff = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev()
+    touchStartX.current = null
+  }
+
+  const getSlideStyle = (index: number): React.CSSProperties => {
+    let pos = index - current
+    // wrap around for circular effect
+    if (pos > images.length / 2) pos -= images.length
+    if (pos < -images.length / 2) pos += images.length
+
+    if (pos === 0) return {
+      transform: 'translateX(0%) scale(1)',
+      opacity: 1,
+      filter: 'blur(0px)',
+      zIndex: 3,
+      pointerEvents: 'auto',
+    }
+    if (Math.abs(pos) === 1) return {
+      transform: `translateX(${pos * 62}%) scale(0.82)`,
+      opacity: 0.45,
+      filter: 'blur(3px)',
+      zIndex: 1,
+      pointerEvents: 'auto',
+    }
+    return {
+      transform: `translateX(${pos * 62}%) scale(0.7)`,
+      opacity: 0,
+      filter: 'blur(6px)',
+      zIndex: 0,
+      pointerEvents: 'none',
+    }
+  }
+
+  return (
+    <div
+      className="relative w-full h-80 flex items-center justify-center select-none"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Slides */}
+      {images.map((src, i) => (
+        <div
+          key={i}
+          className="absolute w-[78%] rounded-lg overflow-hidden"
+          style={{
+            transition: 'transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease, filter 0.45s ease',
+            ...getSlideStyle(i),
+          }}
+        >
+          <button
+            onClick={() => i === current ? onLightbox(startIndex + i) : setCurrent(i)}
+            className={`block w-full rounded-lg overflow-hidden shadow-2xl ${i === current ? 'cursor-zoom-in' : 'cursor-pointer'}`}
+          >
+            <img
+              src={src}
+              alt={`Screenshot ${i + 1}`}
+              className="w-full h-64 object-contain bg-navy/30"
+            />
+          </button>
+        </div>
+      ))}
+
+      {/* Arrows */}
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-0 z-10 w-9 h-9 rounded-full bg-black/50 text-cream text-2xl flex items-center justify-center hover:bg-black/75 transition-colors"
+          >‹</button>
+          <button
+            onClick={next}
+            className="absolute right-0 z-10 w-9 h-9 rounded-full bg-black/50 text-cream text-2xl flex items-center justify-center hover:bg-black/75 transition-colors"
+          >›</button>
+        </>
+      )}
+
+      {/* Dots */}
+      {images.length > 1 && (
+        <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex gap-1.5">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`rounded-full transition-all duration-300 ${i === current ? 'w-4 h-1.5 bg-cream/70' : 'w-1.5 h-1.5 bg-cream/20'}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ProjectDetailPage() {
   const { projectId } = Route.useParams()
   const navigate = useNavigate()
@@ -133,7 +240,7 @@ function ProjectDetailPage() {
         <div className="flex flex-col md:flex-row md:items-start gap-8">
           {/* Logo */}
           {(project.logo || project.thumbnail) && (
-            <div className="w-32 h-32 md:w-44 md:h-44 rounded-2xl bg-navy/60 border border-cream/10 flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div className={`w-32 h-32 md:w-44 md:h-44 rounded-2xl ${project.logoBg ?? 'bg-navy/60'} border border-cream/10 flex items-center justify-center overflow-hidden flex-shrink-0`}>
               <img
                 src={project.logo || project.thumbnail}
                 alt={project.name}
@@ -208,6 +315,20 @@ function ProjectDetailPage() {
           </div>
         </div>
       </section>
+
+      {/* Hero image */}
+      {project.heroImage && (
+        <section className="container-custom pb-14">
+          <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-cream/5">
+            <img
+              src={project.heroImage}
+              alt={`${project.name} preview`}
+              className="w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+          </div>
+        </section>
+      )}
 
       {/* Content sections */}
       <section className="pb-24 container-custom">
@@ -330,21 +451,12 @@ function ProjectDetailPage() {
                         >
                           {/* Screenshot(s) */}
                           {feature.images && feature.images.length > 0 && (
-                            <div className="w-full md:w-1/2 flex-shrink-0 flex gap-2">
-                              {feature.images.map((src, j) => (
-                                <button
-                                  key={j}
-                                  onClick={() => openLightbox(startIndex + j)}
-                                  className="cursor-zoom-in group flex-1 overflow-hidden"
-                                  style={{ maxWidth: '160px' }}
-                                >
-                                  <img
-                                    src={src}
-                                    alt={`${feature.title} ${j + 1}`}
-                                    className="w-full h-72 object-contain group-hover:scale-[1.02] transition-transform duration-300"
-                                  />
-                                </button>
-                              ))}
+                            <div className="w-full md:w-1/2 flex-shrink-0 pb-8">
+                              <FeatureCarousel
+                                images={feature.images}
+                                startIndex={startIndex}
+                                onLightbox={openLightbox}
+                              />
                             </div>
                           )}
 
