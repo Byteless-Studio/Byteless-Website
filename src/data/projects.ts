@@ -36,7 +36,7 @@ export const projects: Project[] = [
     id: 'aea',
     name: 'AEA',
     tagline: 'Automated Executive Assistant',
-    thumbnail: '/project_logos/aea/AEA_logo.png',
+    thumbnail: '/project_logos/aea/AEA_logo_transparent.png',
     //status: 'completed',
     tags: ['Full Stack', 'App Dev', 'AI/ML', 'DevOps'],
     description:
