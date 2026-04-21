@@ -1,6 +1,5 @@
 import { Link } from '@tanstack/react-router'
 import { Mail } from 'lucide-react'
-import { Logo } from './Logo'
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -27,7 +26,12 @@ export const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <Logo size="md" variant="light" />
+              <img
+                src="/project_logos/byteless/Independent Bold.png"
+                alt="Byteless Software Studio"
+                className="h-64 w-auto"
+                style={{ filter: 'invert(1) sepia(0.4) saturate(0.5) brightness(0.93)', mixBlendMode: 'screen' }}
+              />
             </Link>
 
             <p className="text-cream/70 mb-6 max-w-md leading-relaxed text-sm">
@@ -92,7 +96,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-cream/10 py-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-cream/40 text-sm">
-            © {currentYear} [byte]less. All rights reserved.
+            © {currentYear} Byteless Software Studio. All rights reserved.
           </div>
 
           <div className="flex space-x-6 text-sm">

@@ -1,4 +1,5 @@
 import { serialize } from "v8"
+import { Link } from '@tanstack/react-router'
 
 const services = [
   {
@@ -42,7 +43,7 @@ export function ServicesSection() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((service, i) => (
-            <div
+            <Link
               key={service.title}
               className="flex flex-col gap-4 p-6 rounded-xl border border-cream/15 hover:border-cream/30 hover:bg-cream/3 transition-all duration-200"
               style={{ boxShadow: '2px 2px 0 rgba(240,235,226,0.18)' }}
@@ -51,8 +52,11 @@ export function ServicesSection() {
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="font-playfair font-bold text-cream text-xl">{service.title}</h3>
-              <p className="text-cream/45 text-sm leading-relaxed mt-auto">{service.description}</p>
-            </div>
+              <p className="text-cream/45 text-sm leading-relaxed">{service.description}</p>
+              <span className="text-xs text-cream/25 group-hover:text-cream/50 transition-colors mt-auto">
+                See projects →
+              </span>
+            </Link>
           ))}
         </div>
 
