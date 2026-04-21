@@ -146,7 +146,7 @@ export function AboutSection() {
               to life.
             </p>
             <p className="text-cream/55 leading-relaxed italic">
-              You handle the thinking part; we handle the building for you,
+              You handle the thinking part. We'll handle the building for you,
               taking care of yours as our own.
             </p>
           </div>

@@ -138,7 +138,7 @@ export const projects: Project[] = [
       {
         title: 'Onboarding and Setup',
         description:
-          'Get started with a clean onboarding flow, then let AEA do the heavy lifting; end-of-session reports surface patterns, highlight deep-work streaks, and flag chronic distractions.',
+          'Get started with a clean onboarding flow, then let AEA do the heavy lifting. End-of-session reports surface patterns, highlight deep-work streaks, and flag chronic distractions.',
         images: [
           '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
           '/project_snaps/AEA/Screenshot 2026-03-11 230014.png',
@@ -226,7 +226,7 @@ export const projects: Project[] = [
     logo: '/project_logos/deeds/deeds-logo-with-text and ball.png',
     logoBg: 'bg-cream',
     tags: ['Productivity', 'Accountability', 'Social', 'Web', 'iOS', 'Android'],
-    description: 'Deeds keeps you accountable by making your friends verify a deed (a task that you\'ve wanted to do) and by setting deadlines on what you want to accomplish. Compete with your friends on who can complete the most deeds between you, and DON\'T MISS A DEED, OTHERWISE YOU\'LL LOSE POINTS!!! The methodology of Deeds: You create a deed (in single mode or dual mode; in single mode, only you send a deed and the friend has no corresponding deed). In single mode, you add what you want to complete and send your deed to a friend who acts as a verifier. The friend can choose to approve your deed based on their own factors. Once a friend approves, YOUR DEED IS ACTIVE!!!! It\'s up to you to complete it now. Reminder: A DEED CAN NOT BE CANCELED: you either fail or complete. Send the deed to your friend, who can choose to approve your deed\'s completion, in which case you get the points you assigned to your deed! This also works for you, where friends can send deeds to you to verify.',
+    description: 'Deeds is a social accountability app that turns your goals into commitments your friends hold you to. Create a deed, assign it a point value, set a deadline, and nominate a friend as your verifier. Once they approve it, the deed is locked in: no cancellations, only completion or failure. Earn points when your friend confirms you followed through, and verify theirs in return. A simple loop of commitment, accountability, and friendly competition that actually gets things done.',
     services: ['mobile', 'full-stack'],
     whatWeLearned: [],
     howWeBuiltIt: '',

@@ -4,7 +4,7 @@ const services = [
   {
     title: 'Agentic AI & Machine Learning',
     description: 'Intelligent systems that act, decide, and learn: custom AI agents and end-to-end ML pipelines built for real-world use.',
-  serviceId: 'ai-ml',
+    serviceId: 'ai-ml',
   },
   {
     title: 'Automations',
@@ -19,7 +19,7 @@ const services = [
   {
     title: 'Mobile App',
     description: 'Native and cross-platform mobile apps designed for performance, usability, and a polished feel on any device.',
-    serviceId: 'mobile-app',
+    serviceId: 'mobile',
   },
   {
     title: 'Full Stack Engineering',
@@ -44,6 +44,8 @@ export function ServicesSection() {
           {services.map((service, i) => (
             <Link
               key={service.title}
+              to="/portfolio"
+              search={{ service: service.serviceId }}
               className="flex flex-col gap-4 p-6 rounded-xl border border-cream/15 hover:border-cream/30 hover:bg-cream/3 transition-all duration-200"
               style={{ boxShadow: '2px 2px 0 rgba(240,235,226,0.18)' }}
             >
