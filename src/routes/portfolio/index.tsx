@@ -15,7 +15,7 @@ function PortfolioPage() {
           Our Work
         </h1>
         <p className="mt-4 text-lg text-cream/50 max-w-xl">
-          Projects we've designed, built, and shipped — from MVPs to full product systems.
+          Projects we've designed, built, and shipped: from MVPs to full product systems.
         </p>
       </section>
 

@@ -44,7 +44,7 @@ export function HeroSection() {
       {/* ── Description + CTA ── */}
       <div className="px-4 sm:px-6 lg:px-8 py-8">
         <p className="text-cream/50 text-sm leading-relaxed mb-4 max-w-xs">
-          We design and build fast, modern digital experiences —
+          We design and build fast, modern digital experiences,
           from MVPs to full product systems.
         </p>
         <CalButton className="btn-primary text-sm inline-block">

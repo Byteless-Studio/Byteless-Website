@@ -31,13 +31,13 @@ export const Footer = () => {
             </Link>
 
             <p className="text-cream/70 mb-6 max-w-md leading-relaxed text-sm">
-              We design and build fast, modern digital experiences — from MVPs to
+              We design and build fast, modern digital experiences, from MVPs to
               full product systems. Clear thinking, clean code, human touch.
             </p>
 
             <div className="flex items-center space-x-3 text-cream/60">
               <Mail className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm">hello@byteless.dev</span>
+              <span className="text-sm">hello@byteless.io</span>
             </div>
           </div>
 
