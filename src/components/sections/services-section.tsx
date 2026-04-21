@@ -1,27 +1,35 @@
+import { serialize } from "v8"
+
 const services = [
   {
     title: 'Agentic AI & Machine Learning',
     description: 'Intelligent systems that act, decide, and learn: custom AI agents and end-to-end ML pipelines built for real-world use.',
+  serviceId: 'ai-ml',
   },
   {
     title: 'Automations',
     description: 'Eliminate repetitive work. We build workflows and integrations that connect your tools and run your processes hands-free.',
+    serviceId: 'automations',
   },
   {
     title: 'Web Development',
     description: 'Fast, modern, and scalable web experiences: from marketing sites to complex data-driven applications.',
+    serviceId: 'web-dev',
   },
   {
     title: 'Mobile App',
     description: 'Native and cross-platform mobile apps designed for performance, usability, and a polished feel on any device.',
+    serviceId: 'mobile-app',
   },
   {
     title: 'Full Stack Engineering',
     description: 'End-to-end product engineering across frontend, backend, APIs, databases, and infrastructure. All under one roof.',
+    serviceId: 'full-stack',
   },
   {
     title: 'Consulting',
     description: 'Strategic guidance on product direction, architecture decisions, and technology choices, so you build the right thing, right.',
+    serviceId: 'consulting',
   },
 ]
 
