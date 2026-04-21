@@ -10,7 +10,7 @@ export function ContactSection() {
             Get In Touch
           </h2>
           <p className="mx-auto max-w-xl text-cream/50 text-sm leading-relaxed">
-            We design and build fast, modern digital experiences —
+            We design and build fast, modern digital experiences,
             from MVPs to full product systems. Pick a time and let's talk about your project.
           </p>
         </div>

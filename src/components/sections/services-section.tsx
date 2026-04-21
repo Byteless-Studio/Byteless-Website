@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 const services = [
   {
     title: 'Agentic AI & Machine Learning',
-    description: 'Intelligent systems that act, decide, and learn — from custom AI agents to end-to-end ML pipelines built for real-world use.',
+    description: 'Intelligent systems that act, decide, and learn: custom AI agents and end-to-end ML pipelines built for real-world use.',
     serviceId: 'ai-ml',
   },
   {
@@ -13,7 +13,7 @@ const services = [
   },
   {
     title: 'Web Development',
-    description: 'Fast, modern, and scalable web experiences — from marketing sites to complex data-driven applications.',
+    description: 'Fast, modern, and scalable web experiences: from marketing sites to complex data-driven applications.',
     serviceId: 'web-dev',
   },
   {
@@ -23,12 +23,12 @@ const services = [
   },
   {
     title: 'Full Stack Engineering',
-    description: 'End-to-end product engineering across frontend, backend, APIs, databases, and infrastructure — all under one roof.',
+    description: 'End-to-end product engineering across frontend, backend, APIs, databases, and infrastructure. All under one roof.',
     serviceId: 'full-stack',
   },
   {
     title: 'Consulting',
-    description: 'Strategic guidance on product direction, architecture decisions, and technology choices — so you build the right thing, right.',
+    description: 'Strategic guidance on product direction, architecture decisions, and technology choices, so you build the right thing, right.',
     serviceId: 'consulting',
   },
 ]
@@ -46,7 +46,8 @@ export function ServicesSection() {
               key={service.title}
               to="/portfolio"
               search={{ service: service.serviceId }}
-              className="group flex flex-col gap-4 p-6 rounded-xl border border-cream/10 hover:border-cream/25 hover:bg-cream/3 transition-all duration-200"
+              className="flex flex-col gap-4 p-6 rounded-xl border border-cream/15 hover:border-cream/30 hover:bg-cream/3 transition-all duration-200"
+              style={{ boxShadow: '2px 2px 0 rgba(240,235,226,0.18)' }}
             >
               <span className="font-mono text-xs text-cream/25 tracking-widest">
                 {String(i + 1).padStart(2, '0')}

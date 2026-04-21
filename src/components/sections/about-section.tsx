@@ -7,11 +7,11 @@ const tags = [
 const values = [
   {
     title: 'Simplicity',
-    description: 'We use whatever works best for you — the right tool for the right job, not the trendiest one.',
+    description: 'We use whatever works best for you: the right tool for the right job, not the trendiest one.',
   },
   {
     title: 'Honesty',
-    description: 'We say what we mean. Straight feedback, realistic timelines, and full transparency — always.',
+    description: 'We say what we mean. Straight feedback, realistic timelines, and full transparency. Always.',
   },
   {
     title: 'Professionalism',
@@ -28,10 +28,9 @@ const processSteps = [
     number: '01',
     title: 'Project Planning',
     description:
-      'We start by deeply understanding your goals, constraints, and vision. Together we define scope, milestones, and success criteria — so every decision that follows is intentional.',
-    gradient: 'from-blue-900/60 to-indigo-900/40',
+      'We start by deeply understanding your goals, constraints, and vision. Together we define scope, milestones, and success criteria, so every decision that follows is intentional.',
     icon: (
-      <svg className="w-8 h-8 text-cream/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-navy/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
       </svg>
@@ -41,10 +40,9 @@ const processSteps = [
     number: '02',
     title: 'Development Architecture',
     description:
-      'Before a single line of code, we design the system. Tech stack selection, data flows, infrastructure patterns — built for scalability from the start, not patched in later.',
-    gradient: 'from-indigo-900/60 to-violet-900/40',
+      'Before a single line of code, we design the system. Tech stack selection, data flows, infrastructure patterns: built for scalability from the start, not patched in later.',
     icon: (
-      <svg className="w-8 h-8 text-cream/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-navy/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
       </svg>
@@ -54,10 +52,9 @@ const processSteps = [
     number: '03',
     title: 'UI Design',
     description:
-      'Great products feel effortless to use. We craft interfaces that are clean, purposeful, and on-brand — wireframes and prototypes iterated with your feedback until it feels right.',
-    gradient: 'from-violet-900/60 to-purple-900/40',
+      'Great products feel effortless to use. We craft interfaces that are clean, purposeful, and on-brand: wireframes and prototypes iterated with your feedback until it feels right.',
     icon: (
-      <svg className="w-8 h-8 text-cream/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-navy/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
       </svg>
@@ -67,10 +64,9 @@ const processSteps = [
     number: '04',
     title: 'Backend & QA',
     description:
-      'Robust APIs, secure data handling, and thorough testing across the stack. We don\'t ship until it\'s solid — automated tests, edge case coverage, and performance benchmarks included.',
-    gradient: 'from-blue-900/50 to-cyan-900/40',
+      'Robust APIs, secure data handling, and thorough testing across the stack. We don\'t ship until it\'s solid: automated tests, edge case coverage, and performance benchmarks included.',
     icon: (
-      <svg className="w-8 h-8 text-cream/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-navy/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
       </svg>
@@ -80,10 +76,9 @@ const processSteps = [
     number: '05',
     title: 'Deployment',
     description:
-      'We handle the full release pipeline — CI/CD, cloud infrastructure, environment configuration, and go-live. Your product reaches users reliably and without drama.',
-    gradient: 'from-cyan-900/50 to-teal-900/40',
+      'We handle the full release pipeline: CI/CD, cloud infrastructure, environment configuration, and go-live. Your product reaches users reliably and without drama.',
     icon: (
-      <svg className="w-8 h-8 text-cream/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-navy/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
       </svg>
@@ -93,16 +88,17 @@ const processSteps = [
     number: '06',
     title: 'Support & Maintenance',
     description:
-      'Shipping is the beginning, not the end. We provide ongoing monitoring, updates, and iterative improvements — so your product stays healthy and keeps getting better.',
-    gradient: 'from-teal-900/50 to-blue-900/40',
+      'Shipping is the beginning, not the end. We provide ongoing monitoring, updates, and iterative improvements, so your product stays healthy and keeps getting better.',
     icon: (
-      <svg className="w-8 h-8 text-cream/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-navy/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
       </svg>
     ),
   },
 ]
+
+const cardOpacities = [0.85, 0.88, 0.91, 0.94, 0.97, 1.0]
 
 export function AboutSection() {
   return (
@@ -145,12 +141,12 @@ export function AboutSection() {
             <p className="text-cream/25 text-xs tracking-[0.3em] uppercase mb-6">Why Us</p>
             <p className="text-cream/75 leading-relaxed text-lg mb-6">
               We're ideators who understand creators. Byteless removes hurdles through
-              industry experience and professionalism — pairing technical skill with
+              industry experience and professionalism, pairing technical skill with
               founder empathy to act as strategic partners dedicated to bringing ideas
               to life.
             </p>
             <p className="text-cream/55 leading-relaxed italic">
-              You handle the thinking part — we handle the building for you,
+              You handle the thinking part. We'll handle the building for you,
               taking care of yours as our own.
             </p>
           </div>
@@ -158,7 +154,7 @@ export function AboutSection() {
           <div>
             <p className="text-cream/25 text-xs tracking-[0.3em] uppercase mb-6">What We've Done</p>
             <p className="text-cream/75 leading-relaxed mb-8">
-              End‑to‑end development across the full SDLC — from architecture and
+              End‑to‑end development across the full SDLC: from architecture and
               security to testing and deployment. Agentic AI systems, full‑stack
               applications, and data‑driven solutions with analytics and ETL.
             </p>
@@ -219,28 +215,25 @@ export function AboutSection() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {processSteps.map((step) => (
+          {processSteps.map((step, i) => (
             <div
               key={step.number}
-              className="group relative rounded-2xl overflow-hidden border border-cream/10 hover:border-cream/25 transition-all duration-300"
+              className="relative rounded-2xl overflow-hidden border border-cream/15"
+              style={{ backgroundColor: `rgba(240,235,226,${cardOpacities[i]})` }}
             >
-              {/* Gradient background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${step.gradient} opacity-60`} />
 
               {/* Content */}
-              <div className="relative p-6 flex flex-col gap-6 h-full min-h-[260px]">
-                {/* Top row: number + icon */}
+              <div className="relative z-10 p-6 flex flex-col gap-6 h-full min-h-[260px]">
                 <div className="flex items-start justify-between">
-                  <span className="font-mono text-xs text-cream/30 tracking-[0.2em]">{step.number}</span>
+                  <span className="font-mono text-xs text-navy/35 tracking-[0.2em]">{step.number}</span>
                   {step.icon}
                 </div>
 
-                {/* Title + description */}
                 <div className="mt-auto">
-                  <h3 className="font-playfair font-bold text-cream text-xl mb-3 group-hover:text-cream/90 transition-colors">
+                  <h3 className="font-playfair font-bold text-navy text-xl mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-cream/50 text-sm leading-relaxed group-hover:text-cream/65 transition-colors">
+                  <p className="text-navy/60 text-sm leading-relaxed">
                     {step.description}
                   </p>
                 </div>
