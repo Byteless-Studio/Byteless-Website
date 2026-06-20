@@ -37,7 +37,7 @@ export default {
         },
         body: JSON.stringify({
           from: "onboarding@resend.dev",
-          to: "info@byteless.io",
+          to: "byteless.company@gmail.com",
           reply_to: email,
           subject: `New Contact Form Submission from ${name}`,
           html: `
@@ -61,9 +61,17 @@ export default {
         }),
       });
 
-      return new Response(JSON.stringify({ success: true }), { 
-        status: 200, 
-        headers: corsHeaders 
+      if (!resendResponse.ok) {
+        const errorBody = await resendResponse.text();
+        return new Response(JSON.stringify({ error: errorBody }), {
+          status: 502,
+          headers: corsHeaders
+        });
+      }
+
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: corsHeaders
       });
 
     } catch (error) {
