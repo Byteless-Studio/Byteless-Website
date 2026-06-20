@@ -39,10 +39,17 @@ export const Footer = () => {
               full product systems. Clear thinking, clean code, human touch.
             </p>
 
-            <div className="flex items-center space-x-3 text-cream/60">
-              <Mail className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm">hello@byteless.dev</span>
+            <div className="flex items-center space-x-3 text-cream/60 mb-6">
+              <Mail className="w-4 h-4 flex-shrink-0 text-cream" />
+              <span className="text-sm">byteless.company@gmail.com</span>
             </div>
+
+            <a
+              href="/#contact"
+              className="inline-block bg-cream text-navy px-6 py-2 rounded-lg font-medium text-sm hover:bg-cream/80 transition-colors duration-200"
+            >
+              Contact Us
+            </a>
           </div>
 
           {/* Navigate Links */}

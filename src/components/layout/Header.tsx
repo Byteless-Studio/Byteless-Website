@@ -3,7 +3,6 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Link, useLocation } from '@tanstack/react-router'
 import { MobileDrawer } from './MobileDrawer'
 import { Logo } from './Logo'
-import { CalButton } from '@/components/ui/CalButton'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -67,11 +66,12 @@ export function Header() {
                   </Link>
                 )
               )}
-              <CalButton
+              <a
+                href={contactLink}
                 className="bg-cream text-navy px-6 py-2 rounded-lg font-medium text-sm hover:bg-cream/80 transition-colors duration-200"
               >
-                Book a Call
-              </CalButton>
+                Contact Us
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -79,7 +79,7 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-cream hover:opacity-60 transition-opacity"
             >
-              <Bars3Icon className="h-6 w-6" />
+              <Bars3Icon className="h-6 w-6 text-cream" />
             </button>
           </nav>
         </div>

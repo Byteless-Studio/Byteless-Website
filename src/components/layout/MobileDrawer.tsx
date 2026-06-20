@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from '@tanstack/react-router'
 import { Logo } from './Logo'
-import { CalButton } from '@/components/ui/CalButton'
 
 interface MobileDrawerProps {
   isOpen: boolean
@@ -43,7 +42,7 @@ export function MobileDrawer({ isOpen, onClose, navItems, contactLink }: MobileD
                   onClick={onClose}
                   className="p-2 text-cream hover:opacity-60 transition-opacity"
                 >
-                  <XMarkIcon className="h-5 w-5" />
+                  <XMarkIcon className="h-5 w-5 text-cream" />
                 </button>
               </div>
 
@@ -72,12 +71,13 @@ export function MobileDrawer({ isOpen, onClose, navItems, contactLink }: MobileD
                     )
                   )}
 
-                  <CalButton
+                  <a
+                    href={contactLink}
                     className="block w-full bg-cream text-navy px-6 py-3 rounded-lg font-medium text-center hover:bg-cream/80 transition-colors mt-8"
                     onClick={onClose}
                   >
-                    Book a Call
-                  </CalButton>
+                    Contact Us
+                  </a>
                 </div>
               </nav>
             </div>

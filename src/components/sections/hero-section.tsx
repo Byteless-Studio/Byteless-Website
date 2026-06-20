@@ -1,6 +1,5 @@
 import { Link } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
-import { CalButton } from '@/components/ui/CalButton'
 
 // Words from "vision" onwards all start outlined and fill in one by one
 const animatedParts = ['vision', 'into', 'modern,', 'usable', 'products.']
@@ -83,9 +82,9 @@ export function HeroSection() {
           We design and build fast, modern digital experiences —
           from MVPs to full product systems.
         </p>
-        <CalButton className="btn-primary text-sm inline-block">
-          Book a Call
-        </CalButton>
+        <a href="#contact" className="btn-primary text-sm inline-block">
+          Contact Us
+        </a>
       </div>
 
     </section>
