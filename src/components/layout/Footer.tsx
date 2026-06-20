@@ -35,7 +35,7 @@ export const Footer = () => {
             </Link>
 
             <p className="text-cream/70 mb-6 max-w-md leading-relaxed text-sm">
-              We design and build fast, modern digital experiences — from MVPs to
+              We design and build fast, modern digital experiences, from MVPs to
               full product systems. Clear thinking, clean code, human touch.
             </p>
 

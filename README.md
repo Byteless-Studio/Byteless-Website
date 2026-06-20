@@ -105,4 +105,4 @@ This project is private and proprietary to Byteless.
 
 ## Contact
 
-Visit [byteless.io](https://byteless.io) or email [hello@byteless.dev](mailto:hello@byteless.dev).
+Visit [byteless.io](https://byteless.io) or email [hello@byteless.io](mailto:hello@byteless.io).
