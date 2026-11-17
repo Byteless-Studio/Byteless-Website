@@ -1,112 +1,62 @@
 import { Link } from '@tanstack/react-router'
-import { Mail } from 'lucide-react'
+import { services } from '@/data/services'
 
-export const Footer = () => {
-  const currentYear = new Date().getFullYear()
-
-  const footerLinks = {
-    navigate: [
-      { name: 'About', href: '/#about', anchor: true },
-      { name: 'Portfolio', href: '/portfolio' },
-      { name: 'Services', href: '/#services', anchor: true },
-      { name: 'Blog', href: '/blog' },
-    ],
-    services: [
-      { name: 'Web Development', href: '/#services', anchor: true },
-      { name: 'UI / UX Design', href: '/#services', anchor: true },
-      { name: 'Consulting', href: '/#services', anchor: true },
-    ],
-  }
-
+export function Footer() {
+  const year = new Date().getFullYear()
   return (
-    <footer className="bg-navy text-cream">
-      <div className="container-custom">
-        {/* Main Footer Content */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <Link to="/" className="inline-block mb-6">
-              <img
-                src="/project_logos/byteless/Independent Bold.png"
-                alt="Byteless Software Studio"
-                className="h-64 w-auto"
-                style={{ filter: 'invert(1) sepia(0.4) saturate(0.5) brightness(0.93)', mixBlendMode: 'screen' }}
-              />
-            </Link>
-
-            <p className="text-cream/70 mb-6 max-w-md leading-relaxed text-sm">
-              We design and build fast, modern digital experiences, from MVPs to
-              full product systems. Clear thinking, clean code, human touch.
-            </p>
-
-            <div className="flex items-center space-x-3 text-cream/60">
-              <Mail className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm">hello@byteless.io</span>
-            </div>
-          </div>
-
-          {/* Navigate Links */}
-          <div>
-            <h3 className="text-cream text-xs font-semibold uppercase tracking-widest mb-4">
-              Navigate
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.navigate.map((link) => (
-                <li key={link.name}>
-                  {link.anchor ? (
-                    <a
-                      href={link.href}
-                      className="text-cream/60 hover:text-cream transition-colors duration-200 text-sm"
-                    >
-                      {link.name}
-                    </a>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      className="text-cream/60 hover:text-cream transition-colors duration-200 text-sm"
-                    >
-                      {link.name}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services Links */}
-          <div>
-            <h3 className="text-cream text-xs font-semibold uppercase tracking-widest mb-4">
-              Services
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-cream/60 hover:text-cream transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <footer className="bg-white">
+      <div className="wrap grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+          <Link to="/" aria-label="Byteless home" className="inline-block">
+            <img src="/byteless_logos/byteless-wordmark.png" alt="Byteless" className="h-9 w-auto" />
+          </Link>
+          <p className="muted mt-5 max-w-sm text-sm leading-relaxed">
+            An AI agency. We advise on where AI pays off, then build and run the systems.
+          </p>
+          <a href="mailto:hello@byteless.io" className="link mt-3 inline-block text-sm">
+            hello@byteless.io
+          </a>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-cream/10 py-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-cream/40 text-sm">
-            © {currentYear} Byteless Software Studio. All rights reserved.
-          </div>
+        <div>
+          <p className="text-sm font-semibold">Services</p>
+          <ul className="mt-4 space-y-2.5">
+            {services.map((s) => (
+              <li key={s.id}>
+                <Link to="/services" hash={s.id} className="muted text-sm hover:text-black transition-colors">
+                  {s.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          <div className="flex space-x-6 text-sm">
-            <a href="/privacy" className="text-cream/40 hover:text-cream/70 transition-colors duration-200">
-              Privacy Policy
-            </a>
-            <a href="/terms" className="text-cream/40 hover:text-cream/70 transition-colors duration-200">
-              Terms of Service
-            </a>
-          </div>
+        <div>
+          <p className="text-sm font-semibold">Company</p>
+          <ul className="mt-4 space-y-2.5">
+            <li>
+              <Link to="/portfolio" className="muted text-sm hover:text-black transition-colors">
+                Case studies
+              </Link>
+            </li>
+            <li>
+              <Link to="/" hash="about" className="muted text-sm hover:text-black transition-colors">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link to="/" hash="contact" className="muted text-sm hover:text-black transition-colors">
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-black/10">
+        <div className="wrap flex flex-col gap-2 py-6 text-xs text-black/50 sm:flex-row sm:justify-between">
+          <span>© {year} Byteless. All rights reserved.</span>
+          <span>Built and hosted by Byteless.</span>
         </div>
       </div>
     </footer>

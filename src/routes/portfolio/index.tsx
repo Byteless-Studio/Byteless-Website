@@ -1,69 +1,38 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
+import { Helmet } from 'react-helmet-async'
 import { projects } from '@/data/projects'
 import { ProjectCard } from '@/components/portfolio/ProjectCard'
 
 export const Route = createFileRoute('/portfolio/')({
-  validateSearch: (search: Record<string, unknown>) => ({
-    service: (search.service as string) ?? '',
-  }),
   component: PortfolioPage,
 })
 
-const serviceLabels: Record<string, string> = {
-  'ai-ml': 'Agentic AI & Machine Learning',
-  'automations': 'Automations',
-  'web-dev': 'Web Development',
-  'mobile': 'Mobile App',
-  'full-stack': 'Full Stack Engineering',
-  'consulting': 'Consulting',
-}
-
 function PortfolioPage() {
-  const { service } = Route.useSearch()
-  const filtered = service
-    ? projects.filter((p) => p.services?.includes(service))
-    : projects
-
   return (
-    <main className="min-h-screen">
-      {/* Hero */}
-      <section className="py-20 container-custom">
-        <h1 className="text-5xl md:text-6xl font-playfair font-bold text-cream leading-tight">
-          Our Work
-        </h1>
-        <p className="mt-4 text-lg text-cream/50 max-w-xl">
-          Projects we've designed, built, and shipped: from MVPs to full product systems.
+    <main className="pt-24 sm:pt-36">
+      <Helmet>
+        <title>Case studies | Byteless</title>
+      </Helmet>
+
+      <header className="wrap pb-8 sm:pb-12">
+        <h1 className="h-display text-[2.75rem] sm:text-6xl lg:text-7xl">Case studies</h1>
+        <p className="muted mt-4 max-w-xl text-base leading-relaxed sm:mt-6 sm:text-lg">
+          The problem, what we built, and what changed. Screenshots from the real systems.
         </p>
-      </section>
+      </header>
 
-      {/* Grid */}
-      <section className="pb-24 container-custom">
-        {/* Active filter badge */}
-        {service && serviceLabels[service] && (
-          <div className="flex items-center gap-3 mb-8">
-            <span className="text-sm text-cream/50">Filtered by</span>
-            <span className="text-sm px-3 py-1 rounded-full bg-cream/10 text-cream border border-cream/20">
-              {serviceLabels[service]}
-            </span>
-            <Link
-              to="/portfolio"
-              search={{}}
-              className="text-sm text-cream/30 hover:text-cream/70 transition-colors"
-            >
-              Clear ×
-            </Link>
-          </div>
-        )}
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
+      <section className="wrap pb-20">
+        <div className="grid gap-6 sm:grid-cols-2">
+          {projects.map((p, i) => {
+            // Odd count: lead with a full-width card so the grid has no orphan.
+            const wide = i === 0 && projects.length % 2 === 1
+            return (
+              <div key={p.id} className={wide ? 'sm:col-span-2' : ''}>
+                <ProjectCard project={p} variant={wide ? 'wide' : 'default'} />
+              </div>
+            )
+          })}
         </div>
-
-        {filtered.length === 0 && (
-          <p className="text-cream/30 text-sm">No projects found for this service.</p>
-        )}
       </section>
     </main>
   )

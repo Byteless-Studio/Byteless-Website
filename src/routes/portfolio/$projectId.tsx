@@ -1,190 +1,145 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
-import { projects } from '@/data/projects'
+import { Helmet } from 'react-helmet-async'
+import { ArrowLeft, ArrowUpRight, Check, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { projectById } from '@/data/projects'
+import { serviceById } from '@/data/services'
+import { CalButton } from '@/components/ui/CalButton'
 
 export const Route = createFileRoute('/portfolio/$projectId')({
+  loader: ({ params }) => {
+    const project = projectById(params.projectId)
+    if (!project) throw notFound()
+    return project
+  },
   component: ProjectDetailPage,
 })
 
-const statusLabel: Record<string, string> = {
-  completed: 'Completed',
-  'in-progress': 'In Progress',
-  planned: 'Planned',
-}
-
-const statusColor: Record<string, string> = {
-  completed: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-  'in-progress': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-  planned: 'bg-cream/10 text-cream/50 border-cream/20',
-}
-
-function Lightbox({ images, index, onClose, onPrev, onNext }: {
+function Lightbox({
+  images,
+  index,
+  onClose,
+  onStep,
+}: {
   images: string[]
   index: number
   onClose: () => void
-  onPrev: () => void
-  onNext: () => void
+  onStep: (dir: 1 | -1) => void
 }) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowLeft') onPrev()
-      if (e.key === 'ArrowRight') onNext()
+      if (e.key === 'ArrowLeft') onStep(-1)
+      if (e.key === 'ArrowRight') onStep(1)
     }
     window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [onClose, onPrev, onNext])
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', handler)
+      document.body.style.overflow = ''
+    }
+  }, [onClose, onStep])
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Screenshot viewer"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-sm"
       onClick={onClose}
     >
-      {/* Close */}
-      <button
-        className="absolute top-4 right-4 text-cream/60 hover:text-cream transition-colors text-3xl leading-none"
-        onClick={onClose}
-      >
-        ×
+      <button className="absolute right-4 top-4 p-2 text-white/70 hover:text-white" onClick={onClose} aria-label="Close">
+        <X className="h-6 w-6" />
       </button>
-
-      {/* Counter */}
-      <span className="absolute top-4 left-1/2 -translate-x-1/2 text-cream/40 text-sm font-mono">
-        {index + 1} / {images.length}
+      <span className="absolute left-1/2 top-5 -translate-x-1/2 text-sm text-white/60">
+        {index + 1} of {images.length}
       </span>
-
-      {/* Prev */}
       {images.length > 1 && (
         <button
-          className="absolute left-4 text-cream/50 hover:text-cream transition-colors text-4xl px-2"
-          onClick={(e) => { e.stopPropagation(); onPrev() }}
+          className="absolute left-3 p-2 text-white/70 hover:text-white"
+          onClick={(e) => {
+            e.stopPropagation()
+            onStep(-1)
+          }}
+          aria-label="Previous"
         >
-          ‹
+          <ChevronLeft className="h-8 w-8" />
         </button>
       )}
-
-      {/* Image */}
       <img
         src={images[index]}
         alt={`Screenshot ${index + 1}`}
-        className="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl object-contain"
+        className="max-h-[90vh] max-w-[92vw] rounded-xl object-contain shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       />
-
-      {/* Next */}
       {images.length > 1 && (
         <button
-          className="absolute right-4 text-cream/50 hover:text-cream transition-colors text-4xl px-2"
-          onClick={(e) => { e.stopPropagation(); onNext() }}
+          className="absolute right-3 p-2 text-white/70 hover:text-white"
+          onClick={(e) => {
+            e.stopPropagation()
+            onStep(1)
+          }}
+          aria-label="Next"
         >
-          ›
+          <ChevronRight className="h-8 w-8" />
         </button>
       )}
     </div>
   )
 }
 
-function FeatureCarousel({ images, startIndex, onLightbox }: {
+function FeatureCarousel({
+  images,
+  startIndex,
+  onOpen,
+}: {
   images: string[]
   startIndex: number
-  onLightbox: (i: number) => void
+  onOpen: (i: number) => void
 }) {
   const [current, setCurrent] = useState(0)
-  const touchStartX = useRef<number | null>(null)
-
-  const prev = () => setCurrent(c => (c - 1 + images.length) % images.length)
-  const next = () => setCurrent(c => (c + 1) % images.length)
-
-  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX }
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return
-    const diff = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(diff) > 40) diff > 0 ? next() : prev()
-    touchStartX.current = null
-  }
-
-  const getSlideStyle = (index: number): React.CSSProperties => {
-    let pos = index - current
-    // wrap around for circular effect
-    if (pos > images.length / 2) pos -= images.length
-    if (pos < -images.length / 2) pos += images.length
-
-    if (pos === 0) return {
-      transform: 'translateX(0%) scale(1)',
-      opacity: 1,
-      filter: 'blur(0px)',
-      zIndex: 3,
-      pointerEvents: 'auto',
-    }
-    if (Math.abs(pos) === 1) return {
-      transform: `translateX(${pos * 62}%) scale(0.82)`,
-      opacity: 0.45,
-      filter: 'blur(3px)',
-      zIndex: 1,
-      pointerEvents: 'auto',
-    }
-    return {
-      transform: `translateX(${pos * 62}%) scale(0.7)`,
-      opacity: 0,
-      filter: 'blur(6px)',
-      zIndex: 0,
-      pointerEvents: 'none',
-    }
-  }
+  const touchX = useRef<number | null>(null)
+  const step = (dir: 1 | -1) => setCurrent((c) => (c + dir + images.length) % images.length)
 
   return (
     <div
-      className="relative w-full h-80 flex items-center justify-center select-none"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      className="relative"
+      onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (touchX.current === null) return
+        const diff = touchX.current - e.changedTouches[0].clientX
+        if (Math.abs(diff) > 40) step(diff > 0 ? 1 : -1)
+        touchX.current = null
+      }}
     >
-      {/* Slides */}
-      {images.map((src, i) => (
-        <div
-          key={i}
-          className="absolute w-[78%] rounded-lg overflow-hidden"
-          style={{
-            transition: 'transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease, filter 0.45s ease',
-            ...getSlideStyle(i),
-          }}
-        >
-          <button
-            onClick={() => i === current ? onLightbox(startIndex + i) : setCurrent(i)}
-            className={`block w-full rounded-lg overflow-hidden shadow-2xl ${i === current ? 'cursor-zoom-in' : 'cursor-pointer'}`}
-          >
-            <img
-              src={src}
-              alt={`Screenshot ${i + 1}`}
-              className="w-full h-64 object-contain bg-navy/30"
-            />
-          </button>
-        </div>
-      ))}
+      <button
+        onClick={() => onOpen(startIndex + current)}
+        className="block w-full overflow-hidden rounded-md bg-cream shadow-card cursor-zoom-in"
+        aria-label="Open screenshot"
+      >
+        <img src={images[current]} alt="" className="aspect-[16/10] w-full object-contain" loading="lazy" />
+      </button>
 
-      {/* Arrows */}
       {images.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            className="absolute left-0 z-10 w-9 h-9 rounded-full bg-black/50 text-cream text-2xl flex items-center justify-center hover:bg-black/75 transition-colors"
-          >‹</button>
-          <button
-            onClick={next}
-            className="absolute right-0 z-10 w-9 h-9 rounded-full bg-black/50 text-cream text-2xl flex items-center justify-center hover:bg-black/75 transition-colors"
-          >›</button>
-        </>
-      )}
-
-      {/* Dots */}
-      {images.length > 1 && (
-        <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex gap-1.5">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`rounded-full transition-all duration-300 ${i === current ? 'w-4 h-1.5 bg-cream/70' : 'w-1.5 h-1.5 bg-cream/20'}`}
-            />
-          ))}
+        <div className="mt-3 flex items-center justify-between">
+          <div className="flex gap-1.5">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                aria-label={`Screenshot ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all ${i === current ? 'w-5 bg-blue' : 'w-1.5 bg-black/20'}`}
+              />
+            ))}
+          </div>
+          <div className="flex gap-1">
+            <button onClick={() => step(-1)} className="rounded p-1.5 text-black/50 hover:bg-cream hover:text-black" aria-label="Previous">
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button onClick={() => step(1)} className="rounded p-1.5 text-black/50 hover:bg-cream hover:text-black" aria-label="Next">
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -192,361 +147,213 @@ function FeatureCarousel({ images, startIndex, onLightbox }: {
 }
 
 function ProjectDetailPage() {
-  const { projectId } = Route.useParams()
-  const navigate = useNavigate()
-  const project = projects.find((p) => p.id === projectId)
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const project = Route.useLoaderData()
+  const [lightbox, setLightbox] = useState<number | null>(null)
 
-  useEffect(() => {
-    if (!project) {
-      navigate({ to: '/portfolio' })
-    }
-  }, [project, navigate])
-
-  if (!project) return null
-
-  const lightboxImages = project.features?.some((f) => f.images?.length)
-    ? project.features.flatMap((f) => f.images ?? [])
-    : project.gallery
+  const featureImages = project.features?.flatMap((f) => f.images ?? []) ?? []
+  const allImages = featureImages.length
+    ? featureImages
+    : project.gallery?.length
       ? project.gallery.map((g) => g.src)
       : project.images
-  const openLightbox = (i: number) => setLightboxIndex(i)
-  const closeLightbox = () => setLightboxIndex(null)
-  const prevImage = () => setLightboxIndex((i) => (i !== null ? (i - 1 + lightboxImages.length) % lightboxImages.length : 0))
-  const nextImage = () => setLightboxIndex((i) => (i !== null ? (i + 1) % lightboxImages.length : 0))
+  const stepLightbox = (dir: 1 | -1) =>
+    setLightbox((i) => (i === null ? 0 : (i + dir + allImages.length) % allImages.length))
+
+  const cover = project.heroImage ?? project.images[0]
+  let flat = 0
 
   return (
-    <main className="min-h-screen">
-      {/* Lightbox */}
-      {lightboxIndex !== null && (
-        <Lightbox
-          images={lightboxImages}
-          index={lightboxIndex}
-          onClose={closeLightbox}
-          onPrev={prevImage}
-          onNext={nextImage}
-        />
+    <main className="pt-24 sm:pt-36">
+      <Helmet>
+        <title>{project.name} | Case study | Byteless</title>
+        <meta name="description" content={project.tagline} />
+      </Helmet>
+
+      {lightbox !== null && (
+        <Lightbox images={allImages} index={lightbox} onClose={() => setLightbox(null)} onStep={stepLightbox} />
       )}
 
-      {/* Hero */}
-      <section className="py-20 container-custom">
-        <Link
-          to="/portfolio"
-          className="inline-flex items-center gap-2 text-sm text-cream/40 hover:text-cream transition-colors mb-10"
-        >
-          <span>←</span> Back to Portfolio
+      <header className="wrap">
+        <Link to="/portfolio" className="inline-flex items-center gap-2 text-sm text-black/55 hover:text-black transition-colors">
+          <ArrowLeft className="h-4 w-4" />
+          All case studies
         </Link>
 
-        <div className="flex flex-col md:flex-row md:items-start gap-8">
-          {/* Logo */}
-          {(project.logo || project.thumbnail) && (
-            <div className={`w-32 h-32 md:w-44 md:h-44 rounded-2xl ${project.logoBg ?? 'bg-navy/60'} border border-cream/10 flex items-center justify-center overflow-hidden flex-shrink-0`}>
-              <img
-                src={project.logo || project.thumbnail}
-                alt={project.name}
-                className="w-full h-full object-contain p-3"
-              />
-            </div>
-          )}
-
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-3 mb-3">
-              <h1 className="text-4xl md:text-5xl font-playfair font-bold text-cream">
-                {project.name}
-              </h1>
-              {project.status && (
-                <span
-                  className={`text-xs font-medium px-2.5 py-1 rounded-full border ${statusColor[project.status]}`}
-                >
-                  {statusLabel[project.status]}
-                </span>
-              )}
-            </div>
-
-            <p className="text-lg text-cream/60 mb-4">{project.tagline}</p>
-
-            {/* Tags */}
-            {project.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2.5 py-1 rounded-md bg-cream/5 text-cream/40 border border-cream/10"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {/* External links */}
-            <div className="flex flex-wrap gap-3">
-              {project.websiteUrl && (
-                <a
-                  href={project.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary text-sm px-4 py-2"
-                >
-                  Visit Website →
-                </a>
-              )}
-              {project.appUrl && (
-                <a
-                  href={project.appUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary text-sm px-4 py-2"
-                >
-                  Download App →
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary text-sm px-4 py-2"
-                >
-                  View on GitHub →
-                </a>
-              )}
-            </div>
+        <div className="mt-6 grid gap-8 sm:mt-8 lg:grid-cols-[3fr_2fr] lg:items-end">
+          <div>
+            <h1 className="h-display text-[2.75rem] sm:text-6xl">{project.name}</h1>
+            <p className="muted mt-4 max-w-2xl text-lg leading-relaxed sm:mt-5 sm:text-xl">{project.tagline}</p>
           </div>
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-5 text-sm">
+            <div>
+              <dt className="text-black/50">Client</dt>
+              <dd className="mt-1">{project.client}</dd>
+            </div>
+            <div>
+              <dt className="text-black/50">Industry</dt>
+              <dd className="mt-1">{project.industry}</dd>
+            </div>
+            <div>
+              <dt className="text-black/50">Year</dt>
+              <dd className="mt-1">{project.year}</dd>
+            </div>
+            <div>
+              <dt className="text-black/50">Services</dt>
+              <dd className="mt-1 flex flex-wrap gap-1.5">
+                {project.services.map((id) => (
+                  <Link
+                    key={id}
+                    to="/portfolio"
+                    search={{ service: id }}
+                    className="rounded bg-blue-light px-2 py-1 text-xs font-medium text-blue"
+                  >
+                    {serviceById(id)?.name}
+                  </Link>
+                ))}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        {cover && project.portrait ? (
+          <div className="mt-12 flex justify-center gap-4 overflow-hidden rounded-md bg-cream px-6 pt-10 sm:gap-8">
+            {project.images.slice(0, 3).map((src) => (
+              <button
+                key={src}
+                onClick={() => {
+                  const i = allImages.indexOf(src)
+                  setLightbox(i >= 0 ? i : 0)
+                }}
+                className="cursor-zoom-in"
+                aria-label="Open screenshot"
+              >
+                <img src={src} alt="" className="h-64 w-auto rounded-t-xl object-cover object-top shadow-lift sm:h-[420px]" />
+              </button>
+            ))}
+          </div>
+        ) : cover && (
+          <button
+            onClick={() => {
+              const i = allImages.indexOf(cover)
+              setLightbox(i >= 0 ? i : 0)
+            }}
+            className="mt-8 block w-full overflow-hidden rounded-md bg-cream p-3 sm:mt-12 sm:p-8 cursor-zoom-in"
+            aria-label="Open screenshot"
+          >
+            <img src={cover} alt={`${project.name} screenshot`} className="w-full rounded shadow-lift object-cover" />
+          </button>
+        )}
+      </header>
+
+      <section className="wrap mt-12 grid gap-8 sm:mt-16 sm:gap-6 lg:grid-cols-3">
+        <div>
+          <h2 className="text-sm font-semibold text-blue">The problem</h2>
+          <p className="mt-3 leading-relaxed text-black/75">{project.challenge}</p>
+        </div>
+        <div>
+          <h2 className="text-sm font-semibold text-blue">What we built</h2>
+          <p className="mt-3 leading-relaxed text-black/75">{project.approach}</p>
+        </div>
+        <div>
+          <h2 className="text-sm font-semibold text-blue">What changed</h2>
+          <ul className="mt-3 space-y-3">
+            {project.outcomes.map((o) => (
+              <li key={o} className="flex gap-3 leading-relaxed text-black/75">
+                <Check className="mt-1 h-4 w-4 flex-none text-blue" />
+                {o}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* Hero image */}
-      {project.heroImage && (
-        <section className="container-custom pb-14">
-          <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-cream/5">
-            <img
-              src={project.heroImage}
-              alt={`${project.name} preview`}
-              className="w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+      {project.features && project.features.length > 0 && (
+        <section className="wrap mt-14 sm:mt-20">
+          <h2 className="h-section text-3xl">Inside the system</h2>
+          <div className="mt-8 space-y-12 sm:mt-10 sm:space-y-16">
+            {project.features.map((f, i) => {
+              const start = flat
+              flat += f.images?.length ?? 0
+              return (
+                <div
+                  key={f.title}
+                  className={`grid items-center gap-8 lg:grid-cols-2 ${i % 2 ? 'lg:[&>*:first-child]:order-2' : ''}`}
+                >
+                  {f.images && f.images.length > 0 && (
+                    <FeatureCarousel images={f.images} startIndex={start} onOpen={setLightbox} />
+                  )}
+                  <div>
+                    <h3 className="h-section text-2xl">{f.title}</h3>
+                    <p className="muted mt-3 leading-relaxed">{f.description}</p>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </section>
       )}
 
-      {/* Content sections */}
-      <section className="pb-24 container-custom">
-        <div className="flex flex-col md:flex-row gap-10 lg:gap-16 items-start">
-
-          {/* Download sidebar — top on mobile, right on desktop */}
-          {project.downloadUrl && (
-            <aside className="w-full md:w-64 flex-shrink-0 order-first md:order-last md:sticky md:top-24">
-              <div className="bg-cream rounded-xl p-5">
-                <h3 className="font-playfair text-lg font-bold text-navy">Download</h3>
-                <p className="text-xs text-navy/50 mt-1 mb-4">
-                  Available for all major platforms.
-                </p>
-
-                {/* Platform badges */}
-                <div className="flex flex-col gap-2 mb-5">
-                  {[
-                    { label: 'Windows', sub: '.exe installer' },
-                    { label: 'macOS',   sub: '.dmg package' },
-                    { label: 'Linux',   sub: '.AppImage' },
-                  ].map(({ label, sub }) => (
-                    <div key={label} className="flex items-center justify-between px-3 py-2 rounded-lg border border-navy/10 bg-navy/4">
-                      <span className="text-sm font-medium text-navy">{label}</span>
-                      <span className="text-xs text-navy/40 font-mono">{sub}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <a
-                  href={project.downloadUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg bg-navy text-cream font-medium text-sm hover:bg-navy/80 transition-all duration-200"
+      {!featureImages.length && project.gallery && project.gallery.length > 0 && (
+        <section className="wrap mt-20">
+          <h2 className="h-section text-3xl">The workflows</h2>
+          <div className="mt-10 space-y-14">
+            {project.gallery.map((g, i) => (
+              <figure key={g.src}>
+                <button
+                  onClick={() => setLightbox(i)}
+                  className="block w-full overflow-hidden rounded-md bg-cream shadow-card cursor-zoom-in"
+                  aria-label={`Open ${g.label}`}
                 >
-                  <span>↓</span> Download for your system
-                </a>
-              </div>
-            </aside>
-          )}
-
-          <div className="flex-1 max-w-3xl space-y-16">
-          {project.description && (
-            <div id="overview">
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-4">Overview</h2>
-              <p className="text-cream/60 leading-relaxed">{project.description}</p>
-            </div>
-          )}
-
-          {project.technologies && project.technologies.length > 0 && (
-            <div id="technologies">
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-5">Technologies Used</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {project.technologies.map((tech) => (
-                  <div
-                    key={tech}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl bg-cream/5 border border-cream/10 hover:border-cream/30 hover:bg-cream/8 transition-all duration-200 group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-cream/30 group-hover:bg-cream/70 transition-colors duration-200 flex-shrink-0" />
-                    <span className="text-sm font-medium text-cream/70 group-hover:text-cream transition-colors duration-200">{tech}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {project.howWeBuiltIt && (
-            <div>
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-4">How We Built It</h2>
-              <p className="text-cream/60 leading-relaxed">{project.howWeBuiltIt}</p>
-            </div>
-          )}
-
-          {project.whatWeLearned.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-4">What We Learned</h2>
-              <ul className="space-y-2">
-                {project.whatWeLearned.map((item, i) => (
-                  <li key={i} className="flex gap-3 text-cream/60">
-                    <span className="text-cream/30 mt-0.5 flex-shrink-0">—</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {project.whereWeAre && (
-            <div>
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-4">Where We Are</h2>
-              <p className="text-cream/60 leading-relaxed">{project.whereWeAre}</p>
-            </div>
-          )}
-
-          {project.whereWeAreGoing && (
-            <div>
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-4">
-                Future Goals
-              </h2>
-              <p className="text-cream/60 leading-relaxed">{project.whereWeAreGoing}</p>
-            </div>
-          )}
-
-          {/* Features — with screenshot when available, plain cards otherwise */}
-          {project.features && project.features.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-playfair font-bold text-cream mb-10">Features</h2>
-              {project.features.some((f) => f.images?.length) ? (
-                <div className="space-y-20">
-                  {(() => {
-                    let flatIndex = 0
-                    return project.features!.map((feature, i) => {
-                      const isEven = i % 2 === 0
-                      const startIndex = flatIndex
-                      flatIndex += feature.images?.length ?? 0
-                      return (
-                        <div
-                          key={i}
-                          id={`feature-${feature.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
-                          className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-14 items-center`}
-                        >
-                          {/* Screenshot(s) */}
-                          {feature.images && feature.images.length > 0 && (
-                            <div className="w-full md:w-1/2 flex-shrink-0 pb-8">
-                              <FeatureCarousel
-                                images={feature.images}
-                                startIndex={startIndex}
-                                onLightbox={openLightbox}
-                              />
-                            </div>
-                          )}
-
-                          {/* Feature text */}
-                          <div className="w-full md:w-1/2">
-                            <span className="text-xs font-mono text-cream/25 tracking-widest uppercase">
-                              {String(i + 1).padStart(2, '0')}
-                            </span>
-                            <h3 className="text-2xl font-playfair font-bold text-cream mt-2 mb-3">
-                              {feature.title}
-                            </h3>
-                            <p className="text-cream/55 leading-relaxed text-sm">{feature.description}</p>
-                          </div>
-                        </div>
-                      )
-                    })
-                  })()}
-                </div>
-              ) : (
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {project.features.map((feature, i) => (
-                    <div
-                      key={i}
-                      className="p-5 rounded-xl border border-cream/10 hover:border-cream/25 transition-all duration-200"
-                    >
-                      <h3 className="text-sm font-semibold text-cream mb-2">{feature.title}</h3>
-                      <p className="text-sm text-cream/50 leading-relaxed">{feature.description}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Gallery — only shown when features don't already carry screenshots */}
-          {!(project.features?.some((f) => f.images?.length)) && (
-            project.gallery && project.gallery.length > 0 ? (
-              <div>
-                <h2 className="text-2xl font-playfair font-bold text-cream mb-10">Workflows</h2>
-                <div className="space-y-14">
-                  {project.gallery.map((item, i) => (
-                    <div key={i}>
-                      <button
-                        onClick={() => openLightbox(i)}
-                        className="w-full rounded-xl overflow-hidden border border-cream/10 hover:border-cream/30 transition-all duration-200 cursor-zoom-in group block"
-                      >
-                        <img
-                          src={item.src}
-                          alt={item.label}
-                          className="w-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
-                        />
-                      </button>
-                      <div className="mt-5 flex gap-5 items-start">
-                        <span className="text-xs font-mono text-cream/25 tracking-widest mt-1 flex-shrink-0">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <div>
-                          <h3 className="text-lg font-playfair font-bold text-cream mb-1">{item.label}</h3>
-                          {item.description && (
-                            <p className="text-sm text-cream/50 leading-relaxed">{item.description}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : project.images.length > 0 ? (
-              <div>
-                <h2 className="text-2xl font-playfair font-bold text-cream mb-8">Gallery</h2>
-                <div className="grid grid-cols-3 gap-3">
-                  {project.images.map((src, i) => (
-                    <button
-                      key={i}
-                      onClick={() => openLightbox(i)}
-                      className="cursor-zoom-in block"
-                    >
-                      <img
-                        src={src}
-                        alt={`${project.name} screenshot ${i + 1}`}
-                        className="w-full h-full object-contain"
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : null
-          )}
+                  <img src={g.src} alt={g.label} className="w-full rounded shadow-lift object-cover" loading="lazy" />
+                </button>
+                <figcaption className="mt-4 max-w-2xl">
+                  <h3 className="h-section text-xl">{g.label}</h3>
+                  {g.description && <p className="muted mt-2 leading-relaxed">{g.description}</p>}
+                </figcaption>
+              </figure>
+            ))}
           </div>
+        </section>
+      )}
 
+      <section className="wrap mt-20 grid gap-10 border-t border-black/10 pt-12 md:grid-cols-2">
+        {project.technologies && (
+          <div>
+            <h2 className="text-sm font-semibold text-black/50">Built with</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {project.technologies.map((t) => (
+                <li key={t} className="rounded border border-black/10 bg-white px-2.5 py-1 text-sm text-black/75 shadow-btn">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div className="flex flex-wrap items-start gap-3 md:justify-end">
+          {project.websiteUrl && (
+            <a href={project.websiteUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+              Visit the site
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          )}
+          {project.downloadUrl && (
+            <a href={project.downloadUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+              Download the app
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          )}
+        </div>
+      </section>
+
+      <section className="wrap mt-20 mb-16">
+        <div className="rounded-md bg-cream p-6 sm:p-12">
+        <h2 className="h-section text-3xl sm:text-4xl">Have a similar problem?</h2>
+        <p className="mt-3 max-w-lg leading-relaxed text-black/70">
+          Tell us about it on a short call. We will say plainly whether this kind of system would help you.
+        </p>
+        <div className="mt-6">
+          <CalButton className="btn-primary">Book a call</CalButton>
+        </div>
         </div>
       </section>
     </main>

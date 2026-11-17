@@ -1,17 +1,24 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { HeroSection } from '@/components/sections/hero-section'
-import { AboutSection, TeamSection } from '@/components/sections/about-section'
-import { ServicesSection } from '@/components/sections/services-section'
-import { PortfolioSection } from '@/components/sections/portfolio-section'
+import { Helmet } from 'react-helmet-async'
+import { Hero } from '@/components/sections/hero'
+import { Statement } from '@/components/sections/statement'
+import { PrimaryServices } from '@/components/sections/primary-services'
+import { SecondaryServices } from '@/components/sections/secondary-services'
+import { Process } from '@/components/sections/process'
+import { About } from '@/components/sections/about'
 
 export const Route = createFileRoute('/')({
   component: () => (
-    <main className="min-h-screen">
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <TeamSection />
-      <PortfolioSection />
+    <main>
+      <Helmet>
+        <title>Byteless | AI consulting and implementation</title>
+      </Helmet>
+      <Hero />
+      <Statement />
+      <PrimaryServices />
+      <SecondaryServices />
+      <Process />
+      <About />
     </main>
-  )
+  ),
 })
