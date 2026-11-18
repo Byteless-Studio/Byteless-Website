@@ -44,7 +44,11 @@ export function ProjectCard({ project, variant = 'default' }: ProjectCardProps) 
             loading="lazy"
             className="absolute inset-x-4 top-4 w-[calc(100%-2rem)] sm:inset-x-6 sm:top-6 sm:w-[calc(100%-3rem)] rounded-t shadow-lift object-cover object-top transition-transform duration-300 group-hover:-translate-y-1"
           />
-        ) : null}
+        ) : (
+          <p className="h-display absolute inset-0 flex items-center justify-center px-6 text-center text-4xl text-black/15 sm:text-5xl">
+            {project.name}
+          </p>
+        )}
       </div>
 
       <div className={`flex flex-col border-t border-black/5 p-5 sm:p-6 ${wide ? 'lg:border-l lg:border-t-0 lg:p-9' : ''}`}>

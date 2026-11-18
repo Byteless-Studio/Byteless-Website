@@ -47,6 +47,53 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'turk-editor',
+    name: 'Turk Editor',
+    tagline: 'An AI editor that turns a voiceover into a finished video cut from real footage.',
+    builtFor: 'Our product',
+    forWho: 'For teams whose skilled people lose days to production work that follows a pattern.',
+    forYou: [
+      'We watch how the work is done by hand and write down the decisions a person makes.',
+      'We give an AI agent the tools for the mechanical steps and the rules for the judgement calls.',
+      'A person reviews the output at set checkpoints, so quality stays in your hands.',
+    ],
+    industry: 'Video production',
+    year: '2026',
+    services: ['implementation'],
+    tags: ['AI agent', 'Video editing', 'Automation'],
+    description:
+      'Turk Editor takes a recorded voiceover and a script and produces a full edit: sourced clips, graphics, music and sound effects, rendered and ready to open in Premiere or Resolve.',
+    challenge:
+      'Editing a long video from a voiceover takes days. Most of that time goes on mechanical work: finding footage for every line, cutting to the pacing, laying music under the voice.',
+    approach:
+      'We split the job in two. Scripts handle every mechanical step, from transcription to rendering. An AI agent makes the editorial decisions a human editor would, working from written rules about pacing, sourcing and style.',
+    outcomes: [
+      'A full rough cut produced from a voiceover without manual clip hunting',
+      'Editorial rules written down once and applied to every video',
+      'A multi-track export, so a human editor can still change anything',
+    ],
+    technologies: ['Claude', 'Python', 'ffmpeg', 'Whisper', 'Remotion'],
+    features: [
+      {
+        title: 'Voiceover check',
+        description: 'The recording is transcribed and compared with the script, and problems are listed before any editing starts.',
+      },
+      {
+        title: 'Cuts and themes',
+        description: 'The voiceover is split into shots at a set pace, and each shot is given a visual theme drawn from the script.',
+      },
+      {
+        title: 'Real footage only',
+        description: 'Clips come from sourced video and a local library of footage, music and sound effects. Nothing is generated.',
+      },
+      {
+        title: 'Editor handoff',
+        description: 'The result renders to video and exports as a multi-track project for Premiere or Resolve.',
+      },
+    ],
+    images: [],
+  },
+  {
     id: 'n8n-workflows',
     name: 'Sales follow-up automation',
     tagline: 'Every booking prepared and every sales call followed up, with nobody typing.',
@@ -90,6 +137,73 @@ export const projects: Project[] = [
       },
     ],
     images: [],
+  },
+  {
+    id: 'talden',
+    name: 'Talden',
+    tagline: 'Recordings of gatherings turned into pages people can read, search and share.',
+    builtFor: 'Our product',
+    forWho: 'For organisations with hours of recordings that nobody will ever listen to again.',
+    forYou: [
+      'We look at what you record today and what people need to get out of it afterwards.',
+      'We build the pipeline that transcribes each recording and structures it into a page.',
+      'Your team reviews each page before it is published.',
+    ],
+    industry: 'Communities and events',
+    year: '2026',
+    services: ['implementation', 'infrastructure'],
+    heroImage: '/project_snaps/talden/home.png',
+    tags: ['Transcription', 'Summarisation', 'Publishing'],
+    description:
+      'Talden takes a recording of a book club, study circle or meetup and publishes a page with a summary, takeaways, discussion threads and the references people mentioned.',
+    challenge:
+      'The best ideas at a gathering are gone the moment it ends. Recordings exist, but nobody sits through two hours of audio to find the ten minutes that mattered.',
+    approach:
+      'We built a pipeline that compresses and splits each recording, transcribes it, and has a language model structure the transcript into a readable page. The host reviews the page, then publishes it to the group site.',
+    outcomes: [
+      'A long recording becomes a page with a summary, takeaways and timestamps',
+      'Books and sources mentioned in the room are captured as references',
+      'The host approves every page before it goes public',
+    ],
+    technologies: ['Cloudflare Workers', 'Cloudflare Workflows', 'R2', 'Whisper', 'React'],
+    websiteUrl: 'https://talden.app',
+    images: ['/project_snaps/talden/home.png'],
+  },
+  {
+    id: 'bound-ai',
+    name: 'Bound AI',
+    tagline: 'An accountability app where AI checks the photo that proves you did the task.',
+    builtFor: 'Our product',
+    forWho: 'For products that need to check a photo automatically, not by hand.',
+    forYou: [
+      'We define what counts as proof for your case and where the model is allowed to be lenient.',
+      'We build the photo check, including the measures that stop old or faked photos.',
+      'We ship it inside your app, on iOS and Android.',
+    ],
+    industry: 'Consumer app',
+    year: '2026',
+    services: ['implementation', 'infrastructure'],
+    portrait: true,
+    tags: ['AI vision', 'Mobile', 'iOS and Android'],
+    description:
+      'Bound AI lets people stake in-app Credits on a task and a deadline, then prove they did it with a photo that an AI vision model checks.',
+    challenge:
+      'An accountability app only works if proof is checked, and checking by hand does not scale. The check also has to resist cheating with old photos.',
+    approach:
+      'We built a mobile app with a vision model that judges each proof photo against the task. Every task comes with a random hand gesture that must appear in the photo, which shows the photo is live.',
+    outcomes: [
+      'Proof photos judged by AI in seconds, with no human reviewer',
+      'A random gesture check that defeats reused photos',
+      'Live on the App Store, built from one codebase for iOS and Android',
+    ],
+    technologies: ['React Native', 'Expo', 'Cloudflare Workers', 'Vision model'],
+    images: [
+      '/project_snaps/bound/main_page.png',
+      '/project_snaps/bound/creation_page_1.png',
+      '/project_snaps/bound/submitting_page.png',
+      '/project_snaps/bound/creation_page_2.png',
+      '/project_snaps/bound/submitting_page_fail.png',
+    ],
   },
   {
     id: 'aea',

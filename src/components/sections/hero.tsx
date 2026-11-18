@@ -10,10 +10,10 @@ const work = [
     img: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
   },
   {
-    id: 'aea',
-    name: 'AEA',
-    line: 'An assistant that explains your focus patterns from real activity.',
-    img: '/project_snaps/AEA/Screenshot 2026-03-19 170722.png',
+    id: 'talden',
+    name: 'Talden',
+    line: 'Recordings of gatherings turned into pages people can read and share.',
+    img: '/project_snaps/talden/home.png',
   },
   {
     id: 'n8n-workflows',
