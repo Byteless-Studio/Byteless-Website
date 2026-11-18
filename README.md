@@ -24,7 +24,6 @@ Service copy lives in `src/data/services.ts`. Case studies live in `src/data/pro
 - TanStack Router (file-based routing)
 - Tailwind CSS
 - Lucide icons
-- Cal.com embed for booking
 - Cloudflare Worker for static assets and the contact form endpoint (`worker.js`, sends through Resend)
 
 ## Getting Started
@@ -75,8 +74,7 @@ src/
 ├── components/
 │   ├── layout/               # Header, Footer, Logo
 │   ├── sections/             # Home page and contact sections
-│   ├── portfolio/            # ProjectCard
-│   └── ui/                   # CalButton
+│   └── portfolio/            # ProjectCard
 ├── data/
 │   ├── services.ts           # The four offers
 │   └── projects.ts           # Case studies
@@ -105,4 +103,4 @@ This project is private and proprietary to Byteless.
 
 ## Contact
 
-Visit [byteless.io](https://byteless.io) or email [hello@byteless.io](mailto:hello@byteless.io).
+Visit [byteless.io](https://byteless.io) or email [byteless.company@gmail.com](mailto:byteless.company@gmail.com).

@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet-async'
 import { ArrowLeft, ArrowUpRight, Check, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { projectById } from '@/data/projects'
 import { serviceById } from '@/data/services'
-import { CalButton } from '@/components/ui/CalButton'
 
 export const Route = createFileRoute('/portfolio/$projectId')({
   loader: ({ params }) => {
@@ -352,7 +351,9 @@ function ProjectDetailPage() {
           Tell us about it on a short call. We will say plainly whether this kind of system would help you.
         </p>
         <div className="mt-6">
-          <CalButton className="btn-primary">Book a call</CalButton>
+          <Link to="/" hash="contact" className="btn-primary">
+            Get a free consult
+          </Link>
         </div>
         </div>
       </section>

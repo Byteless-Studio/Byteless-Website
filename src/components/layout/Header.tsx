@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
-import { CalButton } from '@/components/ui/CalButton'
 
 const navItems = [
   { name: 'Services', to: '/services' },
-  { name: 'Case studies', to: '/portfolio' },
+  { name: 'Work', to: '/portfolio' },
   { name: 'About', to: '/', hash: 'about' },
   { name: 'Contact', to: '/', hash: 'contact' },
 ] as const
@@ -58,7 +57,9 @@ export function Header() {
               {item.name}
             </Link>
           ))}
-          <CalButton className="btn-primary ml-3 py-2">Book a call</CalButton>
+          <Link to="/" hash="contact" className="btn-primary ml-3 py-2">
+            Free consult
+          </Link>
         </div>
 
         <button
@@ -87,9 +88,9 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
-            <CalButton className="btn-primary mt-6 w-full py-3" onClick={() => setOpen(false)}>
-              Book a call
-            </CalButton>
+            <Link to="/" hash="contact" className="btn-primary mt-6 w-full py-3" onClick={() => setOpen(false)}>
+              Get a free consult
+            </Link>
           </div>
         </div>
       )}

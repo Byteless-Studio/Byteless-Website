@@ -10,7 +10,7 @@ The current site reads as a generic software studio with six undifferentiated se
 - Two secondary offers, visible but subordinate: **Infrastructure management & support** and **Security audits**.
 - Case-study-driven proof (challenge / approach / outcome), using the existing project screenshots.
 - Sleek, modern black-and-white design using the existing brand: the original logo, the cream, and the blue as the only accent.
-- One clear reach-out path: book a call (Cal.com, already wired) and a contact form (worker endpoint, already deployed).
+- One clear reach-out path: a free consult requested through the contact form (worker endpoint, already deployed). Call booking was removed on main in June 2026.
 
 ## Non-goals / anti-goals
 - No blog (the "coming soon" page is removed).

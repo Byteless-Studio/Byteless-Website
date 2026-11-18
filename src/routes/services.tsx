@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Helmet } from 'react-helmet-async'
 import { Check } from 'lucide-react'
-import { CalButton } from '@/components/ui/CalButton'
 import { primaryServices, secondaryServices, type Service } from '@/data/services'
 
 export const Route = createFileRoute('/services')({
@@ -19,9 +18,11 @@ function PrimaryService({ service, tinted }: { service: Service; tinted: boolean
           <h2 className="h-section mt-5 text-3xl sm:text-5xl">{service.name}</h2>
           <p className="mt-5 leading-relaxed text-black/70">{service.summary}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <CalButton className="btn-primary">Book a call</CalButton>
+            <Link to="/" hash="contact" className="btn-primary">
+              Get a free consult
+            </Link>
             <Link to="/portfolio" className="btn-secondary">
-              See case studies
+              See our work
             </Link>
           </div>
         </div>

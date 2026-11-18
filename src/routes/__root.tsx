@@ -19,7 +19,7 @@ function NotFound() {
           Go home
         </Link>
         <Link to="/portfolio" className="btn-secondary">
-          Case studies
+          Our work
         </Link>
       </div>
     </main>

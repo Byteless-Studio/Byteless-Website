@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react'
-import { CalButton } from '@/components/ui/CalButton'
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
 
@@ -32,17 +31,17 @@ export function Contact() {
     <section id="contact" className="scroll-mt-16 bg-black py-12 text-cream sm:py-24">
       <div className="wrap grid gap-12 lg:grid-cols-2">
         <div>
-          <h2 className="h-display text-[2.25rem] text-cream sm:text-5xl">Tell us what you are working on.</h2>
+          <h2 className="h-display text-[2.25rem] text-cream sm:text-5xl">Start with a free consult.</h2>
           <p className="mt-6 max-w-md leading-relaxed text-cream/70">
-            A thirty-minute call is the fastest way to find out whether AI is the right answer for your problem
-            and what it would take. If you would rather write, the form reaches both founders.
+            Tell us what you are trying to do. We reply within one working day to set up a free thirty-minute
+            consult with a founder. No pitch and no obligation.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <CalButton className="btn-primary">Book a call</CalButton>
-            <a href="mailto:hello@byteless.io" className="text-sm text-cream underline-offset-4 hover:underline">
-              hello@byteless.io
-            </a>
-          </div>
+          <a
+            href="mailto:byteless.company@gmail.com"
+            className="mt-8 inline-block text-sm text-cream underline underline-offset-4"
+          >
+            byteless.company@gmail.com
+          </a>
         </div>
 
         <form onSubmit={onSubmit} className="grid gap-4">
@@ -70,14 +69,14 @@ export function Contact() {
           </label>
           <div className="flex flex-wrap items-center gap-4">
             <button type="submit" className="btn-white w-full py-3 sm:w-auto sm:py-2.5" disabled={status === 'sending'}>
-              {status === 'sending' ? 'Sending' : 'Send message'}
+              {status === 'sending' ? 'Sending' : 'Request a free consult'}
             </button>
             {status === 'sent' && <p className="text-sm text-cream/80">Sent. We reply within one working day.</p>}
             {status === 'error' && (
               <p className="text-sm text-cream/80">
                 That did not send. Email us at{' '}
-                <a href="mailto:hello@byteless.io" className="underline underline-offset-4">
-                  hello@byteless.io
+                <a href="mailto:byteless.company@gmail.com" className="underline underline-offset-4">
+                  byteless.company@gmail.com
                 </a>{' '}
                 instead.
               </p>

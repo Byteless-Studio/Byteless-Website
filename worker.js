@@ -45,7 +45,7 @@ export default {
         headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
         body: JSON.stringify({
           from: "onboarding@resend.dev",
-          to: "info@byteless.io",
+          to: "byteless.company@gmail.com",
           reply_to: email,
           subject: `Website enquiry from ${name}`,
           html: `

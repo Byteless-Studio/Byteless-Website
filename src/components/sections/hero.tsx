@@ -1,6 +1,5 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import { CalButton } from '@/components/ui/CalButton'
 
 // Real screenshots of AI systems we shipped, each linking to its case study.
 const work = [
@@ -39,7 +38,9 @@ export function Hero() {
               build it and keep it running.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <CalButton className="btn-primary px-5 py-3">Book a call</CalButton>
+              <Link to="/" hash="contact" className="btn-primary px-5 py-3">
+                Get a free consult
+              </Link>
               <Link
                 to="/portfolio"
                 className="group inline-flex items-center gap-1.5 text-sm font-medium text-black hover:text-blue"
