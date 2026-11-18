@@ -169,6 +169,11 @@ export const projects: Project[] = [
     websiteUrl: 'https://talden.app',
     gallery: [
       {
+        src: '/project_snaps/talden/record.png',
+        label: 'One tap to record',
+        description: 'The host puts a phone in the middle of the room and taps once. An existing recording can be uploaded instead.',
+      },
+      {
         src: '/project_snaps/talden/how-it-works.png',
         label: 'From recording to page',
         description: 'Record, transcribe, distill, publish. The host reviews the draft before it goes live.',

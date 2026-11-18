@@ -307,7 +307,7 @@ function ProjectDetailPage() {
                   className="block w-full overflow-hidden rounded-md bg-cream shadow-card cursor-zoom-in"
                   aria-label={`Open ${g.label}`}
                 >
-                  <img src={g.src} alt={g.label} className="w-full rounded shadow-lift object-cover" loading="lazy" />
+                  <img src={g.src} alt={g.label} className="mx-auto max-h-[720px] w-auto max-w-full rounded shadow-lift" loading="lazy" />
                 </button>
                 <figcaption className="mt-4 max-w-2xl">
                   <h3 className="h-section text-xl">{g.label}</h3>
