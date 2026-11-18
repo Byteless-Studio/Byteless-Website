@@ -142,7 +142,7 @@ export const projects: Project[] = [
     id: 'talden',
     name: 'Talden',
     tagline: 'Recordings of gatherings turned into pages people can read, search and share.',
-    builtFor: 'Our product',
+    builtFor: 'Talden',
     forWho: 'For organisations with hours of recordings that nobody will ever listen to again.',
     forYou: [
       'We look at what you record today and what people need to get out of it afterwards.',
@@ -167,6 +167,18 @@ export const projects: Project[] = [
     ],
     technologies: ['Cloudflare Workers', 'Cloudflare Workflows', 'R2', 'Whisper', 'React'],
     websiteUrl: 'https://talden.app',
+    gallery: [
+      {
+        src: '/project_snaps/talden/how-it-works.png',
+        label: 'From recording to page',
+        description: 'Record, transcribe, distill, publish. The host reviews the draft before it goes live.',
+      },
+      {
+        src: '/project_snaps/talden/talk-page.png',
+        label: 'What every page includes',
+        description: 'A summary, key takeaways, discussion threads, references and the full transcript.',
+      },
+    ],
     images: ['/project_snaps/talden/home.png'],
   },
   {

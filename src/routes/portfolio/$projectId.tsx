@@ -298,7 +298,7 @@ function ProjectDetailPage() {
 
       {!featureImages.length && project.gallery && project.gallery.length > 0 && (
         <section className="wrap mt-20">
-          <h2 className="h-section text-3xl">The workflows</h2>
+          <h2 className="h-section text-3xl">A closer look</h2>
           <div className="mt-10 space-y-14">
             {project.gallery.map((g, i) => (
               <figure key={g.src}>
