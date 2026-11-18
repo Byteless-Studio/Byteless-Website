@@ -1,85 +1,67 @@
+const esc = (s) =>
+  String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const origin = request.headers.get("Origin");
-    const isProduction = (origin === "https://byteless.io") ||
-      (origin === "https://www.byteless.io") ||
-      (origin === "https://byteless-website-mailer.byteless.workers.dev/");
-    // 1. ROUTING: If not the API path, just show the website
     if (url.pathname !== "/api/send-email") {
       return env.ASSETS.fetch(request);
     }
 
-    // 2. CORS HEADERS
+    const origin = request.headers.get("Origin") || "";
+    const isProduction = ["https://byteless.io", "https://www.byteless.io"].includes(origin);
     const corsHeaders = {
       "Access-Control-Allow-Origin": origin || "*",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, X-Byteless-Secret",
+      "Content-Type": "application/json",
     };
+    const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: corsHeaders });
 
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders });
-    }
+    if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+    if (request.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
     const clientSecret = request.headers.get("X-Byteless-Secret");
-    if (clientSecret !== env.CLIENT_GATEWAY_SECRET && !isProduction) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: corsHeaders });
+    if (!isProduction && clientSecret !== env.CLIENT_GATEWAY_SECRET) {
+      return json({ error: "Unauthorized" }, 401);
+    }
+
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return json({ error: "Invalid JSON" }, 400);
+    }
+    const name = typeof body?.name === "string" ? body.name.trim() : "";
+    const email = typeof body?.email === "string" ? body.email.trim() : "";
+    const message = typeof body?.message === "string" ? body.message.trim() : "";
+    if (!name || name.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200 || message.length < 10 || message.length > 4000) {
+      return json({ error: "Name, a valid email and a message of 10 to 4000 characters are required." }, 400);
     }
 
     try {
-      const { name, email, message } = await request.json();
-
-      const resendResponse = await fetch("https://api.resend.com/emails", {
+      const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
-        headers: {
-          "Authorization": `Bearer ${env.RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
         body: JSON.stringify({
           from: "onboarding@resend.dev",
           to: "byteless.company@gmail.com",
           reply_to: email,
-          subject: `New Contact Form Submission from ${name}`,
+          subject: `Website enquiry from ${name}`,
           html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #1f2937; border-bottom: 2px solid #f59e0b; padding-bottom: 10px;">
-            New Contact Form Submission
-          </h2>
-          <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
+            <h2 style="color:#0f1a33;border-bottom:2px solid #2f6bff;padding-bottom:10px;">New website enquiry</h2>
+            <p><strong>Name:</strong> ${esc(name)}</p>
+            <p><strong>Email:</strong> ${esc(email)}</p>
             <p><strong>Message:</strong></p>
-            <div style="background-color: white; padding: 15px; border-radius: 4px; border-left: 4px solid #f59e0b;">
-              ${message.replace(/\n/g, '<br>')}
-            </div>
-          </div>
-          <p style="color: #6b7280; font-size: 14px;">
-            This message was sent from the Byteless contact form.
-          </p>
-        </div>`,
-          
+            <div style="background:#f6f7fb;padding:15px;border-radius:6px;border-left:4px solid #2f6bff;">${esc(message).replace(/\n/g, "<br>")}</div>
+          </div>`,
         }),
       });
-
-      if (!resendResponse.ok) {
-        const errorBody = await resendResponse.text();
-        return new Response(JSON.stringify({ error: errorBody }), {
-          status: 502,
-          headers: corsHeaders
-        });
-      }
-
-      return new Response(JSON.stringify({ success: true }), {
-        status: 200,
-        headers: corsHeaders
-      });
-
+      if (!res.ok) return json({ error: "Email provider rejected the message" }, 502);
+      return json({ success: true });
     } catch (error) {
-      return new Response(JSON.stringify({ error: error.message }), { 
-        status: 500, 
-        headers: corsHeaders 
-      });
+      return json({ error: error.message }, 500);
     }
   },
 };
-

@@ -1,3 +1,5 @@
+import type { ServiceId } from './services'
+
 export interface GalleryItem {
   src: string
   label: string
@@ -14,57 +16,182 @@ export interface Project {
   id: string
   name: string
   tagline: string
+  /** Honest origin: our own product, our own team, or a named business. */
+  builtFor: string
+  /** The buyer this kind of system helps, written to them. */
+  forWho: string
+  /** What setting one up for a new business involves, in order. */
+  forYou: string[]
+  /** Not AI work: listed under "Also built" instead of leading. */
+  alsoBuilt?: boolean
+  industry: string
+  year: string
+  services: ServiceId[]
   logo?: string
   logoBg?: string
   heroImage?: string
-  thumbnail?: string
-  status?: 'completed' | 'in-progress' | 'planned'
+  /** Portrait (phone) screenshots read better letterboxed than cropped. */
+  portrait?: boolean
   tags: string[]
   description: string
-  whatWeLearned: string[]
-  howWeBuiltIt: string
-  images: string[]
-  gallery?: GalleryItem[]
+  challenge: string
+  approach: string
+  outcomes: string[]
   features?: Feature[]
+  gallery?: GalleryItem[]
+  images: string[]
   technologies?: string[]
-  services?: string[]
-  whereWeAre?: string
-  whereWeAreGoing?: string
   websiteUrl?: string
-  appUrl?: string
-  githubUrl?: string
   downloadUrl?: string
 }
 
 export const projects: Project[] = [
   {
+    id: 'n8n-workflows',
+    name: 'Sales follow-up automation',
+    tagline: 'Every booking prepared and every sales call followed up, with nobody typing.',
+    builtFor: 'Our own sales process',
+    forWho: 'For teams that run sales calls and lose the hour after each one to admin.',
+    forYou: [
+      'We map what your team does by hand after a booking and after a call.',
+      'We rebuild those steps as workflows on the calendar, CRM and call recorder you already use.',
+      'Drafts wait for your review before anything is sent, until you trust it to run alone.',
+    ],
+    industry: 'Sales operations',
+    year: '2025',
+    services: ['implementation', 'consulting'],
+    logo: '/project_logos/n8n/n8n-color-white.png',
+    logoBg: 'bg-cream',
+    tags: ['Workflow automation', 'n8n', 'LLM classification'],
+    description:
+      'A set of n8n workflows that turn calendar bookings and meeting transcripts into CRM records, prepared documents and ready-to-send follow-ups.',
+    challenge:
+      'Every new sales call meant creating a CRM record, a shared folder and a personalised deck by hand, then writing the follow-up from memory. Small tasks, but they ate the hour after every meeting.',
+    approach:
+      'We mapped the post-booking and post-meeting steps, then automated them: a Cal.com booking creates the Airtable record, provisions the Drive folder and generates the deck from a master template; a Fathom transcript is classified by a model as a sales meeting or not, and if so a follow-up draft is written for review.',
+    outcomes: [
+      'Zero manual work between a booking and a prepared first call',
+      'Follow-up drafts waiting in the inbox before the meeting notes are closed',
+      'A model used only where judgement is needed, deterministic steps everywhere else',
+    ],
+    technologies: ['n8n', 'Cal.com', 'Airtable', 'Google Drive', 'Fathom', 'OpenAI API'],
+    gallery: [
+      {
+        src: '/project_snaps/n8n/Screenshot 2025-12-29 145223.png',
+        label: 'Booking to CRM record and deck',
+        description:
+          'Triggered by a Cal.com booking: creates the Airtable client record, provisions a Google Drive folder, and produces a personalised presentation by copying a master deck and injecting the booking details.',
+      },
+      {
+        src: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
+        label: 'Transcript to follow-up draft',
+        description:
+          'Receives a Fathom transcript by webhook, asks a model whether it qualifies as a sales meeting, and generates a follow-up email draft ready to review and send.',
+      },
+    ],
+    images: [],
+  },
+  {
+    id: 'aea',
+    name: 'AEA',
+    tagline: 'A desktop assistant that watches how you work and tells you, with evidence, how to focus better.',
+    builtFor: 'Our product',
+    forWho: 'For businesses sitting on activity data that nobody has time to interpret.',
+    forYou: [
+      'We look at the data you already collect and the questions people keep asking of it.',
+      'We build an assistant that answers those questions from your records and shows its evidence.',
+      'It runs inside your existing product or as its own tool, wherever your team will use it.',
+    ],
+    industry: 'Productivity software',
+    year: '2026',
+    services: ['implementation'],
+    logo: '/project_logos/aea/AEA_logo_transparent.png',
+    logoBg: 'bg-cream',
+    tags: ['RAG analytics', 'Desktop app', 'Activity tracking'],
+    description:
+      "AEA runs structured focus sessions on a user's PC, monitors app, browser and presence activity throughout, and at the end explains what happened and what to change, grounded in that user's own history.",
+    challenge:
+      'Focus tools either block everything or only nag. None of them could answer the question people actually have: why did my attention drop this afternoon, and what did my good days have in common?',
+    approach:
+      "We built an Electron application with a Python monitoring layer for apps, browser domains and webcam presence, a policy engine for lenient and strict sessions, and a retrieval-augmented analytics assistant that answers questions over the user's own session history rather than generic advice.",
+    outcomes: [
+      'Session reports that name specific distraction patterns and deep-work streaks',
+      'Per-session policies, from gentle nudges to hard blocking',
+      "An assistant that answers why-questions from the user's real data",
+    ],
+    technologies: ['Python', 'Node.js', 'React', 'TypeScript', 'MongoDB', 'Electron'],
+    downloadUrl: 'https://aea-downloads.pages.dev/',
+    features: [
+      {
+        title: 'Onboarding and setup',
+        description: 'A short onboarding flow gets a user into their first session in under a minute.',
+        images: ['/project_snaps/AEA/Screenshot 2026-03-12 160427.png', '/project_snaps/AEA/Screenshot 2026-03-11 230014.png'],
+      },
+      {
+        title: 'Session policies',
+        description: 'Allowed apps, blocked sites, time limits and enforcement level, set per session type.',
+        images: ['/project_snaps/AEA/Screenshot 2026-03-11 230059.png', '/project_snaps/AEA/Screenshot 2026-03-11 230028.png'],
+      },
+      {
+        title: 'App and web blocking',
+        description:
+          'Lenient mode notifies the moment a blocked app or site appears. Strict mode blocks it outright for the session.',
+        images: ['/project_snaps/AEA/Screenshot 2026-03-19 231337.png'],
+      },
+      {
+        title: 'AI analytics and insights',
+        description:
+          'Full session history broken down by focus time, app usage and distraction events, with a retrieval-grounded assistant that explains the patterns.',
+        images: [
+          '/project_snaps/AEA/Screenshot 2026-03-11 231055.png',
+          '/project_snaps/AEA/Screenshot 2026-03-11 231107.png',
+          '/project_snaps/AEA/Screenshot 2026-03-19 170722.png',
+        ],
+      },
+    ],
+    images: [
+      '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
+      '/project_snaps/AEA/Screenshot 2026-03-11 230059.png',
+      '/project_snaps/AEA/Screenshot 2026-03-11 231055.png',
+      '/project_snaps/AEA/Screenshot 2026-03-11 231107.png',
+    ],
+  },
+  {
     id: 'yaas',
     name: 'YAAS',
-    tagline: 'Your All-in-one Analytics & Sales System',
+    tagline: 'One analytics system for an e-commerce operation spread across six tools.',
+    builtFor: 'Our product',
+    forWho: 'For owners whose numbers live in several tools that never agree.',
+    forYou: [
+      'We list the tools your numbers live in and the questions you ask every week.',
+      'We bring the data into one private database, with a mapping you approve before anything is written.',
+      'You ask questions in plain language and get answers from your own figures.',
+    ],
+    industry: 'E-commerce',
+    year: '2026',
+    services: ['implementation', 'consulting'],
     logo: '/project_logos/yaas/yaas-transparent.png',
     logoBg: 'bg-cream',
-    heroImage: '/project_snaps/yaas/hero.png',
-    //status: 'in-progress',
-    tags: ['E-Commerce', 'Analytics', 'Inventory', 'AI/ML'],
-    services: ['ai-ml', 'automations', 'web-dev', 'full-stack'],
-    description: 'YAAS is an all-in-one analytics and sales platform built for e-commerce businesses that need real clarity across their entire operation. Managing a business today means juggling data spread across multiple platforms — sales channels, cost tools, customer systems, inventory software — with no single place to see it all. YAAS solves that. It pulls everything together into one unified system, giving you strong centralised control over your data no matter where it lives. From real-time analytics and smart inventory tracking to accounting visibility and AI-driven insights, YAAS makes managing your business straightforward — so you spend less time chasing numbers across platforms and more time acting on them.',
-    whatWeLearned: [],
-    howWeBuiltIt: '',
+    heroImage: '/project_snaps/yaas/analytics1.png',
+    tags: ['AI querying', 'Data mapping', 'Analytics', 'Inventory'],
+    description:
+      "YAAS pulls sales, cost, customer and inventory data from every platform an e-commerce business uses into one private database, then lets the owner ask questions about it in plain language.",
+    challenge:
+      "E-commerce operators run sales channels, cost tools, customer systems and inventory software that never agree with each other. A weekly review means exporting spreadsheets from each, reconciling by hand, and still not trusting the number.",
+    approach:
+      "We built an ingestion layer that accepts exports from any platform, uses a model to propose a mapping into the owner's own schema, and lets a human approve it before anything is written. On top of that sit live dashboards, inventory alerts, and a retrieval-grounded query engine that answers questions only from the owner's data.",
+    outcomes: [
+      'One source of truth replacing manual reconciliation across platforms',
+      'New data sources onboarded by upload and review, no engineering ticket needed',
+      "Plain-language questions answered from the owner's own numbers, with no SQL",
+    ],
     technologies: ['React', 'TanStack', 'TypeScript', 'MongoDB', 'Grok / Ollama', 'Tailwind CSS'],
     websiteUrl: 'https://yaas.byteless.io/',
     features: [
       {
-        title: 'Onboarding & Secure Auth',
-        description: 'A fully secure authentication flow — register, log in, and get into your dashboard fast. Built with robust auth at the core so your business data stays protected from the first interaction.',
-        images: [
-          '/project_snaps/yaas/login1.png',
-          '/project_snaps/yaas/login2.png',
-          '/project_snaps/yaas/registring.png',
-        ],
-      },
-      {
-        title: 'Seamless Multi-Platform Data Upload',
-        description: 'Bring in sales, customer, cost, and product data from any platform — no matter the source or format. YAAS accepts uploads from all kinds of e-commerce and business tools, consolidating everything into one unified system without any manual re-entry.',
+        title: 'Multi-platform data upload',
+        description:
+          'Sales, customer, cost and product exports from any tool are accepted as-is and consolidated into one system without manual re-entry.',
         images: [
           '/project_snaps/yaas/platformDataUpload1.png',
           '/project_snaps/yaas/dataUpload1.png',
@@ -75,8 +202,9 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Generic Data Mapping',
-        description: 'Every upload is first analysed and automatically mapped to your own private database schema. YAAS normalises incoming data from any source, then gives you full control to review and adjust the mapping before anything is committed — keeping your data structured exactly how you need it, personalised, secure, and never shared.',
+        title: 'AI-assisted schema mapping',
+        description:
+          "Each upload is analysed and mapped to the owner's private schema. The owner reviews and adjusts the mapping before anything is committed.",
         images: [
           '/project_snaps/yaas/dataAnalyzer1.png',
           '/project_snaps/yaas/dataAnalyzer2.png',
@@ -84,8 +212,9 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Smart Inventory Management',
-        description: 'A full view of your product catalogue with live stock levels, status tracking, and alerts built in. Manage your inventory confidently — YAAS keeps everything organised and flags what needs your attention before it becomes a problem.',
+        title: 'Inventory with alerts',
+        description:
+          'Live stock levels and status tracking across the catalogue, with alerts raised before a shortage becomes a lost sale.',
         images: [
           '/project_snaps/yaas/productsDisplay1.png',
           '/project_snaps/yaas/productsDisplay2.png',
@@ -94,26 +223,30 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Business Data Analytics',
-        description: 'Dashboards built around the numbers that matter most to your business — revenue, sales trends, product performance, and customer behaviour. Everything surfaced in context so you can act on it, not just look at it.',
-        images: [
-          '/project_snaps/yaas/analytics1.png',
-          '/project_snaps/yaas/analytics2.png',
-        ],
+        title: 'Business analytics',
+        description:
+          'Revenue, trends, product performance and customer behaviour in dashboards built around the decisions the owner makes weekly.',
+        images: ['/project_snaps/yaas/analytics1.png', '/project_snaps/yaas/analytics2.png'],
       },
       {
-        title: 'Smart Querying & Insights',
-        description: 'Ask questions about your own data in plain language and get precise, grounded answers. YAAS\'s AI query engine lets you dig into your business without needing to write a single line of SQL — fast, accurate, and scoped entirely to your data.',
+        title: 'Plain-language querying',
+        description:
+          "Questions about the business answered from the owner's own data by a retrieval-grounded query engine. No SQL, no hallucinated figures.",
         images: [
           '/project_snaps/yaas/queryAnalytics1.png',
           '/project_snaps/yaas/queryAnalytics2.png',
           '/project_snaps/yaas/queryAnalytics3.png',
         ],
       },
+      {
+        title: 'Secure onboarding',
+        description:
+          'Registration and sign-in built with robust authentication so business data is protected from the first session.',
+        images: ['/project_snaps/yaas/login1.png', '/project_snaps/yaas/login2.png', '/project_snaps/yaas/registring.png'],
+      },
     ],
     images: [
       '/project_snaps/yaas/hero.png',
-      '/project_snaps/yaas/login1.png',
       '/project_snaps/yaas/platformDataUpload1.png',
       '/project_snaps/yaas/productsDisplay1.png',
       '/project_snaps/yaas/analytics1.png',
@@ -121,120 +254,41 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'aea',
-    name: 'AEA',
-    tagline: 'Automated Executive Assistant',
-    logo: '/project_logos/aea/AEA_logo_transparent.png',
-    logoBg: 'bg-cream',
-    //status: 'completed',
-    tags: ['Productivity', 'Focus Tracking', 'AI/ML', 'Desktop'],
-    services: ['ai-ml', 'automations', 'web-dev', 'full-stack'],
-    description:
-      'AEA is a desktop application that lets you configure and run structured focus sessions, then monitors your PC activity across apps, browsers, and visual presence throughout. It tracks your habits across different phases of work over time, building a picture of how you actually spend your attention. At the end of each session, AEA analyses your behaviour and delivers AI-powered insights and actionable suggestions to help you sharpen your focus and get more from every working hour.',
-    whatWeLearned: [],
-    howWeBuiltIt: '',
-    technologies: ['Python', 'Node.js', 'React', 'TypeScript','MongoDB','Electron'],
-    features: [
-      {
-        title: 'Onboarding and Setup',
-        description:
-          'Get started with a clean onboarding flow, then let AEA do the heavy lifting. End-of-session reports surface patterns, highlight deep-work streaks, and flag chronic distractions.',
-        images: [
-          '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
-          '/project_snaps/AEA/Screenshot 2026-03-11 230014.png',
-        ],
-      },
-      {
-        title: 'Session Configuration & Policies',
-        description:
-          'Define your focus rules for specific purpose based sessions: set allowed apps, blocked sites, time limits, and enforcement behaviour. Full control over how strict or flexible your session runs.',
-        images: [
-          '/project_snaps/AEA/Screenshot 2026-03-11 230059.png',
-          '/project_snaps/AEA/Screenshot 2026-03-11 230028.png',
-        ],
-      },
-      {
-        title: 'App & Web Blocking',
-        description:
-          'On a lenient policy, AEA notifies you the moment a blacklisted app or site is detected, nudging you to stay on track. Switch to strict mode and access is blocked outright, keeping distractions out for the duration of your session.',
-        images: ['/project_snaps/AEA/Screenshot 2026-03-19 231337.png'],
-      },
-      {
-        title: 'AI Analytics & Insights',
-        description:
-          'Review your full session history at a glance: past and recent sessions broken down by focus time, app usage, distraction events, and productivity trends. Dig deeper with a RAG-powered AI engine that knows your data: ask why your focus dropped, what your strongest sessions had in common, or what to do differently, and get answers grounded in your own history, not generic advice.',
-        images: [
-          '/project_snaps/AEA/Screenshot 2026-03-11 231055.png',
-          '/project_snaps/AEA/Screenshot 2026-03-11 231107.png',
-          '/project_snaps/AEA/Screenshot 2026-03-19 170722.png',
-        ],
-      },
-    ],
-    downloadUrl: 'https://aea-downloads.pages.dev/',
-    images: [
-      '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
-      '/project_snaps/AEA/Screenshot 2026-03-11 230059.png',
-      '/project_snaps/AEA/Screenshot 2026-03-11 230014.png',
-      '/project_snaps/AEA/Screenshot 2026-03-11 230028.png',
-      '/project_snaps/AEA/Screenshot 2026-03-11 231055.png',
-      '/project_snaps/AEA/Screenshot 2026-03-11 231107.png',
-    ],
-    gallery: [
-      {
-        src: '/project_snaps/AEA/Screenshot 2026-03-12 160427.png',
-        label: 'Welcome & Profile Setup',
-        description:
-          'Get started by entering your name and setting up your profile. A clean welcome screen that gets you into your first session in seconds.',
-      },
-      {
-        src: '/project_snaps/AEA/Screenshot 2026-03-11 230059.png',
-        label: 'Session Configuration & Policies',
-        description:
-          'Define your focus rules before every session: set allowed apps, blocked sites, time limits, and enforcement behaviour. Full control over how strict or flexible your session runs.',
-      },
-      {
-        src: '/project_snaps/AEA/Screenshot 2026-03-11 230028.png',
-        label: 'Session Configuration',
-        description:
-          'Define allowed applications and websites per session type (work, study, creative) with granular policy controls.',
-      },
-      {
-        src: '/project_snaps/AEA/Screenshot 2026-03-11 230059.png',
-        label: 'Live Session',
-        description:
-          'Real-time monitoring view showing active app, elapsed focus time, facial presence status, and live policy enforcement.',
-      },
-      {
-        src: '/project_snaps/AEA/Screenshot 2026-03-11 231055.png',
-        label: 'Activity Tracking',
-        description:
-          'A full timeline of every app and browser domain visited during the session, with time-on-task breakdowns.',
-      },
-      {
-        src: '/project_snaps/AEA/Screenshot 2026-03-11 231107.png',
-        label: 'Session Analytics',
-        description:
-          'Post-session AI report highlighting deep-work streaks, distraction hotspots, and week-over-week trends.',
-      },
-    ],
-  },
-  {
     id: 'deeds',
     name: 'Deeds',
-    tagline: 'The app that helps you get what you need done, with the help of what you\'ve always had.',
-    //status: 'completed',
+    tagline: 'Social accountability: goals your friends hold you to.',
+    builtFor: 'Our product',
+    forWho: 'For founders who need a mobile product live without paying for two native apps.',
+    forYou: [
+      'We agree the smallest version worth launching.',
+      'We build it as an installable web app from one codebase.',
+      'We host and run it for you after launch.',
+    ],
+    alsoBuilt: true,
+    industry: 'Consumer app',
+    year: '2025',
+    services: ['implementation', 'infrastructure'],
+    portrait: true,
     logo: '/project_logos/deeds/deeds-logo-with-text and ball.png',
     logoBg: 'bg-cream',
-    tags: ['Productivity', 'Accountability', 'Social', 'Web', 'iOS', 'Android'],
-    description: 'Deeds is a social accountability app that turns your goals into commitments your friends hold you to. Create a deed, assign it a point value, set a deadline, and nominate a friend as your verifier. Once they approve it, the deed is locked in: no cancellations, only completion or failure. Earn points when your friend confirms you followed through, and verify theirs in return. A simple loop of commitment, accountability, and friendly competition that actually gets things done.',
-    services: ['mobile', 'full-stack'],
-    whatWeLearned: [],
-    howWeBuiltIt: '',
+    tags: ['PWA', 'Mobile', 'Notifications', 'AWS'],
+    description:
+      'Deeds turns a goal into a commitment: set a task, a deadline and a point value, nominate a friend to verify it, and once they accept there is no cancelling.',
+    challenge:
+      'To-do apps are easy to ignore because nobody is watching. The product needed a verifier loop, real-time notifications and installability on any phone without the cost of two native app store builds.',
+    approach:
+      'We shipped Deeds as a progressive web app on AWS with Google sign-in, push notifications, friend search and a deed lifecycle enforced server-side so a locked deed can only complete or fail.',
+    outcomes: [
+      'Installable on iOS and Android from one codebase',
+      'Verifier loop and point system enforced in the backend, not the UI',
+      'Infrastructure run by Byteless on AWS with Docker',
+    ],
+    technologies: ['AWS', 'Python', 'Angular', 'TypeScript', 'MongoDB', 'Docker'],
+    websiteUrl: 'https://deeds.you',
     features: [
       {
-        title: 'Install',
-        description:
-          'Deeds is a Progressive Web App — add it to your home screen on any device for a native app feel, without the App Store. Fast, installable, and always up to date.',
+        title: 'Install anywhere',
+        description: 'A progressive web app added to the home screen on any device, no app store required.',
         images: [
           '/project_snaps/deeds/install-deeds-snap-1.png',
           '/project_snaps/deeds/install-deeds-snap-2.png',
@@ -242,25 +296,13 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Main Page',
-        description:
-          'Track everything in one place — active deeds, pending verifications, completed wins, and failed attempts. Your accountability dashboard at a glance.',
-        images: [
-          '/project_snaps/deeds/main-page-deeds-snap.png',
-        ],
+        title: 'Dashboard',
+        description: 'Active deeds, pending verifications, wins and failures in one view.',
+        images: ['/project_snaps/deeds/main-page-deeds-snap.png'],
       },
       {
-        title: 'Social Auth',
-        description:
-          'Jump in quickly with Google sign-in. A clean authentication flow gets you set up in seconds — no friction, no fuss.',
-        images: [
-          '/project_snaps/deeds/deeds-snap-7-social-auth.png',
-        ],
-      },
-      {
-        title: 'Deed Flow',
-        description:
-          'Set your task, assign a deadline, pick a point value, and send it off to a friend as your verifier. Once they approve — your deed is live and on the clock. You either complete it or fail it, no canceling.',
+        title: 'Deed flow',
+        description: 'Task, deadline, points, verifier. Once approved the deed is live and can only complete or fail.',
         images: [
           '/project_snaps/deeds/deeds-snap-1-deed-flow.png',
           '/project_snaps/deeds/deeds-snap-2-deed-flow.png',
@@ -268,82 +310,54 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Social',
-        description:
-          'Search for friends, build your circle, and compete on who can complete the most deeds. The more friends you have, the more accountability — and competition — you get.',
+        title: 'Friends and notifications',
+        description: 'Friend search, verification requests and deadline reminders delivered as push notifications.',
         images: [
           '/project_snaps/deeds/social-deeds-snap-9.png',
-        ],
-      },
-      {
-        title: 'Notifications',
-        description:
-          'Get notified the moment a friend sends you a deed to verify, approves yours, or when a deadline is closing in. Stay in the loop without having to check constantly.',
-        images: [
           '/project_snaps/deeds/notification-deeds-snap-1.png',
           '/project_snaps/deeds/notification-deeds-snap-2.png',
         ],
       },
     ],
     images: [
-      '/project_snaps/deeds/deeds-snap-1-deed-flow.png',
-      '/project_snaps/deeds/deeds-snap-2-deed-flow.png',
-      '/project_snaps/deeds/deeds-snap-7-social-auth.png',
-      '/project_snaps/deeds/install-deeds-snap-2.png',
       '/project_snaps/deeds/main-page-deeds-snap.png',
-      '/project_snaps/deeds/notification-deeds-snap-2.png',
-      '/project_snaps/deeds/deeds-snap-3-deed-flow.png',
-      '/project_snaps/deeds/install-deeds-snap-1.png',
-      '/project_snaps/deeds/install-deeds-snap-3.png',
-      '/project_snaps/deeds/notification-deeds-snap-1.png',
+      '/project_snaps/deeds/deeds-snap-1-deed-flow.png',
       '/project_snaps/deeds/social-deeds-snap-9.png',
     ],
-    technologies: ['AWS', 'Python', 'Angular', 'TypeScript', 'MongoDB', 'Docker'],
-    websiteUrl: 'https://deeds.you',
-
   },
-
   {
     id: 'alamra',
-    name: 'Alamra Website',
-    tagline: 'Bringing a traditional embroidery business to the modern digital ecosystem',
+    name: 'Alamra Importers',
+    tagline: 'A traditional embroidery business brought online.',
+    builtFor: 'Alamra Importers',
+    forWho: 'For established businesses that need a fast, good-looking website with almost no running cost.',
+    forYou: [
+      'We agree the pages and the catalogue structure with you.',
+      'We design and build the site and put it on a global network.',
+      'We host it and make changes when you need them.',
+    ],
+    alsoBuilt: true,
+    industry: 'Manufacturing and retail',
+    year: '2026',
+    services: ['implementation', 'infrastructure'],
     logo: '/project_logos/alamra_project_logos/logo-gold-512.webp',
     logoBg: 'bg-cream',
-    //status: 'completed',
-    tags: ['E-Commerce', 'Craftsmanship', 'Web'],
-    services: ['web-dev'],
-    description: 'The official website for Alamra Importers, a leading provider of premium ceremonial insignia, bullion crests, badges, and traditional military craftsmanship. Built with modern web technologies for a professional and elegant showcase of our products.',
-    whatWeLearned: [],
-    howWeBuiltIt: '',
+    tags: ['Web', 'Catalogue', 'Cloudflare'],
+    description:
+      'The public website for a provider of ceremonial insignia, bullion crests and military craftsmanship, built as a fast, elegant catalogue.',
+    challenge:
+      'A traditional craft business needed a web presence that looked as considered as the work, loaded instantly, and cost almost nothing to run.',
+    approach:
+      'We designed and built a static-first React site on Cloudflare, with a product catalogue structured for future e-commerce and hosting managed by Byteless.',
+    outcomes: [
+      'A professional catalogue live on a global edge network',
+      'Near-zero hosting cost and no servers to maintain',
+      'Structure ready for ordering when the business wants it',
+    ],
     technologies: ['React', 'TypeScript', 'TanStack Router', 'Cloudflare Pages'],
     websiteUrl: 'https://alamraimporters.com/',
     images: ['/project_snaps/Alamra/Screenshot 2026-03-21 152905.png'],
   },
-
-  {
-    id: 'N8N Workflows',
-    name: 'N8N Workflows',
-    tagline: 'Automated Workflows',
-    logo: '/project_logos/n8n/n8n-color-white.png',
-    logoBg: 'bg-cream',
-    tags: ['Automation', 'Workflow', 'AI/ML'],
-    services: ['automations', 'web-dev'],
-    description: '',
-    whatWeLearned: [],
-    howWeBuiltIt: '',
-    features: [],
-    gallery: [
-      {
-        src: '/project_snaps/n8n/Screenshot 2025-12-29 145223.png',
-        label: 'Cal.com Booking to Airtable & Deck',
-        description: 'Triggered by a Cal.com booking, this workflow automatically creates an Airtable client record, provisions a Google Drive folder, and produces a personalised presentation by copying a master deck and injecting the booking details directly into the slides. Zero manual work.',
-      },
-      {
-        src: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
-        label: 'Fathom Transcript to Email Draft',
-        description: 'Receives a Fathom meeting transcript via webhook, uses AI to validate whether it qualifies as a sales meeting, and automatically generates a polished follow-up email draft, ready to review and send.',
-      },
-    ],
-    images: [],
-  },
 ]
+
+export const projectById = (id: string) => projects.find((p) => p.id === id)

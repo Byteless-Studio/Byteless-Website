@@ -1,96 +1,99 @@
-import { useState, useEffect } from 'react'
-import { Bars3Icon } from '@heroicons/react/24/outline'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
-import { MobileDrawer } from './MobileDrawer'
+import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
 
+const navItems = [
+  { name: 'Services', to: '/services' },
+  { name: 'Work', to: '/portfolio' },
+  { name: 'About', to: '/', hash: 'about' },
+  { name: 'Contact', to: '/', hash: 'contact' },
+] as const
+
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
   const location = useLocation()
-  const contactLink = location.pathname + '#contact'
 
   useEffect(() => {
-    if (!window.location.hash) {
-      window.scrollTo(0, 0)
-    }
-  }, [location.pathname])
+    setOpen(false)
+    if (!location.hash) window.scrollTo(0, 0)
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const navItems = [
-    { name: 'About',     href: '/#about',    anchor: true },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Services',  href: '/#services', anchor: true },
-    { name: 'Blog',      href: '/blog' },
-  ]
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full">
-      <div
-        className={`w-full transition-all duration-300 ${
-          isScrolled ? 'bg-navy/95 backdrop-blur-md shadow-sm shadow-black/20' : 'bg-transparent'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center justify-between py-4 md:h-16 md:py-0">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur transition-shadow ${
+        scrolled || open ? 'shadow-[0_1px_0_rgba(0,0,0,0.08)]' : ''
+      }`}
+    >
+      <nav className="wrap flex h-16 items-center justify-between" aria-label="Main">
+        <Link to="/" aria-label="Byteless home" className="flex items-center gap-2.5">
+          <Logo size="sm" variant="blue" />
+          <span className="text-xl font-bold tracking-tight text-black">byteless</span>
+        </Link>
 
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
-              <Logo size="md" variant="light" />
-            </Link>
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) =>
-                item.anchor ? (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="text-cream font-medium text-sm tracking-wide hover:opacity-60 transition-opacity duration-200"
-                  >
-                    {item.name}
-                  </a>
-                ) : (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="text-cream font-medium text-sm tracking-wide hover:opacity-60 transition-opacity duration-200"
-                  >
-                    {item.name}
-                  </Link>
-                )
-              )}
-              <a
-                href={contactLink}
-                className="bg-cream text-navy px-6 py-2 rounded-lg font-medium text-sm hover:bg-cream/80 transition-colors duration-200"
-              >
-                Contact Us
-              </a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-cream hover:opacity-60 transition-opacity"
+        <div className="hidden items-center gap-1 md:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.to}
+              hash={'hash' in item ? item.hash : undefined}
+              className="rounded px-3 py-2 text-sm text-black/70 hover:bg-cream/60 hover:text-black transition-colors"
             >
-              <Bars3Icon className="h-6 w-6 text-cream" />
-            </button>
-          </nav>
+              {item.name}
+            </Link>
+          ))}
+          <Link to="/" hash="contact" className="btn-primary ml-3 py-2">
+            Free consult
+          </Link>
         </div>
-      </div>
 
-      <MobileDrawer
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-        navItems={navItems}
-        contactLink={contactLink}
-      />
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          className="md:hidden -mr-2 p-2 text-black"
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+        >
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </nav>
+
+      {open && (
+        <div id="mobile-nav" className="md:hidden fixed inset-x-0 top-16 bottom-0 bg-white">
+          <div className="wrap flex flex-col py-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.to}
+                hash={'hash' in item ? item.hash : undefined}
+                onClick={() => setOpen(false)}
+                className="border-b border-black/10 py-4 text-2xl font-semibold tracking-tight"
+              >
+                {item.name}
+              </Link>
+            ))}
+            <Link to="/" hash="contact" className="btn-primary mt-6 w-full py-3" onClick={() => setOpen(false)}>
+              Get a free consult
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   )
 }

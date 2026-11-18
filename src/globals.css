@@ -1,81 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ------------------------
-   Base Styles
------------------------- */
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
+  html { scroll-behavior: smooth; }
   body {
-    overflow-x: hidden;
-    color: #f0ebe2;
-    background-color: #080f1e;
-    background-image:
-      /* Top-center electric blue glow */
-      radial-gradient(ellipse 85% 50% at 50% -5%, rgba(22, 75, 170, 0.45) 0%, transparent 65%),
-      /* Bottom-right deep accent */
-      radial-gradient(ellipse 55% 35% at 90% 105%, rgba(12, 35, 90, 0.5) 0%, transparent 60%),
-      /* Dot grid */
-      radial-gradient(circle at 1px 1px, rgba(240, 235, 226, 0.045) 1px, transparent 0);
-    background-size: 100% 100%, 100% 100%, 28px 28px;
-    background-repeat: no-repeat, no-repeat, repeat;
-    background-attachment: fixed, fixed, scroll;
+    @apply bg-white text-black overflow-x-hidden;
+    font-feature-settings: 'cv11', 'ss01';
   }
-
+  ::selection { background: #164baa; color: #fff; }
+  :focus-visible { outline: 2px solid #164baa; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+  }
 }
 
-/* ------------------------
-   Component Utilities
------------------------- */
 @layer components {
-  /* Layout */
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
+  .wrap { @apply max-w-site mx-auto px-5 sm:px-8; }
 
-  .section-padding {
-    @apply py-12 sm:py-16 lg:py-20;
-  }
+  .h-display { @apply font-bold text-black; letter-spacing: -0.045em; line-height: 1.02; }
+  .h-section { @apply font-bold text-black; letter-spacing: -0.03em; line-height: 1.1; }
 
-  /* Buttons */
-  .btn-primary {
-    @apply bg-cream hover:bg-cream/80 text-navy px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
-  }
+  /* Buttons: rectangles with a light shadow */
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded px-4 py-2.5 text-sm font-medium transition-colors duration-150; }
+  .btn-primary { @apply btn bg-blue text-white shadow-btn hover:bg-blue-dark; }
+  .btn-secondary { @apply btn bg-white text-black border border-black/15 shadow-btn hover:bg-cream/50; }
+  .btn-white { @apply btn bg-white text-black shadow-btn hover:bg-white/90; }
 
-  .btn-secondary {
-    @apply border-2 border-cream text-cream hover:bg-cream hover:text-navy px-6 py-3 rounded-lg font-medium transition-all duration-300;
-  }
+  .card { @apply rounded-md bg-white shadow-card; }
 
-  .btn-outline {
-    @apply border-2 border-cream/40 text-cream/80 hover:border-cream hover:text-cream px-6 py-3 rounded-lg font-medium transition-all duration-300;
-  }
+  .field { @apply w-full rounded border border-black/15 bg-white px-3 py-2.5 text-sm text-black shadow-btn placeholder:text-black/40 focus:border-blue focus:outline-none focus:ring-2 focus:ring-blue/20 transition; }
 
-  /* Cards */
-  .card {
-    @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden;
-  }
-
-  .card-hover {
-    @apply transform hover:-translate-y-2;
-  }
-
-  /* Form Fields */
-  .input-field {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300;
-  }
-
-  .textarea-field {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none;
-  }
-
-  /* Text */
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent;
-  }
+  .link { @apply text-blue hover:text-blue-dark underline-offset-4 hover:underline; }
+  .muted { @apply text-black/60; }
 }

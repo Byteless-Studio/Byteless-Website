@@ -1,40 +1,30 @@
-# Byteless - Software Studio
+# Byteless - AI agency website
 
-The official website for **Byteless**, a product studio that designs and builds fast, modern digital experiences — from MVPs to full product systems.
+The official website for **Byteless**, an AI agency. We advise businesses on where AI pays off, then design, build and run the systems.
 
 **Live Site**: [byteless.io](https://byteless.io)
 
-## About Byteless
+## Services
 
-Byteless is a software studio run by founders, for founders. We turn ideas into real, usable products through clear guidance, strong engineering, and a partner-first approach. Services include:
+Two primary offers:
 
-- **Web Development**: Full-stack applications, SPAs, APIs
-- **Mobile Development**: Cross-platform mobile apps
-- **AI & Agentic Systems**: LLM integrations, automation pipelines
-- **UI / UX Design**: Branding, interfaces, and visual systems
-- **Consulting**: Product strategy and technical architecture
+- **AI consulting**: opportunity audit, roadmap, build-vs-buy and architecture review
+- **AI services & implementation**: custom agents, retrieval over company data, workflow automation, AI features in products
 
-## Features
+Two secondary offers:
 
-- **Responsive Layout**: Optimized for all devices and screen sizes
-- **Single-page scrolling**: About and Services integrated into the home page
-- **Portfolio**: Showcase of selected client work with detail pages
-- **Blog**: Articles and updates
-- **Contact**: Integrated Cal.com booking for scheduling calls
-- **SEO Optimized**: Meta tags and structured data
-- **Deployment**: Cloudflare Workers with built-in email API
+- **Infrastructure management & support**
+- **Security audits**, including AI-specific risks such as prompt injection
+
+Service copy lives in `src/data/services.ts`. Case studies live in `src/data/projects.ts`.
 
 ## Tech Stack
 
-- **Framework**: Vite + React 18
-- **Routing**: TanStack Router (file-based routing)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Heroicons + Lucide React
-- **Booking**: Cal.com embed
-- **Fonts**: Google Fonts (Inter, Playfair Display)
-- **Deployment**: Cloudflare Workers + Pages
+- Vite + React 18 + TypeScript
+- TanStack Router (file-based routing)
+- Tailwind CSS
+- Lucide icons
+- Cloudflare Worker for static assets and the contact form endpoint (`worker.js`, sends through Resend)
 
 ## Getting Started
 
@@ -74,21 +64,29 @@ npm run preview  # Preview production build locally
 
 ```
 src/
-├── routes/                 # TanStack Router pages
-│   ├── __root.tsx         # Root layout (Header, Footer, ContactSection)
-│   ├── index.tsx          # Home page (Hero, About, Services, Portfolio)
-│   ├── blog.tsx           # Blog page
-│   └── portfolio/         # Portfolio pages
-│       ├── index.tsx      # Portfolio grid
-│       └── $projectId.tsx # Individual project detail
-├── components/            # Reusable components
-│   ├── layout/           # Header, Footer, MobileDrawer, Logo
-│   ├── sections/         # Page sections (Hero, About, Services, etc.)
-│   ├── portfolio/        # Portfolio-specific components
-│   └── ui/               # Shared UI primitives
-├── data/                 # Static data
-│   └── projects.ts       # Portfolio project data
-└── globals.css           # Global styles
+├── routes/
+│   ├── __root.tsx            # Header, contact section, footer
+│   ├── index.tsx             # Home
+│   ├── services.tsx          # All four services in depth
+│   └── portfolio/
+│       ├── index.tsx         # Case study index, filterable by service
+│       └── $projectId.tsx    # Case study detail
+├── components/
+│   ├── layout/               # Header, Footer, Logo
+│   ├── sections/             # Home page and contact sections
+│   └── portfolio/            # ProjectCard
+├── data/
+│   ├── services.ts           # The four offers
+│   └── projects.ts           # Work pages
+└── globals.css               # Design tokens and shared component classes
+```
+
+## Checks
+
+```bash
+npm run type-check
+npm test          # contact endpoint validation and escaping
+npm run build
 ```
 
 ## Deployment
@@ -105,4 +103,4 @@ This project is private and proprietary to Byteless.
 
 ## Contact
 
-Visit [byteless.io](https://byteless.io) or email [hello@byteless.io](mailto:hello@byteless.io).
+Visit [byteless.io](https://byteless.io) or email [byteless.company@gmail.com](mailto:byteless.company@gmail.com).

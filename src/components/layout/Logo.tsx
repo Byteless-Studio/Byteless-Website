@@ -1,7 +1,7 @@
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg'
-  /** 'dark' = filled navy + outlined navy (on cream bg), 'light' = filled cream + outlined cream (on navy bg) */
-  variant?: 'dark' | 'light'
+  /** 'dark' = navy, 'light' = cream (on dark backgrounds), 'blue' = the Byteless blue */
+  variant?: 'dark' | 'light' | 'blue'
 }
 
 const sizeMap = {
@@ -11,7 +11,7 @@ const sizeMap = {
 }
 
 export function Logo({ size = 'md', variant = 'dark' }: LogoProps) {
-  const fillColor = variant === 'dark' ? '#14213d' : '#f0ebe2'
+  const fillColor = { dark: '#14213d', light: '#f0ebe2', blue: '#164baa' }[variant]
 
   return (
     <span className={`flex items-center select-none ${sizeMap[size]}`}>
