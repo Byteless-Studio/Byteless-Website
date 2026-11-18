@@ -1,13 +1,13 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 
-// Real screenshots of AI systems we shipped, each linking to its case study.
+// Real screenshots of AI systems we built, each linking to its work page.
 const work = [
   {
-    id: 'yaas',
-    name: 'YAAS',
-    line: 'Ask questions about your sales data in plain English.',
-    img: '/project_snaps/yaas/queryAnalytics3.png',
+    id: 'n8n-workflows',
+    name: 'Call to follow-up',
+    line: 'An AI agent that turns sales call transcripts into follow-up emails.',
+    img: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
   },
   {
     id: 'aea',
@@ -17,9 +17,9 @@ const work = [
   },
   {
     id: 'n8n-workflows',
-    name: 'Sales operations',
-    line: 'An AI agent that turns call transcripts into follow-up emails.',
-    img: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
+    name: 'Booking to first call',
+    line: 'A new booking creates the CRM record, shared folder and deck on its own.',
+    img: '/project_snaps/n8n/Screenshot 2025-12-29 145223.png',
   },
 ]
 
@@ -34,8 +34,8 @@ export function Hero() {
           </h1>
           <div className="animate-rise [animation-delay:120ms] lg:pb-3">
             <p className="text-lg leading-relaxed text-black/70">
-              Byteless is an AI consulting and implementation studio. We find where AI pays off for you, then
-              build it and keep it running.
+              Byteless is an AI consulting and implementation studio for growing businesses. We find where AI
+              saves your team time, then build it and keep it running.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
               <Link to="/" hash="contact" className="btn-primary px-5 py-3">
@@ -49,6 +49,7 @@ export function Hero() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
+            <p className="mt-4 text-sm text-black/50">Thirty minutes with a founder. Free, no obligation.</p>
           </div>
         </div>
 
@@ -56,14 +57,14 @@ export function Hero() {
           <div className="flex items-baseline justify-between border-b border-black/10 pb-3">
             <h2 className="text-sm font-semibold">Recent AI work</h2>
             <Link to="/portfolio" className="text-sm text-black/55 hover:text-black">
-              All case studies
+              All work
             </Link>
           </div>
 
           {/* Swipe on phones, three columns from tablet up */}
           <ul className="-mx-5 mt-5 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0">
             {work.map((w) => (
-              <li key={w.id} className="w-[82%] flex-none snap-start sm:w-auto">
+              <li key={w.name} className="w-[82%] flex-none snap-start sm:w-auto">
                 <Link to="/portfolio/$projectId" params={{ projectId: w.id }} className="group block">
                   <div className="overflow-hidden rounded-md bg-cream p-3 sm:p-4">
                     <img

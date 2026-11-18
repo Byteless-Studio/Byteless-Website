@@ -16,8 +16,14 @@ export interface Project {
   id: string
   name: string
   tagline: string
-  /** Who it was for. "Byteless" marks an in-house product. */
-  client: string
+  /** Honest origin: our own product, our own team, or a named business. */
+  builtFor: string
+  /** The buyer this kind of system helps, written to them. */
+  forWho: string
+  /** What setting one up for a new business involves, in order. */
+  forYou: string[]
+  /** Not AI work: listed under "Also built" instead of leading. */
+  alsoBuilt?: boolean
   industry: string
   year: string
   services: ServiceId[]
@@ -41,101 +47,61 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'yaas',
-    name: 'YAAS',
-    tagline: 'One analytics system for an e-commerce operation spread across six tools.',
-    client: 'Byteless',
-    industry: 'E-commerce',
-    year: '2026',
+    id: 'n8n-workflows',
+    name: 'Sales follow-up automation',
+    tagline: 'Every booking prepared and every sales call followed up, with nobody typing.',
+    builtFor: 'Our own sales process',
+    forWho: 'For teams that run sales calls and lose the hour after each one to admin.',
+    forYou: [
+      'We map what your team does by hand after a booking and after a call.',
+      'We rebuild those steps as workflows on the calendar, CRM and call recorder you already use.',
+      'Drafts wait for your review before anything is sent, until you trust it to run alone.',
+    ],
+    industry: 'Sales operations',
+    year: '2025',
     services: ['implementation', 'consulting'],
-    logo: '/project_logos/yaas/yaas-transparent.png',
+    logo: '/project_logos/n8n/n8n-color-white.png',
     logoBg: 'bg-cream',
-    heroImage: '/project_snaps/yaas/hero.png',
-    tags: ['AI querying', 'Data mapping', 'Analytics', 'Inventory'],
+    tags: ['Workflow automation', 'n8n', 'LLM classification'],
     description:
-      "YAAS pulls sales, cost, customer and inventory data from every platform an e-commerce business uses into one private database, then lets the owner ask questions about it in plain language.",
+      'A set of n8n workflows that turn calendar bookings and meeting transcripts into CRM records, prepared documents and ready-to-send follow-ups.',
     challenge:
-      "E-commerce operators run sales channels, cost tools, customer systems and inventory software that never agree with each other. A weekly review means exporting spreadsheets from each, reconciling by hand, and still not trusting the number.",
+      'Every new sales call meant creating a CRM record, a shared folder and a personalised deck by hand, then writing the follow-up from memory. Small tasks, but they ate the hour after every meeting.',
     approach:
-      "We built an ingestion layer that accepts exports from any platform, uses a model to propose a mapping into the client's own schema, and lets a human approve it before anything is written. On top of that sit live dashboards, inventory alerts, and a retrieval-grounded query engine that answers questions only from the client's data.",
+      'We mapped the post-booking and post-meeting steps, then automated them: a Cal.com booking creates the Airtable record, provisions the Drive folder and generates the deck from a master template; a Fathom transcript is classified by a model as a sales meeting or not, and if so a follow-up draft is written for review.',
     outcomes: [
-      'One source of truth replacing manual reconciliation across platforms',
-      'New data sources onboarded by upload and review, no engineering ticket needed',
-      "Plain-language questions answered from the client's own numbers, with no SQL",
+      'Zero manual work between a booking and a prepared first call',
+      'Follow-up drafts waiting in the inbox before the meeting notes are closed',
+      'A model used only where judgement is needed, deterministic steps everywhere else',
     ],
-    technologies: ['React', 'TanStack', 'TypeScript', 'MongoDB', 'Grok / Ollama', 'Tailwind CSS'],
-    websiteUrl: 'https://yaas.byteless.io/',
-    features: [
+    technologies: ['n8n', 'Cal.com', 'Airtable', 'Google Drive', 'Fathom', 'OpenAI API'],
+    gallery: [
       {
-        title: 'Multi-platform data upload',
+        src: '/project_snaps/n8n/Screenshot 2025-12-29 145223.png',
+        label: 'Booking to CRM record and deck',
         description:
-          'Sales, customer, cost and product exports from any tool are accepted as-is and consolidated into one system without manual re-entry.',
-        images: [
-          '/project_snaps/yaas/platformDataUpload1.png',
-          '/project_snaps/yaas/dataUpload1.png',
-          '/project_snaps/yaas/dataUpload2.png',
-          '/project_snaps/yaas/dataUpload3.png',
-          '/project_snaps/yaas/productUpload1.png',
-          '/project_snaps/yaas/productUpload2.png',
-        ],
+          'Triggered by a Cal.com booking: creates the Airtable client record, provisions a Google Drive folder, and produces a personalised presentation by copying a master deck and injecting the booking details.',
       },
       {
-        title: 'AI-assisted schema mapping',
+        src: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
+        label: 'Transcript to follow-up draft',
         description:
-          "Each upload is analysed and mapped to the client's private schema. The owner reviews and adjusts the mapping before anything is committed.",
-        images: [
-          '/project_snaps/yaas/dataAnalyzer1.png',
-          '/project_snaps/yaas/dataAnalyzer2.png',
-          '/project_snaps/yaas/productFileAnalyzer.png',
-        ],
-      },
-      {
-        title: 'Inventory with alerts',
-        description:
-          'Live stock levels and status tracking across the catalogue, with alerts raised before a shortage becomes a lost sale.',
-        images: [
-          '/project_snaps/yaas/productsDisplay1.png',
-          '/project_snaps/yaas/productsDisplay2.png',
-          '/project_snaps/yaas/productAnalytics1.png',
-          '/project_snaps/yaas/productAnalytics2.png',
-        ],
-      },
-      {
-        title: 'Business analytics',
-        description:
-          'Revenue, trends, product performance and customer behaviour in dashboards built around the decisions the owner makes weekly.',
-        images: ['/project_snaps/yaas/analytics1.png', '/project_snaps/yaas/analytics2.png'],
-      },
-      {
-        title: 'Plain-language querying',
-        description:
-          "Questions about the business answered from the client's own data by a retrieval-grounded query engine. No SQL, no hallucinated figures.",
-        images: [
-          '/project_snaps/yaas/queryAnalytics1.png',
-          '/project_snaps/yaas/queryAnalytics2.png',
-          '/project_snaps/yaas/queryAnalytics3.png',
-        ],
-      },
-      {
-        title: 'Secure onboarding',
-        description:
-          'Registration and sign-in built with robust authentication so business data is protected from the first session.',
-        images: ['/project_snaps/yaas/login1.png', '/project_snaps/yaas/login2.png', '/project_snaps/yaas/registring.png'],
+          'Receives a Fathom transcript by webhook, asks a model whether it qualifies as a sales meeting, and generates a follow-up email draft ready to review and send.',
       },
     ],
-    images: [
-      '/project_snaps/yaas/hero.png',
-      '/project_snaps/yaas/platformDataUpload1.png',
-      '/project_snaps/yaas/productsDisplay1.png',
-      '/project_snaps/yaas/analytics1.png',
-      '/project_snaps/yaas/queryAnalytics1.png',
-    ],
+    images: [],
   },
   {
     id: 'aea',
     name: 'AEA',
     tagline: 'A desktop assistant that watches how you work and tells you, with evidence, how to focus better.',
-    client: 'Byteless',
+    builtFor: 'Our product',
+    forWho: 'For businesses sitting on activity data that nobody has time to interpret.',
+    forYou: [
+      'We look at the data you already collect and the questions people keep asking of it.',
+      'We build an assistant that answers those questions from your records and shows its evidence.',
+      'It runs inside your existing product or as its own tool, wherever your team will use it.',
+    ],
     industry: 'Productivity software',
     year: '2026',
     services: ['implementation'],
@@ -191,49 +157,114 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'n8n-workflows',
-    name: 'Sales operations automation',
-    tagline: 'Booking-to-proposal and meeting-to-follow-up, with no one typing anything.',
-    client: 'Internal and client deployments',
-    industry: 'Sales operations',
-    year: '2025',
+    id: 'yaas',
+    name: 'YAAS',
+    tagline: 'One analytics system for an e-commerce operation spread across six tools.',
+    builtFor: 'Our product',
+    forWho: 'For owners whose numbers live in several tools that never agree.',
+    forYou: [
+      'We list the tools your numbers live in and the questions you ask every week.',
+      'We bring the data into one private database, with a mapping you approve before anything is written.',
+      'You ask questions in plain language and get answers from your own figures.',
+    ],
+    industry: 'E-commerce',
+    year: '2026',
     services: ['implementation', 'consulting'],
-    logo: '/project_logos/n8n/n8n-color-white.png',
+    logo: '/project_logos/yaas/yaas-transparent.png',
     logoBg: 'bg-cream',
-    tags: ['Workflow automation', 'n8n', 'LLM classification'],
+    heroImage: '/project_snaps/yaas/analytics1.png',
+    tags: ['AI querying', 'Data mapping', 'Analytics', 'Inventory'],
     description:
-      'A set of n8n workflows that turn calendar bookings and meeting transcripts into CRM records, prepared documents and ready-to-send follow-ups.',
+      "YAAS pulls sales, cost, customer and inventory data from every platform an e-commerce business uses into one private database, then lets the owner ask questions about it in plain language.",
     challenge:
-      'Every new sales call meant creating a CRM record, a shared folder and a personalised deck by hand, then writing the follow-up from memory. Small tasks, but they ate the hour after every meeting.',
+      "E-commerce operators run sales channels, cost tools, customer systems and inventory software that never agree with each other. A weekly review means exporting spreadsheets from each, reconciling by hand, and still not trusting the number.",
     approach:
-      'We mapped the post-booking and post-meeting steps, then automated them: a Cal.com booking creates the Airtable record, provisions the Drive folder and generates the deck from a master template; a Fathom transcript is classified by a model as a sales meeting or not, and if so a follow-up draft is written for review.',
+      "We built an ingestion layer that accepts exports from any platform, uses a model to propose a mapping into the owner's own schema, and lets a human approve it before anything is written. On top of that sit live dashboards, inventory alerts, and a retrieval-grounded query engine that answers questions only from the owner's data.",
     outcomes: [
-      'Zero manual work between a booking and a prepared first call',
-      'Follow-up drafts waiting in the inbox before the meeting notes are closed',
-      'A model used only where judgement is needed, deterministic steps everywhere else',
+      'One source of truth replacing manual reconciliation across platforms',
+      'New data sources onboarded by upload and review, no engineering ticket needed',
+      "Plain-language questions answered from the owner's own numbers, with no SQL",
     ],
-    technologies: ['n8n', 'Cal.com', 'Airtable', 'Google Drive', 'Fathom', 'OpenAI API'],
-    gallery: [
+    technologies: ['React', 'TanStack', 'TypeScript', 'MongoDB', 'Grok / Ollama', 'Tailwind CSS'],
+    websiteUrl: 'https://yaas.byteless.io/',
+    features: [
       {
-        src: '/project_snaps/n8n/Screenshot 2025-12-29 145223.png',
-        label: 'Booking to CRM record and deck',
+        title: 'Multi-platform data upload',
         description:
-          'Triggered by a Cal.com booking: creates the Airtable client record, provisions a Google Drive folder, and produces a personalised presentation by copying a master deck and injecting the booking details.',
+          'Sales, customer, cost and product exports from any tool are accepted as-is and consolidated into one system without manual re-entry.',
+        images: [
+          '/project_snaps/yaas/platformDataUpload1.png',
+          '/project_snaps/yaas/dataUpload1.png',
+          '/project_snaps/yaas/dataUpload2.png',
+          '/project_snaps/yaas/dataUpload3.png',
+          '/project_snaps/yaas/productUpload1.png',
+          '/project_snaps/yaas/productUpload2.png',
+        ],
       },
       {
-        src: '/project_snaps/n8n/Screenshot 2025-12-29 145257.png',
-        label: 'Transcript to follow-up draft',
+        title: 'AI-assisted schema mapping',
         description:
-          'Receives a Fathom transcript by webhook, asks a model whether it qualifies as a sales meeting, and generates a follow-up email draft ready to review and send.',
+          "Each upload is analysed and mapped to the owner's private schema. The owner reviews and adjusts the mapping before anything is committed.",
+        images: [
+          '/project_snaps/yaas/dataAnalyzer1.png',
+          '/project_snaps/yaas/dataAnalyzer2.png',
+          '/project_snaps/yaas/productFileAnalyzer.png',
+        ],
+      },
+      {
+        title: 'Inventory with alerts',
+        description:
+          'Live stock levels and status tracking across the catalogue, with alerts raised before a shortage becomes a lost sale.',
+        images: [
+          '/project_snaps/yaas/productsDisplay1.png',
+          '/project_snaps/yaas/productsDisplay2.png',
+          '/project_snaps/yaas/productAnalytics1.png',
+          '/project_snaps/yaas/productAnalytics2.png',
+        ],
+      },
+      {
+        title: 'Business analytics',
+        description:
+          'Revenue, trends, product performance and customer behaviour in dashboards built around the decisions the owner makes weekly.',
+        images: ['/project_snaps/yaas/analytics1.png', '/project_snaps/yaas/analytics2.png'],
+      },
+      {
+        title: 'Plain-language querying',
+        description:
+          "Questions about the business answered from the owner's own data by a retrieval-grounded query engine. No SQL, no hallucinated figures.",
+        images: [
+          '/project_snaps/yaas/queryAnalytics1.png',
+          '/project_snaps/yaas/queryAnalytics2.png',
+          '/project_snaps/yaas/queryAnalytics3.png',
+        ],
+      },
+      {
+        title: 'Secure onboarding',
+        description:
+          'Registration and sign-in built with robust authentication so business data is protected from the first session.',
+        images: ['/project_snaps/yaas/login1.png', '/project_snaps/yaas/login2.png', '/project_snaps/yaas/registring.png'],
       },
     ],
-    images: [],
+    images: [
+      '/project_snaps/yaas/hero.png',
+      '/project_snaps/yaas/platformDataUpload1.png',
+      '/project_snaps/yaas/productsDisplay1.png',
+      '/project_snaps/yaas/analytics1.png',
+      '/project_snaps/yaas/queryAnalytics1.png',
+    ],
   },
   {
     id: 'deeds',
     name: 'Deeds',
     tagline: 'Social accountability: goals your friends hold you to.',
-    client: 'Byteless',
+    builtFor: 'Our product',
+    forWho: 'For founders who need a mobile product live without paying for two native apps.',
+    forYou: [
+      'We agree the smallest version worth launching.',
+      'We build it as an installable web app from one codebase.',
+      'We host and run it for you after launch.',
+    ],
+    alsoBuilt: true,
     industry: 'Consumer app',
     year: '2025',
     services: ['implementation', 'infrastructure'],
@@ -298,7 +329,14 @@ export const projects: Project[] = [
     id: 'alamra',
     name: 'Alamra Importers',
     tagline: 'A traditional embroidery business brought online.',
-    client: 'Alamra Importers',
+    builtFor: 'Alamra Importers',
+    forWho: 'For established businesses that need a fast, good-looking website with almost no running cost.',
+    forYou: [
+      'We agree the pages and the catalogue structure with you.',
+      'We design and build the site and put it on a global network.',
+      'We host it and make changes when you need them.',
+    ],
+    alsoBuilt: true,
     industry: 'Manufacturing and retail',
     year: '2026',
     services: ['implementation', 'infrastructure'],

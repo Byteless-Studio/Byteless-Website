@@ -77,7 +77,7 @@ src/
 │   └── portfolio/            # ProjectCard
 ├── data/
 │   ├── services.ts           # The four offers
-│   └── projects.ts           # Case studies
+│   └── projects.ts           # Work pages
 └── globals.css               # Design tokens and shared component classes
 ```
 

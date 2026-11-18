@@ -49,7 +49,7 @@ export function ProjectCard({ project, variant = 'default' }: ProjectCardProps) 
 
       <div className={`flex flex-col border-t border-black/5 p-5 sm:p-6 ${wide ? 'lg:border-l lg:border-t-0 lg:p-9' : ''}`}>
         <p className="text-sm text-black/50">
-          {project.client}
+          {project.builtFor}
           <span className="mx-2 text-black/20">/</span>
           {project.industry}
         </p>

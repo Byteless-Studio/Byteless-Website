@@ -164,7 +164,7 @@ function ProjectDetailPage() {
   return (
     <main className="pt-24 sm:pt-36">
       <Helmet>
-        <title>{project.name} | Case study | Byteless</title>
+        <title>{project.name} | Work | Byteless</title>
         <meta name="description" content={project.tagline} />
       </Helmet>
 
@@ -175,7 +175,7 @@ function ProjectDetailPage() {
       <header className="wrap">
         <Link to="/portfolio" className="inline-flex items-center gap-2 text-sm text-black/55 hover:text-black transition-colors">
           <ArrowLeft className="h-4 w-4" />
-          All case studies
+          All work
         </Link>
 
         <div className="mt-6 grid gap-8 sm:mt-8 lg:grid-cols-[3fr_2fr] lg:items-end">
@@ -185,8 +185,8 @@ function ProjectDetailPage() {
           </div>
           <dl className="grid grid-cols-2 gap-x-6 gap-y-5 text-sm">
             <div>
-              <dt className="text-black/50">Client</dt>
-              <dd className="mt-1">{project.client}</dd>
+              <dt className="text-black/50">Built for</dt>
+              <dd className="mt-1">{project.builtFor}</dd>
             </div>
             <div>
               <dt className="text-black/50">Industry</dt>
@@ -202,8 +202,8 @@ function ProjectDetailPage() {
                 {project.services.map((id) => (
                   <Link
                     key={id}
-                    to="/portfolio"
-                    search={{ service: id }}
+                    to="/services"
+                    hash={id}
                     className="rounded bg-blue-light px-2 py-1 text-xs font-medium text-blue"
                   >
                     {serviceById(id)?.name}
@@ -244,7 +244,11 @@ function ProjectDetailPage() {
         )}
       </header>
 
-      <section className="wrap mt-12 grid gap-8 sm:mt-16 sm:gap-6 lg:grid-cols-3">
+      <section className="wrap mt-12 sm:mt-16">
+        <p className="h-section max-w-3xl text-2xl sm:text-4xl">{project.forWho}</p>
+      </section>
+
+      <section className="wrap mt-8 grid gap-8 sm:mt-12 sm:gap-6 lg:grid-cols-3">
         <div>
           <h2 className="text-sm font-semibold text-blue">The problem</h2>
           <p className="mt-3 leading-relaxed text-black/75">{project.challenge}</p>
@@ -254,7 +258,7 @@ function ProjectDetailPage() {
           <p className="mt-3 leading-relaxed text-black/75">{project.approach}</p>
         </div>
         <div>
-          <h2 className="text-sm font-semibold text-blue">What changed</h2>
+          <h2 className="text-sm font-semibold text-blue">The result</h2>
           <ul className="mt-3 space-y-3">
             {project.outcomes.map((o) => (
               <li key={o} className="flex gap-3 leading-relaxed text-black/75">
@@ -268,7 +272,7 @@ function ProjectDetailPage() {
 
       {project.features && project.features.length > 0 && (
         <section className="wrap mt-14 sm:mt-20">
-          <h2 className="h-section text-3xl">Inside the system</h2>
+          <h2 className="h-section text-3xl">How it works</h2>
           <div className="mt-8 space-y-12 sm:mt-10 sm:space-y-16">
             {project.features.map((f, i) => {
               const start = flat
@@ -345,16 +349,27 @@ function ProjectDetailPage() {
       </section>
 
       <section className="wrap mt-20 mb-16">
-        <div className="rounded-md bg-cream p-6 sm:p-12">
-        <h2 className="h-section text-3xl sm:text-4xl">Have a similar problem?</h2>
-        <p className="mt-3 max-w-lg leading-relaxed text-black/70">
-          Tell us about it on a short call. We will say plainly whether this kind of system would help you.
-        </p>
-        <div className="mt-6">
-          <Link to="/" hash="contact" className="btn-primary">
-            Get a free consult
-          </Link>
-        </div>
+        <div className="grid gap-8 rounded-md bg-cream p-6 sm:p-12 lg:grid-cols-[2fr_3fr] lg:gap-12">
+          <div>
+            <h2 className="h-section text-3xl sm:text-4xl">Want this in your business?</h2>
+            <p className="mt-3 max-w-lg leading-relaxed text-black/70">
+              Start with a free thirty-minute consult. We will say plainly whether a system like this would pay
+              off for you.
+            </p>
+            <Link to="/" hash="contact" className="btn-primary mt-6">
+              Get a free consult
+            </Link>
+          </div>
+          <ol className="grid content-start gap-3">
+            {project.forYou.map((step, i) => (
+              <li key={step} className="card flex gap-4 p-4 sm:p-5">
+                <span className="flex h-7 w-7 flex-none items-center justify-center rounded bg-black text-xs font-semibold text-white">
+                  {i + 1}
+                </span>
+                <span className="leading-relaxed">{step}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     </main>

@@ -1,7 +1,7 @@
 const steps = [
   {
-    title: 'Intro call',
-    body: 'Thirty minutes on what you are trying to do and whether we are the right people for it. No charge.',
+    title: 'Free consult',
+    body: 'Thirty minutes with a founder on what you are trying to do and where AI would help. You keep the written summary either way.',
   },
   {
     title: 'Audit and roadmap',
