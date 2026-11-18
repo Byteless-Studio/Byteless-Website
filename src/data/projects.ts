@@ -42,6 +42,7 @@ export interface Project {
   images: string[]
   technologies?: string[]
   websiteUrl?: string
+  sampleUrl?: string // a live example of the output
   downloadUrl?: string
 }
 
@@ -167,6 +168,7 @@ export const projects: Project[] = [
     ],
     technologies: ['Cloudflare Workers', 'Cloudflare Workflows', 'R2', 'Whisper', 'React'],
     websiteUrl: 'https://talden.app',
+    sampleUrl: 'https://persian.talden.app/courses/test-space-for-friday-tafseers/recording-start',
     gallery: [
       {
         src: '/project_snaps/talden/record.png',

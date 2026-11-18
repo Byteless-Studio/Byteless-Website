@@ -339,6 +339,12 @@ function ProjectDetailPage() {
               <ArrowUpRight className="h-4 w-4" />
             </a>
           )}
+          {project.sampleUrl && (
+            <a href={project.sampleUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+              See a live sample page
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          )}
           {project.downloadUrl && (
             <a href={project.downloadUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               Download the app
