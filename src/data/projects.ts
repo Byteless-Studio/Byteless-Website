@@ -179,9 +179,14 @@ export const projects: Project[] = [
         description: 'Record, transcribe, distill, publish. The host reviews the draft before it goes live.',
       },
       {
-        src: '/project_snaps/talden/talk-page.png',
-        label: 'What every page includes',
-        description: 'A summary, key takeaways, discussion threads, references and the full transcript.',
+        src: '/project_snaps/talden/sample-talk.png',
+        label: 'The published page',
+        description: 'A sample talk on a live Talden site: title, tags, a summary and numbered takeaways, on its own web address.',
+      },
+      {
+        src: '/project_snaps/talden/sample-discussion.png',
+        label: 'Discussion threads',
+        description: 'Each thread lists the positions people raised, with the time it came up in the recording.',
       },
     ],
     images: ['/project_snaps/talden/home.png'],
