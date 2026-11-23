@@ -183,12 +183,12 @@ export const projects: Project[] = [
       {
         src: '/project_snaps/talden/sample-talk.png',
         label: 'The published page',
-        description: 'A sample talk on a live Talden site: title, tags, a summary and numbered takeaways, on its own web address.',
+        description: 'Peter Beck of Rocket Lab at a 2014 Auckland meetup, as a page on a live Talden site. The recording is CC BY, from the Edmund Hillary Fellowship.',
       },
       {
         src: '/project_snaps/talden/sample-discussion.png',
         label: 'Discussion threads',
-        description: 'Each thread lists the positions people raised, with the time it came up in the recording.',
+        description: 'Each thread lists the points made, with the time it came up in the recording.',
       },
     ],
     images: ['/project_snaps/talden/home.png'],
