@@ -168,7 +168,7 @@ export const projects: Project[] = [
     ],
     technologies: ['Cloudflare Workers', 'Cloudflare Workflows', 'R2', 'Whisper', 'React'],
     websiteUrl: 'https://talden.app',
-    sampleUrl: 'https://persian.talden.app/courses/test-space-for-friday-tafseers/recording-start',
+    sampleUrl: 'https://persian.talden.app/courses/test-space-for-friday-tafseers/peter-beck-rocket-lab-democratizing-space-and-aiming-big',
     gallery: [
       {
         src: '/project_snaps/talden/record.png',
