@@ -12,7 +12,7 @@ export const Route = createFileRoute('/')({
   component: () => (
     <main>
       <Helmet>
-        <title>Byteless | AI consulting and implementation</title>
+        <title>Byteless | AI agents, cloud and security</title>
       </Helmet>
       <Hero />
       <Statement />

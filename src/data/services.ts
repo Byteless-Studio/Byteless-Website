@@ -42,9 +42,9 @@ export const services: Service[] = [
   {
     id: 'implementation',
     icon: Cpu,
-    name: 'AI services & implementation',
+    name: 'AI agents & automation',
     tier: 'primary',
-    short: 'Agents, automation and AI features, built and shipped.',
+    short: 'AI agents that do real work in your tools, built and shipped.',
     summary:
       'We design, build and integrate AI systems into the way you already work: assistants that act on your data, automations that remove manual steps, and AI features inside your product. Delivered end to end, including the software around the model.',
     forWho:
@@ -61,9 +61,9 @@ export const services: Service[] = [
   {
     id: 'infrastructure',
     icon: Server,
-    name: 'Infrastructure management & support',
+    name: 'Cloud management & support',
     tier: 'secondary',
-    short: 'Hosting, monitoring and upkeep for what we build or what you already run.',
+    short: 'Cloud setup, hosting, monitoring and upkeep, for what we build or what you already run.',
     summary:
       'Cloud setup, deployment pipelines, monitoring, cost control and an on-call team for the systems you depend on. Available for everything we build, and for systems you inherited.',
     forWho: 'Teams who want the system to keep running without hiring for it.',

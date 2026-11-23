@@ -23,7 +23,7 @@ export function Process() {
       <div className="wrap">
         <h2 className="h-section text-3xl sm:text-4xl">How an engagement runs</h2>
         <p className="mt-3 max-w-lg leading-relaxed text-black/65">
-          Consulting stops after step two with a plan you can act on. Implementation carries on to a system in
+          Consulting stops after step two with a plan you can act on. A build carries on to a system in
           production.
         </p>
 

@@ -60,7 +60,7 @@ function ServicesPage() {
         <title>Services | Byteless</title>
         <meta
           name="description"
-          content="AI consulting, AI services and implementation, infrastructure management and security audits from Byteless."
+          content="AI consulting, AI agents and automation, cloud management and security audits from Byteless."
         />
       </Helmet>
 

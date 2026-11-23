@@ -34,8 +34,8 @@ export function Hero() {
           </h1>
           <div className="animate-rise [animation-delay:120ms] lg:pb-3">
             <p className="text-lg leading-relaxed text-black/70">
-              Byteless is an AI consulting and implementation studio for growing businesses. We find where AI
-              saves your team time, then build it and keep it running.
+              Byteless is an AI studio for growing businesses. We build AI agents that save your team time,
+              run them in the cloud, and keep them secure.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
               <Link to="/" hash="contact" className="btn-primary px-5 py-3">
