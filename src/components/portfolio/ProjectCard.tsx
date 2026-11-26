@@ -52,12 +52,7 @@ export function ProjectCard({ project, variant = 'default' }: ProjectCardProps) 
       </div>
 
       <div className={`flex flex-col border-t border-black/5 p-5 sm:p-6 ${wide ? 'lg:border-l lg:border-t-0 lg:p-9' : ''}`}>
-        <p className="text-sm text-black/50">
-          {project.builtFor}
-          <span className="mx-2 text-black/20">/</span>
-          {project.industry}
-        </p>
-        <h3 className={`h-section mt-2 ${wide ? 'text-2xl sm:text-3xl' : 'text-xl'}`}>{project.name}</h3>
+        <h3 className={`h-section ${wide ? 'text-2xl sm:text-3xl' : 'text-xl'}`}>{project.name}</h3>
         <p className="muted mt-2 leading-relaxed">{project.tagline}</p>
         {wide && (
           <ul className="mt-6 hidden space-y-2.5 border-t border-black/10 pt-6 text-sm text-black/75 sm:block">
