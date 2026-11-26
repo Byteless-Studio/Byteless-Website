@@ -22,7 +22,7 @@ export interface Project {
   forWho: string
   /** What setting one up for a new business involves, in order. */
   forYou: string[]
-  /** Not AI work: listed under "Also built" instead of leading. */
+  /** Not AI work: kept off the work page. */
   alsoBuilt?: boolean
   industry: string
   year: string
