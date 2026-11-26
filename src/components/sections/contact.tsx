@@ -37,10 +37,10 @@ export function Contact() {
             consult with a founder. No pitch and no obligation.
           </p>
           <a
-            href="mailto:byteless.company@gmail.com"
+            href="mailto:hello@byteless.io"
             className="mt-8 inline-block text-sm text-cream underline underline-offset-4"
           >
-            byteless.company@gmail.com
+            hello@byteless.io
           </a>
         </div>
 
@@ -75,8 +75,8 @@ export function Contact() {
             {status === 'error' && (
               <p className="text-sm text-cream/80">
                 That did not send. Email us at{' '}
-                <a href="mailto:byteless.company@gmail.com" className="underline underline-offset-4">
-                  byteless.company@gmail.com
+                <a href="mailto:hello@byteless.io" className="underline underline-offset-4">
+                  hello@byteless.io
                 </a>{' '}
                 instead.
               </p>

@@ -103,4 +103,4 @@ This project is private and proprietary to Byteless.
 
 ## Contact
 
-Visit [byteless.io](https://byteless.io) or email [byteless.company@gmail.com](mailto:byteless.company@gmail.com).
+Visit [byteless.io](https://byteless.io) or email [hello@byteless.io](mailto:hello@byteless.io).

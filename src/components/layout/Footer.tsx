@@ -13,8 +13,8 @@ export function Footer() {
           <p className="muted mt-5 max-w-sm text-sm leading-relaxed">
             An AI agency. We advise on where AI pays off, then build and run the systems.
           </p>
-          <a href="mailto:byteless.company@gmail.com" className="link mt-3 inline-block text-sm">
-            byteless.company@gmail.com
+          <a href="mailto:hello@byteless.io" className="link mt-3 inline-block text-sm">
+            hello@byteless.io
           </a>
         </div>
 
